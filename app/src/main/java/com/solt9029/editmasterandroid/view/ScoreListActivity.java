@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.ActivityScoreListBinding;
@@ -33,7 +34,9 @@ public class ScoreListActivity extends AppCompatActivity {
         binding.setAdapter(controller.getAdapter());
         binding.setViewModel(viewModel);
 
-        binding.toolbar.inflateMenu(R.menu.toolbar_menu);
+        Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.toolbar_menu);
 
         RecyclerView recyclerView = binding.recyclerView;
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -60,6 +63,15 @@ public class ScoreListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.help) {
+            // some actions here to open help activity
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
