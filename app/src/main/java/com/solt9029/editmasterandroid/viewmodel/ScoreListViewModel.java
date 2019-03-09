@@ -88,6 +88,7 @@ public class ScoreListViewModel extends ViewModel {
                             scoreList.setValue(newList);
                         },
                         throwable -> isLoading.setValue(false)
+
                 );
         compositeDisposable.add(disposable);
     }
