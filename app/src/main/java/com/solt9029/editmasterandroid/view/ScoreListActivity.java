@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.ActivityScoreListBinding;
@@ -25,12 +27,13 @@ public class ScoreListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_list);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_score_list);
-
-        binding.setAdapter(controller.getAdapter());
-
         viewModel = ViewModelProviders.of(this).get(ScoreListViewModel.class);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_score_list);
+        binding.setAdapter(controller.getAdapter());
         binding.setViewModel(viewModel);
+
+        binding.toolbar.inflateMenu(R.menu.toolbar_menu);
 
         RecyclerView recyclerView = binding.recyclerView;
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -52,5 +55,11 @@ public class ScoreListActivity extends AppCompatActivity {
             boolean isRefreshing = viewModel.isRefreshing.get();
             controller.setData(scoreList, isLoading, isRefreshing);
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
     }
 }
