@@ -2,10 +2,10 @@ package com.solt9029.editmasterandroid.view;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 public abstract class EndlessScrollListener extends RecyclerView.OnScrollListener {
     private LinearLayoutManager manager;
+    public static final int VISIBLE_THRESHOLD = 1;
 
     EndlessScrollListener(LinearLayoutManager manager) {
         this.manager = manager;
@@ -15,7 +15,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
     public void onScrolled(RecyclerView view, int dx, int dy) {
         super.onScrolled(view, dx, dy);
 
-        // prevent onScrolled being called when error happens, note that onScrolled is called when item count changes!
+        // prevent onScrolled from being called when error happens. onScrolled is called when item count changes!
         if (dy <= 0) {
             return;
         }
@@ -23,9 +23,8 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         int visibleItemCount = view.getChildCount();
         int totalItemCount = manager.getItemCount();
         int firstVisibleItem = manager.findFirstVisibleItemPosition();
-        int visibleThreshold = 1;
 
-        if ((totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+        if ((totalItemCount - visibleItemCount) <= (firstVisibleItem + VISIBLE_THRESHOLD)) {
             onLoadMore();
         }
     }

@@ -2,6 +2,7 @@ package com.solt9029.editmasterandroid.view;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -69,7 +70,7 @@ public class ScoreListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.help) {
-            // some actions here to open help activity
+            startActivity(HelpActivity.createIntent(ScoreListActivity.this));
         }
 
         return super.onOptionsItemSelected(item);
