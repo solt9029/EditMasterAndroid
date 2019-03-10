@@ -70,9 +70,18 @@ public class ScoreListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.help) {
-            startActivity(HelpActivity.createIntent(ScoreListActivity.this));
+            navigateToHelpActivity();
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    public void navigateToHelpActivity() {
+        Intent intent = HelpActivity.createIntent(ScoreListActivity.this);
+        startActivity(intent);
+    }
+
+    public void navigateToScoreActivity() {
+        Intent intent = ScoreActivity.createIntent(ScoreListActivity.this);
+        startActivity(intent);
     }
 }
