@@ -23,6 +23,7 @@ public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<List<Score>> scoreList = new MutableLiveData<>();
     public MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     public ObservableBoolean isRefreshing = new ObservableBoolean(false);
+    public MutableLiveData<Integer> selectedId = new MutableLiveData<>();
     @Inject
     ScoreService service;
     @Inject
@@ -110,5 +111,9 @@ public class ScoreListViewModel extends ViewModel {
         return service.getScoreTimeline(null, maxId, null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public void select(int id) {
+        selectedId.setValue(id);
     }
 }

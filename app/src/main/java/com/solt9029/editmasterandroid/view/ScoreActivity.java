@@ -10,11 +10,7 @@ import com.solt9029.editmasterandroid.R;
 public class ScoreActivity extends AppCompatActivity {
     public static final String ID = "score_id"; // for intent.
 
-    public static Intent createIntent(Context context) {
-        return new Intent(context, ScoreActivity.class);
-    }
-
-    public static Intent createIntent(Context context, int id) {
+    public static Intent createIntent(Context context, Integer id) {
         return new Intent(context, ScoreActivity.class).putExtra(ID, id);
     }
 

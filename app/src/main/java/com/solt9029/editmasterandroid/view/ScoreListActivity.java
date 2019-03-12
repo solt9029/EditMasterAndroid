@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -59,6 +60,11 @@ public class ScoreListActivity extends AppCompatActivity {
             boolean isRefreshing = viewModel.isRefreshing.get();
             controller.setData(scoreList, isLoading, isRefreshing);
         });
+
+        viewModel.selectedId.observe(this, selectedId -> {
+            Log.d("selectedId", selectedId + "");
+            navigateToScoreActivity(selectedId);
+        });
     }
 
     @Override
@@ -80,8 +86,8 @@ public class ScoreListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void navigateToScoreActivity() {
-        Intent intent = ScoreActivity.createIntent(ScoreListActivity.this);
+    public void navigateToScoreActivity(Integer id) {
+        Intent intent = ScoreActivity.createIntent(ScoreListActivity.this, id);
         startActivity(intent);
     }
 }

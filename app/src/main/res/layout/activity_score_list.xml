@@ -68,7 +68,8 @@
             android:src="@drawable/ic_add_white_24dp"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{() -> viewModel.select(0)}"/>
 
     </android.support.constraint.ConstraintLayout>
 
