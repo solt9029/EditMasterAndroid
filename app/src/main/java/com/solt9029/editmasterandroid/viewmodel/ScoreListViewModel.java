@@ -24,13 +24,13 @@ public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     public ObservableBoolean isRefreshing = new ObservableBoolean(false);
     public MutableLiveData<Integer> selectedId = new MutableLiveData<>();
-    @Inject
-    ScoreService service;
-    @Inject
-    CompositeDisposable compositeDisposable;
+    private ScoreService service;
+    private CompositeDisposable compositeDisposable;
 
-    ScoreListViewModel() {
-        AppApplication.getApplication().getComponent().inject(this);
+    @Inject
+    ScoreListViewModel(ScoreService service, CompositeDisposable compositeDisposable) {
+        this.service = service;
+        this.compositeDisposable = compositeDisposable;
 
         isLoading.setValue(true);
         Disposable disposable = fetchScoreTimeline()

@@ -1,6 +1,7 @@
 package com.solt9029.editmasterandroid.view;
 
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -15,22 +16,30 @@ import android.view.MenuItem;
 
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.ActivityScoreListBinding;
+import com.solt9029.editmasterandroid.di.AppApplication;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.viewmodel.ScoreListViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class ScoreListActivity extends AppCompatActivity {
     private ActivityScoreListBinding binding;
     private ScoreListViewModel viewModel;
     private ScoreListController controller = new ScoreListController();
 
+    @Inject
+    ViewModelProvider.Factory factory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_list);
 
-        viewModel = ViewModelProviders.of(this).get(ScoreListViewModel.class);
+        AppApplication.getApplication().getComponent().inject(this);
+
+        viewModel = ViewModelProviders.of(this, factory).get(ScoreListViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_score_list);
         binding.setAdapter(controller.getAdapter());
