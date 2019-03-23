@@ -35,7 +35,7 @@
                     android:layout_height="?attr/actionBarSize"
                     app:title="創作の達人"
                     app:titleTextColor="#ffffff"
-                    app:titleTextAppearance="@style/ToolbarTitleTextAppearanceTheme"></android.support.v7.widget.Toolbar>
+                    app:titleTextAppearance="@style/ToolbarTitleTextAppearanceTheme" />
             </android.support.design.widget.AppBarLayout>
 
             <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
