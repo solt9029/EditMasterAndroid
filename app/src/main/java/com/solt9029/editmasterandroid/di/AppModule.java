@@ -19,20 +19,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class AppModule {
-    private Context context;
-
-    public AppModule(Application application) {
-        context = application;
-    }
-
     @Provides
     public CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
     }
 
     @Provides
-    public Context provideContext() {
-        return context;
+    public Context provideContext(Application application) {
+        return application;
     }
 
     @Singleton
