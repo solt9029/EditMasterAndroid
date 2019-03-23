@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ApiModule.class, AppModule.class, ViewModelModule.class})
+@Component(modules = {AppModule.class, ViewModelModule.class})
 public interface AppComponent {
     void inject(ScoreListActivity target);
 }
