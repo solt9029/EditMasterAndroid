@@ -25,12 +25,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class ScoreListActivity extends AppCompatActivity {
+    @Inject
+    ViewModelProvider.Factory factory;
+
     private ActivityScoreListBinding binding;
     private ScoreListViewModel viewModel;
     private ScoreListController controller = new ScoreListController();
-
-    @Inject
-    ViewModelProvider.Factory factory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
