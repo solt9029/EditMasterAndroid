@@ -12,6 +12,8 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, ViewModelModule.class})
 public interface AppComponent {
+
+    // https://starzero.hatenablog.com/entry/2017/05/21/225532
     @Component.Builder
     interface Builder {
         @BindsInstance
