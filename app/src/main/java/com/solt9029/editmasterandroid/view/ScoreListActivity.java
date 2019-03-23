@@ -16,7 +16,7 @@ import android.view.MenuItem;
 
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.ActivityScoreListBinding;
-import com.solt9029.editmasterandroid.di.AppApplication;
+import com.solt9029.editmasterandroid.di.Injectable;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.viewmodel.ScoreListViewModel;
 
@@ -24,9 +24,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
-
-public class ScoreListActivity extends AppCompatActivity {
+public class ScoreListActivity extends AppCompatActivity implements Injectable {
     @Inject
     ViewModelProvider.Factory factory;
 
@@ -36,8 +34,6 @@ public class ScoreListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_list);
 
