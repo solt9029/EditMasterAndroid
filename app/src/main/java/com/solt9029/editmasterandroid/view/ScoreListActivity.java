@@ -10,8 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.ActivityScoreListBinding;
@@ -52,6 +56,15 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
             public void onLoadMore() {
                 viewModel.loadMore();
             }
+        });
+
+        binding.editText.setOnEditorActionListener((TextView v, int actionId, KeyEvent event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                // conduct search here.
+                Log.d("IME_ACTION_SEARCH", "keyword is " + v.getText());
+                return true;
+            }
+            return false;
         });
 
         viewModel.scoreList.observe(this, scoreList -> {

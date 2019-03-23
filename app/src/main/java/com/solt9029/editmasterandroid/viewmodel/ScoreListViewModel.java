@@ -3,6 +3,7 @@ package com.solt9029.editmasterandroid.viewmodel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableField;
 
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.service.ScoreService;
@@ -23,6 +24,7 @@ public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     public ObservableBoolean isRefreshing = new ObservableBoolean(false);
     public MutableLiveData<Integer> selectedId = new MutableLiveData<>();
+    public ObservableField<String> keyword = new ObservableField<>();
     private ScoreService service;
     private CompositeDisposable compositeDisposable;
 
