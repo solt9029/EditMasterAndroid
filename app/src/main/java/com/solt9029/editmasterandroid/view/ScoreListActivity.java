@@ -79,8 +79,6 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.help) {
             navigateToHelpActivity();
-        } else if (item.getItemId() == R.id.search) {
-
         }
         return super.onOptionsItemSelected(item);
     }

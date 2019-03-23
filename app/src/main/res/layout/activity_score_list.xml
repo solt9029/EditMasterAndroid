@@ -35,7 +35,24 @@
                     android:layout_height="?attr/actionBarSize"
                     app:title="創作の達人"
                     app:titleTextColor="#ffffff"
-                    app:titleTextAppearance="@style/ToolbarTitleTextAppearanceTheme" />
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
+                    app:contentInsetStart="0dp"
+                    app:titleTextAppearance="@style/ToolbarTitleTextAppearanceTheme">
+
+                    <EditText
+                        android:id="@+id/editText"
+                        android:layout_width="match_parent"
+                        android:inputType="text"
+                        android:imeOptions="actionSearch"
+                        android:layout_height="match_parent"
+                        android:layout_margin="8dp"
+                        android:theme="@style/EditTextColorControl"
+                        android:paddingLeft="10dp"
+                        android:hint="検索"
+                        android:background="@drawable/rounded_edit_text" />
+
+                </android.support.v7.widget.Toolbar>
             </android.support.design.widget.AppBarLayout>
 
             <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -69,7 +86,7 @@
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{() -> viewModel.select(0)}"/>
+            android:onClick="@{() -> viewModel.select(0)}" />
 
     </android.support.constraint.ConstraintLayout>
 
