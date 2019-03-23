@@ -1,23 +1,26 @@
 package com.solt9029.editmasterandroid.di;
 
+import android.app.Activity;
 import android.app.Application;
 
-public class AppApplication extends Application {
-    private AppComponent component;
-    private static AppApplication application;
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+
+public class AppApplication extends Application implements HasActivityInjector {
+    @Inject
+    DispatchingAndroidInjector<Activity> injector;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        application = this;
-        component = DaggerAppComponent.builder().application(this).build();
+        DaggerAppComponent.builder().application(this).build().inject(this);
     }
 
-    public AppComponent getComponent() {
-        return component;
-    }
-
-    public static AppApplication getApplication() {
-        return application;
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return injector;
     }
 }

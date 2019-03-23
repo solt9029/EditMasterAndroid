@@ -24,6 +24,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjection;
+
 public class ScoreListActivity extends AppCompatActivity {
     @Inject
     ViewModelProvider.Factory factory;
@@ -34,10 +36,10 @@ public class ScoreListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_list);
-
-        AppApplication.getApplication().getComponent().inject(this);
 
         viewModel = ViewModelProviders.of(this, factory).get(ScoreListViewModel.class);
 
