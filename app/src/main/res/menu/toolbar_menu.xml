@@ -5,6 +5,12 @@
         android:id="@+id/help"
         android:orderInCategory="1"
         android:icon="@drawable/ic_help_outline_white_24dp"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:title="ヘルプ" />
+    <item
+        android:id="@+id/search"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_search_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="検索" />
 </menu>

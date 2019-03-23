@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -28,7 +27,6 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
     @Inject
     ViewModelProvider.Factory factory;
 
-    private ActivityScoreListBinding binding;
     private ScoreListViewModel viewModel;
     private ScoreListController controller = new ScoreListController();
 
@@ -39,7 +37,7 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
 
         viewModel = ViewModelProviders.of(this, factory).get(ScoreListViewModel.class);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_score_list);
+        ActivityScoreListBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_score_list);
         binding.setAdapter(controller.getAdapter());
         binding.setViewModel(viewModel);
 
@@ -68,10 +66,7 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
             controller.setData(scoreList, isLoading, isRefreshing);
         });
 
-        viewModel.selectedId.observe(this, selectedId -> {
-            Log.d("selectedId", selectedId + "");
-            navigateToScoreActivity(selectedId);
-        });
+        viewModel.selectedId.observe(this, selectedId -> navigateToScoreActivity(selectedId));
     }
 
     @Override
@@ -84,6 +79,8 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.help) {
             navigateToHelpActivity();
+        } else if (item.getItemId() == R.id.search) {
+
         }
         return super.onOptionsItemSelected(item);
     }
