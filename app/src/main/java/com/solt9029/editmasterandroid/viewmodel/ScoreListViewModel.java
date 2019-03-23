@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 
-import com.solt9029.editmasterandroid.di.AppApplication;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.service.ScoreService;
 
@@ -81,12 +80,7 @@ public class ScoreListViewModel extends ViewModel {
                 .subscribe(
                         result -> {
                             isLoading.setValue(false);
-                            List<Score> newList = new ArrayList<>();
-                            if (scoreList.getValue() != null) {
-                                newList.addAll(scoreList.getValue());
-                            }
-                            newList.addAll(result);
-                            scoreList.setValue(newList);
+                            addScoreList(result);
                         },
                         throwable -> isLoading.setValue(false)
 
@@ -111,6 +105,15 @@ public class ScoreListViewModel extends ViewModel {
         return service.getScoreTimeline(null, maxId, null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private void addScoreList(List<Score> result) {
+        List<Score> newList = new ArrayList<>();
+        if (scoreList.getValue() != null) {
+            newList.addAll(scoreList.getValue());
+        }
+        newList.addAll(result);
+        scoreList.setValue(newList);
     }
 
     public void select(int id) {
