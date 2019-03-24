@@ -20,14 +20,16 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="33dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="6"
-                android:gravity="center_horizontal"
+                android:background="#ffffff"
+                android:gravity="center_horizontal|center_vertical"
                 android:text="1小節の分割数"
                 android:textSize="12dp" />
 
             <co.ceryle.radiorealbutton.RadioRealButtonGroup
+                android:id="@+id/division"
                 android:layout_width="0dp"
                 android:layout_height="33dp"
                 android:layout_weight="10"
@@ -73,26 +75,29 @@
 
             </co.ceryle.radiorealbutton.RadioRealButtonGroup>
 
-            <Button
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/save"
                 android:layout_width="0dp"
                 android:layout_height="33dp"
                 android:layout_gravity="center"
                 android:layout_weight="3"
-                android:text="保存"
-                android:textSize="10dp" />
+                android:background="@drawable/image_button_background"
+                android:src="@drawable/ic_save_black_24dp"
+                android:scaleType="fitCenter" />
 
-            <Button
-                android:id="@+id/settings"
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/paste"
                 android:layout_width="0dp"
                 android:layout_height="33dp"
                 android:layout_gravity="center"
                 android:layout_weight="3"
-                android:text="設定"
-                android:textSize="10dp" />
+                android:background="@drawable/image_button_background"
+                android:src="@drawable/ic_settings_black_24dp"
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
         <co.ceryle.radiorealbutton.RadioRealButtonGroup
+            android:id="@+id/note"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             app:rrbg_selectorFullSize="true">
