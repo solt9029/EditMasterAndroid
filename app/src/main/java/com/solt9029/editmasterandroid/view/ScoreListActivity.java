@@ -54,20 +54,19 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
         recyclerView.addOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore() {
-                viewModel.loadMore();
+                viewModel.onLoadMore();
             }
         });
 
         binding.editText.setOnEditorActionListener((TextView v, int actionId, KeyEvent event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                // conduct search here.
-                Log.d("IME_ACTION_SEARCH", "keyword is " + v.getText());
                 viewModel.keyword.setValue(v.getText().toString());
-                viewModel.initScoreList(v.getText().toString());
                 return true;
             }
             return false;
         });
+
+        viewModel.keyword.observe(this, keyword -> viewModel.initScoreList());
 
         viewModel.scoreList.observe(this, scoreList -> {
             Boolean isLoading = viewModel.isLoading.getValue();

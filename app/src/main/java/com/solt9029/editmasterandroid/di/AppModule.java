@@ -9,18 +9,12 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = ViewModelModule.class)
 public class AppModule {
-    @Provides
-    public CompositeDisposable provideCompositeDisposable() {
-        return new CompositeDisposable();
-    }
-
     @Provides
     public Context provideContext(Application application) {
         return application;

@@ -24,13 +24,13 @@ public class ScoreListViewModel extends ViewModel {
     public ObservableBoolean isRefreshing = new ObservableBoolean(false);
     public MutableLiveData<Integer> selectedId = new MutableLiveData<>();
     public MutableLiveData<String> keyword = new MutableLiveData<>();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ScoreService service;
-    private CompositeDisposable compositeDisposable;
+
 
     @Inject
-    ScoreListViewModel(ScoreService service, CompositeDisposable compositeDisposable) {
+    ScoreListViewModel(ScoreService service) {
         this.service = service;
-        this.compositeDisposable = compositeDisposable;
 
         initScoreList();
     }
@@ -47,53 +47,48 @@ public class ScoreListViewModel extends ViewModel {
 
         isRefreshing.set(true);
         isLoading.setValue(true);
-        Disposable disposable = fetchScoreTimeline(keyword.getValue())
-                .subscribe(
-                        result -> {
-                            isRefreshing.set(false);
-                            isLoading.setValue(false);
-                            scoreList.setValue(result);
-                        },
-                        throwable -> {
-                            isRefreshing.set(false);
-                            isLoading.setValue(false);
-                        }
-                );
+        Disposable disposable = fetchScoreTimeline().subscribe(
+                result -> {
+                    isRefreshing.set(false);
+                    isLoading.setValue(false);
+                    scoreList.setValue(result);
+                },
+                throwable -> {
+                    isRefreshing.set(false);
+                    isLoading.setValue(false);
+                }
+        );
         compositeDisposable.add(disposable);
     }
 
-    public void loadMore() {
+    public void onLoadMore() {
         if (isLoading.getValue() != null && isLoading.getValue()) {
             return;
         }
         isLoading.setValue(true);
-        Disposable disposable = fetchScoreTimeline(keyword.getValue(), getMaxId())
-                .subscribe(
-                        result -> {
-                            isLoading.setValue(false);
-                            addScoreList(result);
-                        },
-                        throwable -> isLoading.setValue(false)
+        Disposable disposable = fetchScoreTimeline(getMaxId()).subscribe(
+                result -> {
+                    isLoading.setValue(false);
+                    addScoreList(result);
+                },
+                throwable -> isLoading.setValue(false)
 
-                );
+        );
         compositeDisposable.add(disposable);
     }
 
     public void initScoreList() {
-        initScoreList(null);
-    }
+        compositeDisposable.clear();
 
-    public void initScoreList(String keyword) {
         isLoading.setValue(true);
         scoreList.setValue(null);
-        Disposable disposable = fetchScoreTimeline(keyword)
-                .subscribe(
-                        result -> {
-                            isLoading.setValue(false);
-                            scoreList.setValue(result);
-                        },
-                        throwable -> isLoading.setValue(false)
-                );
+        Disposable disposable = fetchScoreTimeline().subscribe(
+                result -> {
+                    isLoading.setValue(false);
+                    scoreList.setValue(result);
+                },
+                throwable -> isLoading.setValue(false)
+        );
         compositeDisposable.add(disposable);
     }
 
@@ -107,15 +102,11 @@ public class ScoreListViewModel extends ViewModel {
     }
 
     private Single<List<Score>> fetchScoreTimeline() {
-        return fetchScoreTimeline(null, null);
+        return fetchScoreTimeline(null);
     }
 
-    private Single<List<Score>> fetchScoreTimeline(String keyword) {
-        return fetchScoreTimeline(keyword, null);
-    }
-
-    private Single<List<Score>> fetchScoreTimeline(String keyword, Integer maxId) {
-        return service.getScoreTimeline(null, keyword, maxId, null)
+    private Single<List<Score>> fetchScoreTimeline(Integer maxId) {
+        return service.getScoreTimeline(null, keyword.getValue(), maxId, null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

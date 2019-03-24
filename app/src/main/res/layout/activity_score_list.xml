@@ -41,7 +41,6 @@
                     app:titleTextAppearance="@style/ToolbarTitleTextAppearanceTheme">
 
                     <EditText
-                        android:text="@={viewModel.keyword}"
                         android:id="@+id/editText"
                         android:layout_width="match_parent"
                         android:inputType="text"
