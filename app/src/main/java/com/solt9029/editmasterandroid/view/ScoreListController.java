@@ -11,12 +11,18 @@ import java.util.List;
 public class ScoreListController extends Typed3EpoxyController<List<Score>, Boolean, Boolean> {
     @AutoModel
     ProgressBarItemBindingModel_ progressBarItemBindingModel;
+    private ScoreItemClickCallback callback;
+
+    ScoreListController(ScoreItemClickCallback callback) {
+        super();
+        this.callback = callback;
+    }
 
     @Override
     public void buildModels(List<Score> list, Boolean isLoading, Boolean isRefreshing) {
         if (list != null) {
             for (Score score : list) {
-                new ScoreItemBindingModel_().score(score).id(score.getId()).addTo(this);
+                new ScoreItemBindingModel_().score(score).callback(callback).id(score.getId()).addTo(this);
             }
         }
 

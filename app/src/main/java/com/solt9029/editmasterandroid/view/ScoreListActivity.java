@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,9 +32,8 @@ import javax.inject.Inject;
 public class ScoreListActivity extends AppCompatActivity implements Injectable {
     @Inject
     ViewModelProvider.Factory factory;
-
     private ScoreListViewModel viewModel;
-    private ScoreListController controller = new ScoreListController();
+    private ScoreListController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +43,7 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
         viewModel = ViewModelProviders.of(this, factory).get(ScoreListViewModel.class);
 
         ActivityScoreListBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_score_list);
+        controller = new ScoreListController(id -> viewModel.select(id));
         binding.setAdapter(controller.getAdapter());
         binding.setViewModel(viewModel);
 
@@ -67,7 +66,7 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
                 viewModel.keyword.setValue(v.getText().toString());
 
                 // close keyboard
-                InputMethodManager manager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 manager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
                 return true;
