@@ -3,6 +3,7 @@ package com.solt9029.editmasterandroid.viewmodel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
+import android.util.Log;
 
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.service.ScoreService;
@@ -41,9 +42,7 @@ public class ScoreListViewModel extends ViewModel {
     }
 
     public void onRefresh() {
-        if (isLoading.getValue() != null && isLoading.getValue()) {
-            return;
-        }
+        compositeDisposable.clear();
 
         isRefreshing.set(true);
         isLoading.setValue(true);

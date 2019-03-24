@@ -3,6 +3,7 @@ package com.solt9029.editmasterandroid.view;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.solt9029.editmasterandroid.R;
@@ -58,9 +61,15 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
             }
         });
 
-        binding.editText.setOnEditorActionListener((TextView v, int actionId, KeyEvent event) -> {
+        EditText editText = binding.editText;
+        editText.setOnEditorActionListener((TextView v, int actionId, KeyEvent event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.keyword.setValue(v.getText().toString());
+
+                // close keyboard
+                InputMethodManager manager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                manager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+
                 return true;
             }
             return false;
