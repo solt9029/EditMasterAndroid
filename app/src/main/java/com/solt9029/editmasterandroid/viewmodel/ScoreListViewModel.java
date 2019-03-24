@@ -3,7 +3,6 @@ package com.solt9029.editmasterandroid.viewmodel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
 
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.service.ScoreService;
@@ -24,7 +23,7 @@ public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     public ObservableBoolean isRefreshing = new ObservableBoolean(false);
     public MutableLiveData<Integer> selectedId = new MutableLiveData<>();
-    public ObservableField<String> keyword = new ObservableField<>();
+    public MutableLiveData<String> keyword = new MutableLiveData<>();
     private ScoreService service;
     private CompositeDisposable compositeDisposable;
 
@@ -33,16 +32,7 @@ public class ScoreListViewModel extends ViewModel {
         this.service = service;
         this.compositeDisposable = compositeDisposable;
 
-        isLoading.setValue(true);
-        Disposable disposable = fetchScoreTimeline()
-                .subscribe(
-                        result -> {
-                            isLoading.setValue(false);
-                            scoreList.setValue(result);
-                        },
-                        throwable -> isLoading.setValue(false)
-                );
-        compositeDisposable.add(disposable);
+        initScoreList();
     }
 
     @Override
@@ -57,7 +47,7 @@ public class ScoreListViewModel extends ViewModel {
 
         isRefreshing.set(true);
         isLoading.setValue(true);
-        Disposable disposable = fetchScoreTimeline()
+        Disposable disposable = fetchScoreTimeline(keyword.getValue())
                 .subscribe(
                         result -> {
                             isRefreshing.set(false);
@@ -76,9 +66,8 @@ public class ScoreListViewModel extends ViewModel {
         if (isLoading.getValue() != null && isLoading.getValue()) {
             return;
         }
-
         isLoading.setValue(true);
-        Disposable disposable = fetchScoreTimeline(getMaxId())
+        Disposable disposable = fetchScoreTimeline(keyword.getValue(), getMaxId())
                 .subscribe(
                         result -> {
                             isLoading.setValue(false);
@@ -86,6 +75,24 @@ public class ScoreListViewModel extends ViewModel {
                         },
                         throwable -> isLoading.setValue(false)
 
+                );
+        compositeDisposable.add(disposable);
+    }
+
+    public void initScoreList() {
+        initScoreList(null);
+    }
+
+    public void initScoreList(String keyword) {
+        isLoading.setValue(true);
+        scoreList.setValue(null);
+        Disposable disposable = fetchScoreTimeline(keyword)
+                .subscribe(
+                        result -> {
+                            isLoading.setValue(false);
+                            scoreList.setValue(result);
+                        },
+                        throwable -> isLoading.setValue(false)
                 );
         compositeDisposable.add(disposable);
     }
@@ -100,11 +107,15 @@ public class ScoreListViewModel extends ViewModel {
     }
 
     private Single<List<Score>> fetchScoreTimeline() {
-        return fetchScoreTimeline(null);
+        return fetchScoreTimeline(null, null);
     }
 
-    private Single<List<Score>> fetchScoreTimeline(Integer maxId) {
-        return service.getScoreTimeline(null, maxId, null)
+    private Single<List<Score>> fetchScoreTimeline(String keyword) {
+        return fetchScoreTimeline(keyword, null);
+    }
+
+    private Single<List<Score>> fetchScoreTimeline(String keyword, Integer maxId) {
+        return service.getScoreTimeline(null, keyword, maxId, null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

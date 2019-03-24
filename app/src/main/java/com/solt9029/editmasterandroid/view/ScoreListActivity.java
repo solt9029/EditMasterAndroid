@@ -62,6 +62,8 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 // conduct search here.
                 Log.d("IME_ACTION_SEARCH", "keyword is " + v.getText());
+                viewModel.keyword.setValue(v.getText().toString());
+                viewModel.initScoreList(v.getText().toString());
                 return true;
             }
             return false;

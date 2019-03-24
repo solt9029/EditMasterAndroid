@@ -16,5 +16,5 @@ public interface ScoreService {
     Single<Score> getScore(@Path("id") Integer id);
 
     @GET("scores/timeline")
-    Single<List<Score>> getScoreTimeline(@Query("count") Integer count, @Query("max_id") Integer maxId, @Query("since_id") Integer sinceId);
+    Single<List<Score>> getScoreTimeline(@Query("count") Integer count, @Query("keyword") String keyword, @Query("max_id") Integer maxId, @Query("since_id") Integer sinceId);
 }
