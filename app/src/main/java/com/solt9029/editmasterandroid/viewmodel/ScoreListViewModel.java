@@ -3,7 +3,6 @@ package com.solt9029.editmasterandroid.viewmodel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
-import android.util.Log;
 
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.service.ScoreService;
@@ -64,14 +63,19 @@ public class ScoreListViewModel extends ViewModel {
         if (isLoading.getValue() != null && isLoading.getValue()) {
             return;
         }
+
+        Integer maxId = getMaxId();
+        if (maxId != null && maxId < 1) {
+            return;
+        }
+
         isLoading.setValue(true);
-        Disposable disposable = fetchScoreTimeline(getMaxId()).subscribe(
+        Disposable disposable = fetchScoreTimeline(maxId).subscribe(
                 result -> {
                     isLoading.setValue(false);
                     addScoreList(result);
                 },
                 throwable -> isLoading.setValue(false)
-
         );
         compositeDisposable.add(disposable);
     }
