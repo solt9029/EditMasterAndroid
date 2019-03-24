@@ -181,16 +181,20 @@
             <co.ceryle.radiorealbutton.RadioRealButton
                 android:layout_width="wrap_content"
                 android:layout_height="33dp"
-                app:rrb_text="C"
-                app:rrb_textSize="12dp"
+                app:rrb_drawable="@drawable/ic_content_copy_black_24dp"
+                app:rrb_drawableHeight="30dp"
+                app:rrb_drawablePadding="2dp"
+                app:rrb_drawableWidth="30dp"
                 app:rrb_ripple="true"
                 app:rrb_rippleColor="#000000" />
 
             <co.ceryle.radiorealbutton.RadioRealButton
                 android:layout_width="wrap_content"
                 android:layout_height="33dp"
-                app:rrb_text="P"
-                app:rrb_textSize="12dp"
+                app:rrb_drawable="@drawable/ic_content_paste_black_24dp"
+                app:rrb_drawableHeight="30dp"
+                app:rrb_drawablePadding="2dp"
+                app:rrb_drawableWidth="30dp"
                 app:rrb_ripple="true"
                 app:rrb_rippleColor="#000000" />
         </co.ceryle.radiorealbutton.RadioRealButtonGroup>
