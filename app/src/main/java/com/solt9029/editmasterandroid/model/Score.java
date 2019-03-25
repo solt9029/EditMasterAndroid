@@ -3,6 +3,8 @@ package com.solt9029.editmasterandroid.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Score {
     @SerializedName("id")
     @Expose
@@ -27,7 +29,7 @@ public class Score {
     private Float speed;
     @SerializedName("notes")
     @Expose
-    private String notes;
+    private List<Integer> notes;
     @SerializedName("advanced_settings")
     @Expose
     private Object advancedSettings;
@@ -37,6 +39,19 @@ public class Score {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+
+    private List<Integer> states;
+
+    public Score(String username, String comment, String videoId, Float bpm, Float offset, Float speed, List<Integer> notes) {
+        this.username = username;
+        this.comment = comment;
+        this.videoId = videoId;
+        this.bpm = bpm;
+        this.offset = offset;
+        this.speed = speed;
+        this.notes = notes;
+        // TODO: initialize states here.
+    }
 
     public Integer getId() {
         return id;
@@ -94,12 +109,20 @@ public class Score {
         this.speed = speed;
     }
 
-    public String getNotes() {
+    public List<Integer> getNotes() {
         return notes;
     }
 
-    public void setNotes(String notes) {
+    public void setNotes(List<Integer> notes) {
         this.notes = notes;
+    }
+
+    public List<Integer> getStates() {
+        return states;
+    }
+
+    public void setStates(List<Integer> states) {
+        this.states = states;
     }
 
     public Object getAdvancedSettings() {

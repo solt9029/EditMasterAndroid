@@ -1,208 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.ScoreActivity">
+<layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.solt9029.editmasterandroid.viewmodel.ScoreViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent"
+        tools:context=".view.ScoreActivity">
 
-        <LinearLayout
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="33dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="6"
-                android:background="#ffffff"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="1小節の分割数"
-                android:textSize="12dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="6"
+                    android:background="#ffffff"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="1小節の分割数"
+                    android:textSize="12dp" />
+
+                <co.ceryle.radiorealbutton.RadioRealButtonGroup
+                    android:id="@+id/division"
+                    android:layout_width="0dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="10"
+                    app:rrbg_selectorFullSize="true">
+
+                    <co.ceryle.radiorealbutton.RadioRealButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_checked="true"
+                        app:rrb_drawablePadding="0dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"
+                        app:rrb_text="16"
+                        app:rrb_textSize="10dp" />
+
+                    <co.ceryle.radiorealbutton.RadioRealButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_checked="true"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"
+                        app:rrb_text="24"
+                        app:rrb_textSize="10dp" />
+
+                    <co.ceryle.radiorealbutton.RadioRealButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_checked="true"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"
+                        app:rrb_text="32"
+                        app:rrb_textSize="10dp" />
+
+                    <co.ceryle.radiorealbutton.RadioRealButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_checked="true"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"
+                        app:rrb_text="48"
+                        app:rrb_textSize="10dp" />
+
+
+                </co.ceryle.radiorealbutton.RadioRealButtonGroup>
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/save"
+                    android:layout_width="0dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:background="@drawable/image_button_background"
+                    android:src="@drawable/ic_save_black_24dp"
+                    android:scaleType="fitCenter" />
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/paste"
+                    android:layout_width="0dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:background="@drawable/image_button_background"
+                    android:src="@drawable/ic_settings_black_24dp"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
 
             <co.ceryle.radiorealbutton.RadioRealButtonGroup
-                android:id="@+id/division"
-                android:layout_width="0dp"
+                android:id="@+id/note"
+                android:layout_width="match_parent"
                 android:layout_height="33dp"
-                android:layout_weight="10"
                 app:rrbg_selectorFullSize="true">
 
                 <co.ceryle.radiorealbutton.RadioRealButton
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
                     app:rrb_checked="true"
-                    app:rrb_drawablePadding="0dp"
+                    app:rrb_drawable="@drawable/don"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
                     app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000"
-                    app:rrb_text="16"
-                    app:rrb_textSize="10dp" />
+                    app:rrb_rippleColor="#000000" />
 
                 <co.ceryle.radiorealbutton.RadioRealButton
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
-                    app:rrb_checked="true"
+                    app:rrb_drawable="@drawable/ka"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
                     app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000"
-                    app:rrb_text="24"
-                    app:rrb_textSize="10dp" />
+                    app:rrb_rippleColor="#000000" />
 
                 <co.ceryle.radiorealbutton.RadioRealButton
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
-                    app:rrb_checked="true"
+                    app:rrb_drawable="@drawable/bigdon"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
                     app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000"
-                    app:rrb_text="32"
-                    app:rrb_textSize="10dp" />
+                    app:rrb_rippleColor="#000000" />
 
                 <co.ceryle.radiorealbutton.RadioRealButton
                     android:layout_width="wrap_content"
                     android:layout_height="33dp"
-                    app:rrb_checked="true"
+                    app:rrb_drawable="@drawable/bigka"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
                     app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000"
-                    app:rrb_text="48"
-                    app:rrb_textSize="10dp" />
+                    app:rrb_rippleColor="#000000" />
 
+                <co.ceryle.radiorealbutton.RadioRealButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    app:rrb_drawable="@drawable/renda"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
+                    app:rrb_ripple="true"
+                    app:rrb_rippleColor="#000000" />
 
+                <co.ceryle.radiorealbutton.RadioRealButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    app:rrb_drawable="@drawable/bigrenda"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
+                    app:rrb_ripple="true"
+                    app:rrb_rippleColor="#000000" />
+
+                <co.ceryle.radiorealbutton.RadioRealButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    app:rrb_drawable="@drawable/balloon"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
+                    app:rrb_ripple="true"
+                    app:rrb_rippleColor="#000000" />
+
+                <co.ceryle.radiorealbutton.RadioRealButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    app:rrb_drawable="@drawable/space"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
+                    app:rrb_ripple="true"
+                    app:rrb_rippleColor="#000000" />
+
+                <co.ceryle.radiorealbutton.RadioRealButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    app:rrb_drawable="@drawable/ic_content_copy_black_24dp"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
+                    app:rrb_ripple="true"
+                    app:rrb_rippleColor="#000000" />
+
+                <co.ceryle.radiorealbutton.RadioRealButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    app:rrb_drawable="@drawable/ic_content_paste_black_24dp"
+                    app:rrb_drawableHeight="30dp"
+                    app:rrb_drawablePadding="2dp"
+                    app:rrb_drawableWidth="30dp"
+                    app:rrb_ripple="true"
+                    app:rrb_rippleColor="#000000" />
             </co.ceryle.radiorealbutton.RadioRealButtonGroup>
 
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/save"
-                android:layout_width="0dp"
-                android:layout_height="33dp"
-                android:layout_gravity="center"
-                android:layout_weight="3"
-                android:background="@drawable/image_button_background"
-                android:src="@drawable/ic_save_black_24dp"
-                android:scaleType="fitCenter" />
-
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/paste"
-                android:layout_width="0dp"
-                android:layout_height="33dp"
-                android:layout_gravity="center"
-                android:layout_weight="3"
-                android:background="@drawable/image_button_background"
-                android:src="@drawable/ic_settings_black_24dp"
-                android:scaleType="fitCenter" />
         </LinearLayout>
-
-        <co.ceryle.radiorealbutton.RadioRealButtonGroup
-            android:id="@+id/note"
-            android:layout_width="match_parent"
-            android:layout_height="33dp"
-            app:rrbg_selectorFullSize="true">
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_checked="true"
-                app:rrb_drawable="@drawable/don"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_drawable="@drawable/ka"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_drawable="@drawable/bigdon"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_drawable="@drawable/bigka"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_drawable="@drawable/renda"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_drawable="@drawable/bigrenda"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_drawable="@drawable/balloon"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_drawable="@drawable/space"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_drawable="@drawable/ic_content_copy_black_24dp"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-
-            <co.ceryle.radiorealbutton.RadioRealButton
-                android:layout_width="wrap_content"
-                android:layout_height="33dp"
-                app:rrb_drawable="@drawable/ic_content_paste_black_24dp"
-                app:rrb_drawableHeight="30dp"
-                app:rrb_drawablePadding="2dp"
-                app:rrb_drawableWidth="30dp"
-                app:rrb_ripple="true"
-                app:rrb_rippleColor="#000000" />
-        </co.ceryle.radiorealbutton.RadioRealButtonGroup>
-
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>
