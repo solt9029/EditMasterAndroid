@@ -52,6 +52,7 @@
                         app:rrb_ripple="true"
                         app:rrb_rippleColor="#000000"
                         app:rrb_text="16"
+                        app:rrb_textStyle="bold"
                         app:rrb_textSize="10dp" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
@@ -61,6 +62,7 @@
                         app:rrb_ripple="true"
                         app:rrb_rippleColor="#000000"
                         app:rrb_text="24"
+                        app:rrb_textStyle="bold"
                         app:rrb_textSize="10dp" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
@@ -70,6 +72,7 @@
                         app:rrb_ripple="true"
                         app:rrb_rippleColor="#000000"
                         app:rrb_text="32"
+                        app:rrb_textStyle="bold"
                         app:rrb_textSize="10dp" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
@@ -79,6 +82,7 @@
                         app:rrb_ripple="true"
                         app:rrb_rippleColor="#000000"
                         app:rrb_text="48"
+                        app:rrb_textStyle="bold"
                         app:rrb_textSize="10dp" />
 
 

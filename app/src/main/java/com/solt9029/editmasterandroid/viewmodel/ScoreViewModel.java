@@ -8,6 +8,7 @@ import com.solt9029.editmasterandroid.service.ScoreService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,15 +37,14 @@ public class ScoreViewModel extends ViewModel {
     public void initScore(int id) {
         // new
         if (id < 1) {
-            List<Integer> notes = new ArrayList<>(Arrays.asList(0, 0));
-            score.set(new Score("通りすがりの創作の達人", "創作の達人で創作譜面をしました！", "jhOVibLEDhA", 158f, 0.75f, 1f, notes));
+            score.set(getDefaultScore());
             return;
         }
 
         // show
         Disposable disposable = fetchScore(id).subscribe(
                 result -> {
-                    // TODO: initialize states here.
+                    result.initStates();
                     score.set(result);
                 },
                 throwable -> {
@@ -55,5 +55,17 @@ public class ScoreViewModel extends ViewModel {
 
     private Single<Score> fetchScore(int id) {
         return service.getScore(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private Score getDefaultScore() {
+        String username = "通りすがりの創作の達人";
+        String comment = "創作の達人で創作譜面をしました！";
+        String videoId = "jhOVibLEDhA";
+        Float bpm = 158f;
+        Float offset = 0.75f;
+        Float speed = 1f;
+        List<Integer> notes = new ArrayList<>(Arrays.asList(0, 0));
+
+        return new Score(username, comment, videoId, bpm, offset, speed, notes);
     }
 }

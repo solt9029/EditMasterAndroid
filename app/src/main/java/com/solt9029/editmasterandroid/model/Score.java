@@ -3,6 +3,8 @@ package com.solt9029.editmasterandroid.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Score {
@@ -50,7 +52,12 @@ public class Score {
         this.offset = offset;
         this.speed = speed;
         this.notes = notes;
-        // TODO: initialize states here.
+        this.initStates();
+    }
+
+    // when states is null, use this method!
+    public void initStates() {
+        this.states = new ArrayList<>(Collections.nCopies(notes.size(), 0));
     }
 
     public Integer getId() {
