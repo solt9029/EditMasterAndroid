@@ -4,7 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import dagger.android.AndroidInjection;
+import dagger.android.support.AndroidSupportInjection;
+import dagger.android.support.HasSupportFragmentInjector;
 
 public class AppInjector {
 
@@ -56,21 +62,21 @@ public class AppInjector {
             AndroidInjection.inject(activity);
         }
 
-//        if (activity instanceof HasSupportFragmentInjector) {
-//            AndroidInjection.inject(activity);
-//        }
-//
-//        if (activity instanceof FragmentActivity) {
-//            FragmentManager.FragmentLifecycleCallbacks callback = new FragmentManager.FragmentLifecycleCallbacks() {
-//                @Override
-//                public void onFragmentCreated(@NonNull FragmentManager manager, @NonNull Fragment fragment, Bundle savedInstanceState) {
-//                    if (fragment instanceof Injectable) {
-//                        AndroidSupportInjection.inject(fragment);
-//                    }
-//                }
-//            };
-//
-//            ((FragmentActivity) activity).getSupportFragmentManager().registerFragmentLifecycleCallbacks(callback, true);
-//        }
+        if (activity instanceof HasSupportFragmentInjector) {
+            AndroidInjection.inject(activity);
+        }
+
+        if (activity instanceof FragmentActivity) {
+            FragmentManager.FragmentLifecycleCallbacks callback = new FragmentManager.FragmentLifecycleCallbacks() {
+                @Override
+                public void onFragmentCreated(@NonNull FragmentManager manager, @NonNull Fragment fragment, Bundle savedInstanceState) {
+                    if (fragment instanceof Injectable) {
+                        AndroidSupportInjection.inject(fragment);
+                    }
+                }
+            };
+
+            ((FragmentActivity) activity).getSupportFragmentManager().registerFragmentLifecycleCallbacks(callback, true);
+        }
     }
 }

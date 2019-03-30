@@ -1,93 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="viewModel"
-            type="com.solt9029.editmasterandroid.viewmodel.ScoreListViewModel" />
-
-        <variable
-            name="adapter"
-            type="androidx.recyclerview.widget.RecyclerView.Adapter" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <fragment
+        android:id="@+id/fragment_score_list"
+        android:name="com.solt9029.editmasterandroid.view.ScoreListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="10dp">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                    android:layout_height="?attr/actionBarSize"
-                    app:title="創作の達人"
-                    app:titleTextColor="#ffffff"
-                    android:focusableInTouchMode="true"
-                    android:focusable="true"
-                    app:contentInsetStart="0dp"
-                    app:titleTextAppearance="@style/ToolbarTitleTextAppearanceTheme">
-
-                    <EditText
-                        android:id="@+id/editText"
-                        android:layout_width="match_parent"
-                        android:inputType="text"
-                        android:imeOptions="actionSearch"
-                        android:layout_height="match_parent"
-                        android:layout_margin="8dp"
-                        android:theme="@style/EditTextColorControl"
-                        android:paddingLeft="10dp"
-                        android:hint="検索"
-                        android:background="@drawable/rounded_edit_text" />
-
-                </androidx.appcompat.widget.Toolbar>
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/swipeRefreshLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:refreshing="@{viewModel.isRefreshing}"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:onRefreshListener="@{() -> viewModel.onRefresh()}">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="vertical"
-                    app:adapter="@{adapter}"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginBottom="24dp"
-            android:src="@drawable/ic_add_white_24dp"
-            app:backgroundTint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{() -> viewModel.select(0)}" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</FrameLayout>
