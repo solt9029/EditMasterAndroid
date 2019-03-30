@@ -9,7 +9,7 @@
             type="com.solt9029.editmasterandroid.viewmodel.ScoreViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -88,7 +88,7 @@
 
                 </co.ceryle.radiorealbutton.RadioRealButtonGroup>
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/save"
                     android:layout_width="0dp"
                     android:layout_height="33dp"
@@ -98,7 +98,7 @@
                     android:src="@drawable/ic_save_black_24dp"
                     android:scaleType="fitCenter" />
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/paste"
                     android:layout_width="0dp"
                     android:layout_height="33dp"
@@ -218,5 +218,5 @@
             </co.ceryle.radiorealbutton.RadioRealButtonGroup>
 
         </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

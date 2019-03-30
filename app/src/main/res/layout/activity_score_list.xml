@@ -12,23 +12,23 @@
 
         <variable
             name="adapter"
-            type="android.support.v7.widget.RecyclerView.Adapter" />
+            type="androidx.recyclerview.widget.RecyclerView.Adapter" />
     </data>
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.design.widget.AppBarLayout
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="10dp">
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     app:layout_scrollFlags="scroll|enterAlways"
@@ -52,10 +52,10 @@
                         android:hint="検索"
                         android:background="@drawable/rounded_edit_text" />
 
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.AppBarLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
 
-            <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
@@ -64,19 +64,19 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:onRefreshListener="@{() -> viewModel.onRefresh()}">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbars="vertical"
                     app:adapter="@{adapter}"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            </android.support.v4.widget.SwipeRefreshLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -88,6 +88,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:onClick="@{() -> viewModel.select(0)}" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

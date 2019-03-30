@@ -1,18 +1,16 @@
 package com.solt9029.editmasterandroid.view;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.ActivityScoreBinding;
-import com.solt9029.editmasterandroid.databinding.ActivityScoreListBinding;
 import com.solt9029.editmasterandroid.di.Injectable;
-import com.solt9029.editmasterandroid.viewmodel.ScoreListViewModel;
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel;
 
 import javax.inject.Inject;

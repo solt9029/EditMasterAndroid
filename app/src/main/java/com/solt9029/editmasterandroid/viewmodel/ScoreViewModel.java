@@ -1,14 +1,13 @@
 package com.solt9029.editmasterandroid.viewmodel;
 
-import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
+import androidx.databinding.ObservableField;
 
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.service.ScoreService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;

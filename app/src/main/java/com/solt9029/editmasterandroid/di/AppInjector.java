@@ -3,14 +3,9 @@ package com.solt9029.editmasterandroid.di;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import androidx.annotation.NonNull;
 
 import dagger.android.AndroidInjection;
-import dagger.android.support.AndroidSupportInjection;
-import dagger.android.support.HasSupportFragmentInjector;
 
 public class AppInjector {
 

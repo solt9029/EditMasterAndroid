@@ -1,6 +1,6 @@
 package com.solt9029.editmasterandroid.view;
 
-import android.databinding.BindingAdapter;
+import androidx.databinding.BindingAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
