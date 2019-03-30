@@ -22,10 +22,7 @@ import android.widget.TextView;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.ActivityScoreListBinding;
 import com.solt9029.editmasterandroid.di.Injectable;
-import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.viewmodel.ScoreListViewModel;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -74,21 +71,14 @@ public class ScoreListActivity extends AppCompatActivity implements Injectable {
             return false;
         });
 
-        viewModel.keyword.observe(this, keyword -> viewModel.initScoreList());
+        viewModel.keyword.observe(this, keyword -> viewModel.onLoad());
 
-        viewModel.scoreList.observe(this, scoreList -> {
-            Boolean isLoading = viewModel.isLoading.getValue();
+        viewModel.resource.observe(this, resource -> {
             boolean isRefreshing = viewModel.isRefreshing.get();
-            controller.setData(scoreList, isLoading, isRefreshing);
+            controller.setData(resource, isRefreshing);
         });
 
-        viewModel.isLoading.observe(this, isLoading -> {
-            List<Score> scoreList = viewModel.scoreList.getValue();
-            boolean isRefreshing = viewModel.isRefreshing.get();
-            controller.setData(scoreList, isLoading, isRefreshing);
-        });
-
-        viewModel.selectedId.observe(this, selectedId -> navigateToScoreActivity(selectedId));
+        viewModel.selectedId.observe(this, this::navigateToScoreActivity);
     }
 
     @Override

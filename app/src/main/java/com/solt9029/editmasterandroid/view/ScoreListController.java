@@ -1,14 +1,16 @@
 package com.solt9029.editmasterandroid.view;
 
 import com.airbnb.epoxy.AutoModel;
-import com.airbnb.epoxy.Typed3EpoxyController;
+import com.airbnb.epoxy.Typed2EpoxyController;
+import com.airbnb.epoxy.TypedEpoxyController;
 import com.solt9029.editmasterandroid.ProgressBarItemBindingModel_;
 import com.solt9029.editmasterandroid.ScoreItemBindingModel_;
 import com.solt9029.editmasterandroid.model.Score;
+import com.solt9029.editmasterandroid.model.ScoreListResource;
 
-import java.util.List;
+import androidx.annotation.NonNull;
 
-public class ScoreListController extends Typed3EpoxyController<List<Score>, Boolean, Boolean> {
+public class ScoreListController extends Typed2EpoxyController<ScoreListResource, Boolean> {
     @AutoModel
     ProgressBarItemBindingModel_ progressBarItemBindingModel;
     private ScoreItemClickCallback callback;
@@ -19,15 +21,18 @@ public class ScoreListController extends Typed3EpoxyController<List<Score>, Bool
     }
 
     @Override
-    public void buildModels(List<Score> list, Boolean isLoading, Boolean isRefreshing) {
-        if (list != null) {
-            for (Score score : list) {
+    public void buildModels(ScoreListResource resource, @NonNull Boolean isRefreshing) {
+        if (resource == null) {
+            return;
+        }
+
+        if (resource.data != null) {
+            for (Score score : resource.data) {
                 new ScoreItemBindingModel_().score(score).callback(callback).id(score.getId()).addTo(this);
             }
         }
 
-        if (isLoading != null && isRefreshing != null) {
-            progressBarItemBindingModel.addIf(isLoading && !isRefreshing, this);
-        }
+        progressBarItemBindingModel.addIf(resource.isLoading && !isRefreshing, this);
+
     }
 }
