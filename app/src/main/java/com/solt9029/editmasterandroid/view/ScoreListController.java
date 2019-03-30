@@ -10,19 +10,20 @@ import com.solt9029.editmasterandroid.model.Score;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class ScoreListController extends Typed2EpoxyController<Resource<List<Score>>, Boolean> {
     @AutoModel
     ProgressBarItemBindingModel_ progressBarItemBindingModel;
-    private ScoreItemClickCallback callback;
+    private Callback callback;
 
-    ScoreListController(ScoreItemClickCallback callback) {
+    ScoreListController(Callback callback) {
         super();
         this.callback = callback;
     }
 
     @Override
-    public void buildModels(Resource<List<Score>> resource, @NonNull Boolean isRefreshing) {
+    public void buildModels(@Nullable Resource<List<Score>> resource, @NonNull Boolean isRefreshing) {
         if (resource == null) {
             return;
         }
@@ -35,5 +36,9 @@ public class ScoreListController extends Typed2EpoxyController<Resource<List<Sco
 
         progressBarItemBindingModel.addIf(resource.isLoading && !isRefreshing, this);
 
+    }
+
+    public interface Callback {
+        void onClick(Integer id);
     }
 }

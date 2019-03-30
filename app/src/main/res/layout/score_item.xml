@@ -9,7 +9,7 @@
 
         <variable
             name="callback"
-            type="com.solt9029.editmasterandroid.view.ScoreItemClickCallback" />
+            type="com.solt9029.editmasterandroid.view.ScoreListController.Callback" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
