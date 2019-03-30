@@ -3,7 +3,6 @@ package com.solt9029.editmasterandroid.di;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 
 import dagger.android.AndroidInjection;
 

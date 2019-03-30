@@ -3,6 +3,7 @@ package com.solt9029.editmasterandroid.di;
 import android.app.Application;
 import android.content.Context;
 
+import com.solt9029.editmasterandroid.repository.ScoreRepository;
 import com.solt9029.editmasterandroid.service.ScoreService;
 
 import javax.inject.Singleton;
@@ -16,13 +17,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module(includes = ViewModelModule.class)
 public class AppModule {
     @Provides
-    public Context provideContext(Application application) {
+    Context provideContext(Application application) {
         return application;
     }
 
     @Singleton
     @Provides
-    public ScoreService provideScoreService() {
+    ScoreService provideScoreService() {
         final Retrofit retrofit = new Retrofit
                 .Builder()
                 .baseUrl(ScoreService.BASE_URL)
@@ -30,5 +31,11 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofit.create(ScoreService.class);
+    }
+
+    @Singleton
+    @Provides
+    ScoreRepository provideScoreRepository(ScoreService service) {
+        return new ScoreRepository(service);
     }
 }

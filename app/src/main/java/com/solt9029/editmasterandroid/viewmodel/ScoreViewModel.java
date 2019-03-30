@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.databinding.ObservableField;
 
 import com.solt9029.editmasterandroid.model.Score;
-import com.solt9029.editmasterandroid.service.ScoreService;
+import com.solt9029.editmasterandroid.repository.ScoreRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,13 +19,13 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ScoreViewModel extends ViewModel {
-    private ScoreService service;
+    private ScoreRepository repository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ObservableField<Score> score = new ObservableField<>();
 
     @Inject
-    ScoreViewModel(ScoreService service) {
-        this.service = service;
+    ScoreViewModel(ScoreRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ScoreViewModel extends ViewModel {
     }
 
     private Single<Score> fetchScore(int id) {
-        return service.getScore(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return repository.getScore(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     private Score getDefaultScore() {

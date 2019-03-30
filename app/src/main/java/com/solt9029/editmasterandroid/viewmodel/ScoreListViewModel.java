@@ -2,6 +2,7 @@ package com.solt9029.editmasterandroid.viewmodel;
 
 import com.solt9029.editmasterandroid.model.Resource;
 import com.solt9029.editmasterandroid.model.Score;
+import com.solt9029.editmasterandroid.repository.ScoreRepository;
 import com.solt9029.editmasterandroid.service.ScoreService;
 
 import java.util.ArrayList;
@@ -25,11 +26,11 @@ public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<Integer> selectedId = new MutableLiveData<>();
     public MutableLiveData<String> keyword = new MutableLiveData<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private ScoreService service;
+    private ScoreRepository repository;
 
     @Inject
-    ScoreListViewModel(ScoreService service) {
-        this.service = service;
+    ScoreListViewModel(ScoreRepository repository) {
+        this.repository = repository;
         onLoad();
     }
 
@@ -113,7 +114,7 @@ public class ScoreListViewModel extends ViewModel {
     }
 
     private Single<List<Score>> fetchScoreTimeline(Integer maxId) {
-        return service.getScoreTimeline(null, keyword.getValue(), maxId, null)
+        return repository.getScoreTimeline(null, keyword.getValue(), maxId, null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
