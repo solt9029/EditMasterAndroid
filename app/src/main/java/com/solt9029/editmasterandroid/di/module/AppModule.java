@@ -1,4 +1,4 @@
-package com.solt9029.editmasterandroid.di;
+package com.solt9029.editmasterandroid.di.module;
 
 import android.app.Application;
 import android.content.Context;

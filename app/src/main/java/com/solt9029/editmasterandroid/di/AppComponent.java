@@ -2,11 +2,12 @@ package com.solt9029.editmasterandroid.di;
 
 import android.app.Application;
 
-import com.solt9029.editmasterandroid.view.ScoreListActivity;
+import com.solt9029.editmasterandroid.di.module.ActivityBuilderModule;
+import com.solt9029.editmasterandroid.di.module.AppModule;
+import com.solt9029.editmasterandroid.di.module.FragmentBuilderModule;
 
 import javax.inject.Singleton;
 
-import androidx.appcompat.app.AppCompatActivity;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;

@@ -1,9 +1,11 @@
-package com.solt9029.editmasterandroid.di;
+package com.solt9029.editmasterandroid.di.module;
 
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.solt9029.editmasterandroid.di.ViewModelFactory;
+import com.solt9029.editmasterandroid.di.ViewModelKey;
 import com.solt9029.editmasterandroid.viewmodel.ScoreListViewModel;
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel;
 

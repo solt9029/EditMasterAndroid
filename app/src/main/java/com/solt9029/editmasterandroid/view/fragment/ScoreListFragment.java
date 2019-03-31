@@ -1,4 +1,4 @@
-package com.solt9029.editmasterandroid.view;
+package com.solt9029.editmasterandroid.view.fragment;
 
 
 import android.content.Context;
@@ -18,6 +18,9 @@ import android.widget.TextView;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.FragmentScoreListBinding;
 import com.solt9029.editmasterandroid.di.Injectable;
+import com.solt9029.editmasterandroid.view.EndlessScrollListener;
+import com.solt9029.editmasterandroid.view.ScoreListController;
+import com.solt9029.editmasterandroid.view.activity.ScoreListActivity;
 import com.solt9029.editmasterandroid.viewmodel.ScoreListViewModel;
 
 import java.util.Objects;

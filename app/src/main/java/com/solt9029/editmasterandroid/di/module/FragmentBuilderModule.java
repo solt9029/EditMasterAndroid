@@ -1,6 +1,6 @@
-package com.solt9029.editmasterandroid.di;
+package com.solt9029.editmasterandroid.di.module;
 
-import com.solt9029.editmasterandroid.view.ScoreListFragment;
+import com.solt9029.editmasterandroid.view.fragment.ScoreListFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

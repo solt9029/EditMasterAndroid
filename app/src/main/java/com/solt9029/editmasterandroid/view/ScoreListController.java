@@ -17,7 +17,7 @@ public class ScoreListController extends Typed2EpoxyController<Resource<List<Sco
     ProgressBarItemBindingModel_ progressBarItemBindingModel;
     private Callback callback;
 
-    ScoreListController(Callback callback) {
+    public ScoreListController(Callback callback) {
         super();
         this.callback = callback;
     }

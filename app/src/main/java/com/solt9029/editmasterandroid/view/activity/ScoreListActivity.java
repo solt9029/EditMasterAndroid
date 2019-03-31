@@ -1,4 +1,4 @@
-package com.solt9029.editmasterandroid.view;
+package com.solt9029.editmasterandroid.view.activity;
 
 
 import android.content.Intent;

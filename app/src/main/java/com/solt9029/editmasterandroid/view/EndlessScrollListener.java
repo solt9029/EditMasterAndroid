@@ -5,9 +5,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class EndlessScrollListener extends RecyclerView.OnScrollListener {
     private LinearLayoutManager manager;
-    public static final int VISIBLE_THRESHOLD = 1;
+    private static final int VISIBLE_THRESHOLD = 1;
 
-    EndlessScrollListener(LinearLayoutManager manager) {
+    protected EndlessScrollListener(LinearLayoutManager manager) {
         this.manager = manager;
     }
 

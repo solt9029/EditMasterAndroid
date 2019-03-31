@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.ScoreListActivity"
+            android:name=".view.activity.ScoreListActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,10 +23,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.HelpActivity"
+            android:name=".view.activity.HelpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.ScoreActivity"
+            android:name=".view.activity.ScoreActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

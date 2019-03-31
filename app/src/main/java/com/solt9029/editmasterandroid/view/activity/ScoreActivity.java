@@ -1,4 +1,4 @@
-package com.solt9029.editmasterandroid.view;
+package com.solt9029.editmasterandroid.view.activity;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
