@@ -1,25 +1,24 @@
 package com.solt9029.editmasterandroid.view.activity;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.solt9029.editmasterandroid.R;
-import com.solt9029.editmasterandroid.databinding.ActivityScoreBinding;
-import com.solt9029.editmasterandroid.di.Injectable;
-import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel;
 
 import javax.inject.Inject;
 
-public class ScoreActivity extends AppCompatActivity implements Injectable {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
+public class ScoreActivity extends AppCompatActivity implements HasSupportFragmentInjector {
     public static final String ID = "score_id"; // for intent.
+
     @Inject
-    ViewModelProvider.Factory factory;
-    private ScoreViewModel viewModel;
+    DispatchingAndroidInjector<Fragment> injector;
 
     public static Intent createIntent(Context context, Integer id) {
         return new Intent(context, ScoreActivity.class).putExtra(ID, id);
@@ -29,12 +28,10 @@ public class ScoreActivity extends AppCompatActivity implements Injectable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
+    }
 
-        int id = getIntent().getIntExtra(ID, 0);
-
-        viewModel = ViewModelProviders.of(this, factory).get(ScoreViewModel.class);
-        viewModel.initScore(id);
-        ActivityScoreBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_score);
-        binding.setViewModel(viewModel);
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return injector;
     }
 }
