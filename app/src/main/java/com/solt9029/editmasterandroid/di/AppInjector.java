@@ -17,7 +17,7 @@ public class AppInjector {
     private AppInjector() {
     }
 
-    public static void init(AppApplication application) {
+    public static void init(App application) {
         DaggerAppComponent.builder().application(application).build().inject(application);
         application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
