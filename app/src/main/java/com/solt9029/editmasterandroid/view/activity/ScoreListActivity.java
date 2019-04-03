@@ -6,18 +6,9 @@ import android.os.Bundle;
 
 import com.solt9029.editmasterandroid.R;
 
-import javax.inject.Inject;
+import dagger.android.support.DaggerAppCompatActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
-
-public class ScoreListActivity extends AppCompatActivity implements HasSupportFragmentInjector {
-    @Inject
-    DispatchingAndroidInjector<Fragment> injector;
-
+public class ScoreListActivity extends DaggerAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +23,5 @@ public class ScoreListActivity extends AppCompatActivity implements HasSupportFr
     public void navigateToScoreActivity(Integer id) {
         Intent intent = ScoreActivity.createIntent(ScoreListActivity.this, id);
         startActivity(intent);
-    }
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return injector;
     }
 }

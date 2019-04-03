@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.FragmentScoreBinding;
-import com.solt9029.editmasterandroid.di.Injectable;
 import com.solt9029.editmasterandroid.view.activity.ScoreActivity;
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel;
 
@@ -19,11 +18,11 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import dagger.android.support.DaggerFragment;
 
-public class ScoreFragment extends Fragment implements Injectable {
+public class ScoreFragment extends DaggerFragment {
     @Inject
     ViewModelProvider.Factory factory;
     private FragmentScoreBinding binding;

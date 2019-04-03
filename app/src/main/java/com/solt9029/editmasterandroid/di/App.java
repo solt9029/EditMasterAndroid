@@ -1,26 +1,16 @@
 package com.solt9029.editmasterandroid.di;
 
-import android.app.Activity;
-import android.app.Application;
-
-import javax.inject.Inject;
-
 import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
+import dagger.android.support.DaggerApplication;
 
-public class App extends Application implements HasActivityInjector {
-    @Inject
-    DispatchingAndroidInjector<Activity> injector;
-
+public class App extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        AppInjector.init(this);
     }
 
     @Override
-    public AndroidInjector<Activity> activityInjector() {
-        return injector;
+    protected AndroidInjector<App> applicationInjector() {
+        return DaggerAppComponent.builder().application(this).build();
     }
 }

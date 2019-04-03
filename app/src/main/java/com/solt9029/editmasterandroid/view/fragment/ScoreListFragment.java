@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.FragmentScoreListBinding;
-import com.solt9029.editmasterandroid.di.Injectable;
 import com.solt9029.editmasterandroid.view.EndlessScrollListener;
 import com.solt9029.editmasterandroid.view.ScoreListController;
 import com.solt9029.editmasterandroid.view.activity.ScoreListActivity;
@@ -31,13 +30,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import dagger.android.support.DaggerFragment;
 
-public class ScoreListFragment extends Fragment implements Injectable {
+public class ScoreListFragment extends DaggerFragment {
     @Inject
     ViewModelProvider.Factory factory;
     private FragmentScoreListBinding binding;
