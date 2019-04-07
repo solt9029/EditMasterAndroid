@@ -48,12 +48,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
                         app:rrb_checked="true"
-                        app:rrb_drawablePadding="0dp"
                         app:rrb_ripple="true"
                         app:rrb_rippleColor="#000000"
-                        app:rrb_text="16"
-                        app:rrb_textStyle="bold"
-                        app:rrb_textSize="10dp" />
+                        app:rrb_drawable="@drawable/sixteen"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
                         android:layout_width="wrap_content"
@@ -61,9 +61,10 @@
                         app:rrb_checked="true"
                         app:rrb_ripple="true"
                         app:rrb_rippleColor="#000000"
-                        app:rrb_text="24"
-                        app:rrb_textStyle="bold"
-                        app:rrb_textSize="10dp" />
+                        app:rrb_drawable="@drawable/twenty_four"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
                         android:layout_width="wrap_content"
@@ -71,9 +72,10 @@
                         app:rrb_checked="true"
                         app:rrb_ripple="true"
                         app:rrb_rippleColor="#000000"
-                        app:rrb_text="32"
-                        app:rrb_textStyle="bold"
-                        app:rrb_textSize="10dp" />
+                        app:rrb_drawable="@drawable/thirty_two"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
                         android:layout_width="wrap_content"
@@ -81,9 +83,10 @@
                         app:rrb_checked="true"
                         app:rrb_ripple="true"
                         app:rrb_rippleColor="#000000"
-                        app:rrb_text="48"
-                        app:rrb_textStyle="bold"
-                        app:rrb_textSize="10dp" />
+                        app:rrb_drawable="@drawable/forty_eight"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp" />
 
 
                 </co.ceryle.radiorealbutton.RadioRealButtonGroup>
