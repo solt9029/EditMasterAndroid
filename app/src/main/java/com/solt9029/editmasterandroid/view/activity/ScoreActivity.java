@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.solt9029.editmasterandroid.R;
 
 import dagger.android.support.DaggerAppCompatActivity;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ScoreActivity extends DaggerAppCompatActivity {
     public static final String ID = "score_id"; // for intent.
@@ -19,5 +20,10 @@ public class ScoreActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

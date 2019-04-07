@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    fontPath="fonts/RictyDiminished-Bold.ttf"
                     android:layout_width="0dp"
                     android:layout_height="33dp"
                     android:layout_gravity="center_vertical"
