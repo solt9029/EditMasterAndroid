@@ -16,8 +16,25 @@
         android:layout_height="match_parent"
         tools:context=".view.activity.ScoreActivity">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/palette"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:autoPlay="true"
+                app:showFullScreenButton="false"
+                app:videoId="Kp-STOz4s5w" />
+
+        </LinearLayout>
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/palette"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -49,45 +66,45 @@
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
                         app:rrb_checked="true"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="#000000"
                         app:rrb_drawable="@drawable/sixteen"
                         app:rrb_drawableHeight="30dp"
                         app:rrb_drawablePadding="2dp"
-                        app:rrb_drawableWidth="30dp" />
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
                         app:rrb_checked="true"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="#000000"
                         app:rrb_drawable="@drawable/twenty_four"
                         app:rrb_drawableHeight="30dp"
                         app:rrb_drawablePadding="2dp"
-                        app:rrb_drawableWidth="30dp" />
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
                         app:rrb_checked="true"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="#000000"
                         app:rrb_drawable="@drawable/thirty_two"
                         app:rrb_drawableHeight="30dp"
                         app:rrb_drawablePadding="2dp"
-                        app:rrb_drawableWidth="30dp" />
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
                         android:layout_width="wrap_content"
                         android:layout_height="33dp"
                         app:rrb_checked="true"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="#000000"
                         app:rrb_drawable="@drawable/forty_eight"
                         app:rrb_drawableHeight="30dp"
                         app:rrb_drawablePadding="2dp"
-                        app:rrb_drawableWidth="30dp" />
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000" />
 
 
                 </co.ceryle.radiorealbutton.RadioRealButtonGroup>
@@ -99,8 +116,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="3"
                     android:background="@drawable/image_button_background"
-                    android:src="@drawable/ic_save_black_24dp"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_save_black_24dp" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/paste"
@@ -109,8 +126,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="3"
                     android:background="@drawable/image_button_background"
-                    android:src="@drawable/ic_settings_black_24dp"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_settings_black_24dp" />
             </LinearLayout>
 
             <co.ceryle.radiorealbutton.RadioRealButtonGroup
