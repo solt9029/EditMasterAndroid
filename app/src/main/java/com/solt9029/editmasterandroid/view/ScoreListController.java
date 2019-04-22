@@ -15,11 +15,11 @@ import androidx.annotation.Nullable;
 public class ScoreListController extends Typed2EpoxyController<Resource<List<Score>>, Boolean> {
     @AutoModel
     ProgressBarItemBindingModel_ progressBarItemBindingModel;
-    private Callback callback;
+    private OnItemClickListener listener;
 
-    public ScoreListController(Callback callback) {
+    public ScoreListController(OnItemClickListener listener) {
         super();
-        this.callback = callback;
+        this.listener = listener;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ScoreListController extends Typed2EpoxyController<Resource<List<Sco
 
         if (resource.data != null) {
             for (Score score : resource.data) {
-                new ScoreItemBindingModel_().score(score).callback(callback).id(score.getId()).addTo(this);
+                new ScoreItemBindingModel_().score(score).listener(listener).id(score.getId()).addTo(this);
             }
         }
 
@@ -38,7 +38,7 @@ public class ScoreListController extends Typed2EpoxyController<Resource<List<Sco
 
     }
 
-    public interface Callback {
+    public interface OnItemClickListener {
         void onClick(Integer id);
     }
 }

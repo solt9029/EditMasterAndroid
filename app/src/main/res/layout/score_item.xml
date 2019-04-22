@@ -8,8 +8,8 @@
             type="com.solt9029.editmasterandroid.model.Score" />
 
         <variable
-            name="callback"
-            type="com.solt9029.editmasterandroid.view.ScoreListController.Callback" />
+            name="listener"
+            type="com.solt9029.editmasterandroid.view.ScoreListController.OnItemClickListener" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,16 +19,16 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            android:onClick="@{() -> callback.onClick(score.id)}"
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            app:cardUseCompatPadding="true"
-            app:cardCornerRadius="10dp">
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="@{() -> listener.onClick(score.id)}"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:id="@+id/cardLayout"
@@ -44,18 +44,18 @@
 
                     <ImageView
                         android:id="@+id/youtubeImage"
+                        youtube_image="@{score.videoId}"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        youtube_image="@{score.videoId}" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingBottom="8dp"
                     android:paddingTop="10dp"
-                    android:paddingRight="10dp">
+                    android:paddingRight="10dp"
+                    android:paddingBottom="8dp">
 
                     <ImageView
                         android:id="@+id/icon"
@@ -69,51 +69,51 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
                         android:text="@{score.username}"
                         android:textColor="@color/colorUsername"
                         android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:maxLines="1"
-                        android:scrollHorizontally="true"
-                        android:ellipsize="end" />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
                     android:paddingRight="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
-                        android:text="@{score.comment}"
-                        android:textColor="@color/colorComment"
-                        android:maxLines="1"
                         android:scrollHorizontally="true"
-                        android:ellipsize="end" />
+                        android:text="@{score.comment}"
+                        android:textColor="@color/colorComment" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
+                        created_at="@{score.createdAt}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:maxLines="1"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
-                        created_at="@{score.createdAt}"
-                        android:maxLines="1"
-                        android:gravity="right"
-                        android:textSize="10dp"
                         android:scrollHorizontally="true"
-                        android:ellipsize="end" />
+                        android:textSize="10dp" />
                 </LinearLayout>
 
             </LinearLayout>
