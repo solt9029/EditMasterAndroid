@@ -2,6 +2,7 @@ package com.solt9029.editmasterandroid.di;
 
 import android.app.Application;
 
+import com.solt9029.editmasterandroid.App;
 import com.solt9029.editmasterandroid.di.module.ActivityBuilderModule;
 import com.solt9029.editmasterandroid.di.module.AppModule;
 import com.solt9029.editmasterandroid.di.module.FragmentBuilderModule;

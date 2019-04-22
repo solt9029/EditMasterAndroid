@@ -1,12 +1,19 @@
-package com.solt9029.editmasterandroid.di;
+package com.solt9029.editmasterandroid;
+
+import com.solt9029.editmasterandroid.di.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
+import timber.log.Timber;
 
 public class App extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
     @Override
