@@ -24,7 +24,7 @@ public class ScrollContainerView extends ScrollView {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setOnScrollChangedListener(OnScrollChangeListener listener) {
+    public void setOnScrollChangeListener(OnScrollChangeListener listener) {
         this.listener = listener;
     }
 
@@ -32,13 +32,13 @@ public class ScrollContainerView extends ScrollView {
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
         if (listener != null) {
-            listener.onScrollChanged(x, y, oldX, oldY);
+            listener.onScrollChange(x, y, oldX, oldY);
         }
         Timber.d("ScrollX: " + x + " px");
         Timber.d("ScrollY: " + y + " px");
     }
 
     public interface OnScrollChangeListener {
-        void onScrollChanged(int x, int y, int oldX, int oldY);
+        void onScrollChange(int x, int y, int oldX, int oldY);
     }
 }
