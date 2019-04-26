@@ -3,7 +3,6 @@ package com.solt9029.editmasterandroid.viewmodel;
 import com.solt9029.editmasterandroid.model.Resource;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.repository.ScoreRepository;
-import com.solt9029.editmasterandroid.service.ScoreService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.Single;
@@ -22,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<Resource<List<Score>>> resource = new MutableLiveData<>(new Resource<>());
-    public ObservableBoolean isRefreshing = new ObservableBoolean(false);
+    public MutableLiveData<Boolean> isRefreshing = new MutableLiveData<>(false);
     public MutableLiveData<Integer> selectedId = new MutableLiveData<>();
     public MutableLiveData<String> keyword = new MutableLiveData<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -42,11 +40,11 @@ public class ScoreListViewModel extends ViewModel {
     public void onRefresh() {
         compositeDisposable.clear();
 
-        isRefreshing.set(true);
+        isRefreshing.setValue(true);
         resource.setValue(Resource.startLoading(getData()));
         Disposable disposable = fetchScoreTimeline().subscribe(
                 result -> {
-                    isRefreshing.set(false);
+                    isRefreshing.setValue(false);
                     resource.setValue(Resource.finishLoadingSuccess(result));
                 },
                 error -> resource.setValue(Resource.finishLoadingFailure(error))
