@@ -46,8 +46,6 @@ public class ScoreFragment extends DaggerFragment {
         ScoreActivity activity = Objects.requireNonNull((ScoreActivity) getActivity());
 
         viewModel = ViewModelProviders.of(activity, factory).get(ScoreViewModel.class);
-        int id = activity.getIntent().getIntExtra(ScoreActivity.ID, 0);
-        viewModel.initScore(id);
         binding.setViewModel(viewModel);
 
         // observe videoId
@@ -63,6 +61,11 @@ public class ScoreFragment extends DaggerFragment {
                     Timber.d(videoId);
                 });
             }
+        });
+
+        binding.settings.setOnClickListener(view -> {
+            Timber.d("settings clicked");
+            activity.navigateToScoreSettingsFragment();
         });
     }
 }
