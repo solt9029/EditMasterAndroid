@@ -19,6 +19,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ScoreViewModel extends ViewModel {
+    public UnitLiveEvent navigateToScoreSettingsFragment = new UnitLiveEvent();
     public MutableLiveData<String> username = new MutableLiveData<>("通りすがりの創作の達人");
     public MutableLiveData<String> comment = new MutableLiveData<>("創作の達人で創作譜面をしました！");
     public MutableLiveData<String> videoId = new MutableLiveData<>("jhOVibLEDhA");
@@ -67,5 +68,9 @@ public class ScoreViewModel extends ViewModel {
 
     private Single<Score> fetchScore(int id) {
         return repository.getScore(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public void navigateToScoreSettingsFragment() {
+        navigateToScoreSettingsFragment.call();
     }
 }
