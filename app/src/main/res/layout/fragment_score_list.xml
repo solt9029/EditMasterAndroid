@@ -31,26 +31,26 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    app:layout_scrollFlags="scroll|enterAlways"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="創作の達人"
-                    app:titleTextColor="#ffffff"
-                    android:focusableInTouchMode="true"
                     android:focusable="true"
+                    android:focusableInTouchMode="true"
                     app:contentInsetStart="0dp"
-                    app:titleTextAppearance="@style/ToolbarTitleTextAppearanceTheme">
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:title="創作の達人"
+                    app:titleTextAppearance="@style/ToolbarTitleTextAppearanceTheme"
+                    app:titleTextColor="#ffffff">
 
                     <EditText
                         android:id="@+id/editText"
                         android:layout_width="match_parent"
-                        android:inputType="text"
-                        android:imeOptions="actionSearch"
                         android:layout_height="match_parent"
                         android:layout_margin="8dp"
-                        android:theme="@style/EditTextColorControl"
-                        android:paddingLeft="10dp"
+                        android:background="@drawable/rounded_edit_text"
                         android:hint="検索"
-                        android:background="@drawable/rounded_edit_text" />
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:theme="@style/EditTextColorControl" />
 
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
@@ -60,9 +60,9 @@
                 android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:refreshing="@{viewModel.isRefreshing}"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:onRefreshListener="@{() -> viewModel.onRefresh()}">
+                app:onRefreshListener="@{() -> viewModel.onRefresh()}"
+                app:refreshing="@{viewModel.isRefreshing}">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
@@ -82,11 +82,11 @@
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginBottom="24dp"
+            android:onClick="@{() -> viewModel.navigateToScoreActivity(0)}"
             android:src="@drawable/ic_add_white_24dp"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{() -> viewModel.select(0)}" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

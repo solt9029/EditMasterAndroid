@@ -25,7 +25,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import dagger.android.support.DaggerFragment;
-import timber.log.Timber;
 
 public class ScoreFragment extends DaggerFragment {
     @Inject
@@ -56,16 +55,8 @@ public class ScoreFragment extends DaggerFragment {
                 super.onReady(_youTubePlayer);
                 youTubePlayer = _youTubePlayer;
 
-                viewModel.videoId.observe(fragment, videoId -> {
-                    youTubePlayer.loadVideo(videoId, 0f);
-                    Timber.d(videoId);
-                });
+                viewModel.videoId.observe(fragment, videoId -> youTubePlayer.loadVideo(videoId, 0f));
             }
-        });
-
-        binding.settings.setOnClickListener(view -> {
-            Timber.d("settings clicked");
-            activity.navigateToScoreSettingsFragment();
         });
 
         viewModel.navigateToScoreSettingsFragment.observe(this, it -> activity.navigateToScoreSettingsFragment());

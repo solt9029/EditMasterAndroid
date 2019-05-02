@@ -64,7 +64,7 @@ public class ScoreListFragment extends DaggerFragment {
         viewModel = ViewModelProviders.of(activity, factory).get(ScoreListViewModel.class);
         binding.setViewModel(viewModel);
 
-        controller = new ScoreListController(id -> viewModel.select(id));
+        controller = new ScoreListController(id -> viewModel.navigateToScoreActivity(id));
         binding.setAdapter(controller.getAdapter());
 
         Toolbar toolbar = binding.toolbar;
@@ -101,7 +101,7 @@ public class ScoreListFragment extends DaggerFragment {
             controller.setData(resource, isRefreshing);
         });
 
-        viewModel.selectedId.observe(this, activity::navigateToScoreActivity);
+        viewModel.navigateToScoreActivity.observe(this, activity::navigateToScoreActivity);
     }
 
     @Override

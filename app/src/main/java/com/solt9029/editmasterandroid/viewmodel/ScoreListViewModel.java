@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<Resource<List<Score>>> resource = new MutableLiveData<>(new Resource<>());
     public MutableLiveData<Boolean> isRefreshing = new MutableLiveData<>(false);
-    public MutableLiveData<Integer> selectedId = new MutableLiveData<>();
+    public LiveEvent<Integer> navigateToScoreActivity = new LiveEvent<>();
     public MutableLiveData<String> keyword = new MutableLiveData<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ScoreRepository repository;
@@ -126,7 +126,7 @@ public class ScoreListViewModel extends ViewModel {
         return newData;
     }
 
-    public void select(int id) {
-        selectedId.setValue(id);
+    public void navigateToScoreActivity(int id) {
+        navigateToScoreActivity.call(id);
     }
 }
