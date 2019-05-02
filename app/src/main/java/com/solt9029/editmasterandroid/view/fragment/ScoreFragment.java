@@ -6,10 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.FragmentScoreBinding;
 import com.solt9029.editmasterandroid.view.activity.ScoreActivity;
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -21,11 +25,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import dagger.android.support.DaggerFragment;
+import timber.log.Timber;
 
 public class ScoreFragment extends DaggerFragment {
     @Inject
     ViewModelProvider.Factory factory;
     private FragmentScoreBinding binding;
+    private YouTubePlayer youTubePlayer;
+    private ScoreViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,9 +45,24 @@ public class ScoreFragment extends DaggerFragment {
         super.onActivityCreated(savedInstanceState);
         ScoreActivity activity = Objects.requireNonNull((ScoreActivity) getActivity());
 
-        ScoreViewModel viewModel = ViewModelProviders.of(activity, factory).get(ScoreViewModel.class);
+        viewModel = ViewModelProviders.of(activity, factory).get(ScoreViewModel.class);
         int id = activity.getIntent().getIntExtra(ScoreActivity.ID, 0);
         viewModel.initScore(id);
         binding.setViewModel(viewModel);
+
+        // observe videoId
+        ScoreFragment fragment = this;
+        binding.youTubePlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NotNull YouTubePlayer _youTubePlayer) {
+                super.onReady(_youTubePlayer);
+                youTubePlayer = _youTubePlayer;
+
+                viewModel.videoId.observe(fragment, videoId -> {
+                    youTubePlayer.loadVideo(videoId, 0f);
+                    Timber.d(videoId);
+                });
+            }
+        });
     }
 }

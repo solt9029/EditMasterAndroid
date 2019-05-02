@@ -3,8 +3,6 @@ package com.solt9029.editmasterandroid.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Score {
@@ -42,8 +40,6 @@ public class Score {
     @Expose
     private String updatedAt;
 
-    private List<Integer> states;
-
     public Score(String username, String comment, String videoId, Float bpm, Float offset, Float speed, List<Integer> notes) {
         this.username = username;
         this.comment = comment;
@@ -52,12 +48,6 @@ public class Score {
         this.offset = offset;
         this.speed = speed;
         this.notes = notes;
-        this.initStates();
-    }
-
-    // when states is null, use this method!
-    public void initStates() {
-        this.states = new ArrayList<>(Collections.nCopies(notes.size(), 0));
     }
 
     public Integer getId() {
@@ -122,14 +112,6 @@ public class Score {
 
     public void setNotes(List<Integer> notes) {
         this.notes = notes;
-    }
-
-    public List<Integer> getStates() {
-        return states;
-    }
-
-    public void setStates(List<Integer> states) {
-        this.states = states;
     }
 
     public Object getAdvancedSettings() {
