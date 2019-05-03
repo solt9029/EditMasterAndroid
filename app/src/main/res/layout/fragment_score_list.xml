@@ -41,7 +41,7 @@
                     app:titleTextColor="#ffffff">
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="8dp"
@@ -65,7 +65,7 @@
                 app:refreshing="@{viewModel.isRefreshing}">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                    android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbars="vertical"
