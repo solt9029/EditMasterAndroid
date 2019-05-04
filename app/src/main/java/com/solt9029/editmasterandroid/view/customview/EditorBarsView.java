@@ -23,7 +23,6 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
         super(context, attrs, defStyle);
     }
 
-    @Override
     public void draw(int translateY) {
         Canvas canvas = holder.lockCanvas();
         if (canvas == null) {
@@ -41,6 +40,12 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
         }
 
         holder.unlockCanvasAndPost(canvas);
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        super.surfaceCreated(holder);
+        draw(0);
     }
 }
 
