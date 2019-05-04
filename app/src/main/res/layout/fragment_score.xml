@@ -26,8 +26,31 @@
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/you_tube_player"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 app:showFullScreenButton="false" />
+
+            <AbsoluteLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <com.solt9029.editmasterandroid.view.customview.ScrollContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/scroll_container_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="2000dp" />
+                </com.solt9029.editmasterandroid.view.customview.ScrollContainerView>
+
+                <com.solt9029.editmasterandroid.view.customview.EditorBarsView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/editor_bars_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#00ffffff" />
+            </AbsoluteLayout>
 
         </LinearLayout>
 

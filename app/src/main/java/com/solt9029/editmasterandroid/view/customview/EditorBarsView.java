@@ -10,16 +10,16 @@ import android.view.SurfaceHolder;
 
 import com.solt9029.editmasterandroid.util.CalcUtil;
 
-public class EditorView extends BaseSurfaceView implements SurfaceHolder.Callback {
-    public EditorView(Context context) {
+public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Callback {
+    public EditorBarsView(Context context) {
         super(context);
     }
 
-    public EditorView(Context context, AttributeSet attrs) {
+    public EditorBarsView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public EditorView(Context context, AttributeSet attrs, int defStyle) {
+    public EditorBarsView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

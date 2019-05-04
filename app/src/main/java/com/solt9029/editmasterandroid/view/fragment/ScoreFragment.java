@@ -54,11 +54,20 @@ public class ScoreFragment extends DaggerFragment {
             public void onReady(@NotNull YouTubePlayer _youTubePlayer) {
                 super.onReady(_youTubePlayer);
                 youTubePlayer = _youTubePlayer;
-
                 viewModel.videoId.observe(fragment, videoId -> youTubePlayer.loadVideo(videoId, 0f));
             }
         });
 
+        // editor scroll
+        binding.scrollContainerView.setOnScrollChangeListener((x, y, oldX, oldY) -> {
+            viewModel.translateY.setValue(y);
+            binding.editorBarsView.draw(y);
+        });
+        binding.scrollContainerView.addOnLayoutChangeListener((view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            binding.editorBarsView.draw(viewModel.translateY.getValue());
+        });
+
+        // settings
         viewModel.navigateToScoreSettingsFragment.observe(this, it -> activity.navigateToScoreSettingsFragment());
     }
 }

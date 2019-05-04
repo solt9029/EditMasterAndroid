@@ -28,6 +28,7 @@ public class ScoreViewModel extends ViewModel {
     public MutableLiveData<Float> speed = new MutableLiveData<>(1f);
     public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(0, 0)));
     public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(0, 0)));
+    public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
 
     private ScoreRepository repository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
