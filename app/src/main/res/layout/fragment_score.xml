@@ -36,9 +36,13 @@
                 app:showFullScreenButton="false" />
 
             <AbsoluteLayout
+                android:id="@+id/editor"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="11">
+                android:layout_weight="11"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <com.solt9029.editmasterandroid.view.customview.ScrollContainerView xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/scroll_container_view"

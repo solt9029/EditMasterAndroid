@@ -25,6 +25,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import dagger.android.support.DaggerFragment;
+import timber.log.Timber;
 
 public class ScoreFragment extends DaggerFragment {
     @Inject
@@ -65,6 +66,17 @@ public class ScoreFragment extends DaggerFragment {
         });
         binding.scrollContainerView.addOnLayoutChangeListener((view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
             binding.editorBarsView.draw(viewModel.translateY.getValue());
+        });
+
+        // touch event
+        binding.scrollContainerView.setOnTouchListener((view, event) -> {
+            view.performClick();
+
+            float x = event.getX();
+            float y = event.getY();
+
+            Timber.d("x" + x + ",y" + y);
+            return false;
         });
 
         // settings
