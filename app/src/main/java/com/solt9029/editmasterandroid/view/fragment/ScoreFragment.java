@@ -53,9 +53,9 @@ public class ScoreFragment extends DaggerFragment {
         ScoreFragment fragment = this;
         binding.youTubePlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
-            public void onReady(@NotNull YouTubePlayer _youTubePlayer) {
-                super.onReady(_youTubePlayer);
-                youTubePlayer = _youTubePlayer;
+            public void onReady(@NotNull YouTubePlayer youTubePlayer) {
+                super.onReady(youTubePlayer);
+                fragment.youTubePlayer = youTubePlayer;
                 viewModel.videoId.observe(fragment, videoId -> youTubePlayer.loadVideo(videoId, 0f));
             }
         });
