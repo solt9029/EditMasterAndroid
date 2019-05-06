@@ -84,6 +84,7 @@
                     android:background="#ffffff"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="1小節の分割数"
+                    android:textColor="@color/black"
                     android:textSize="12dp" />
 
                 <co.ceryle.radiorealbutton.RadioRealButtonGroup
