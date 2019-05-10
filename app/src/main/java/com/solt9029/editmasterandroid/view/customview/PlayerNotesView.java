@@ -3,10 +3,14 @@ package com.solt9029.editmasterandroid.view.customview;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.SurfaceHolder;
+
+import com.solt9029.editmasterandroid.util.CalcUtil;
 
 public class PlayerNotesView extends BaseSurfaceView {
+    private float currentTime = 0;
+
     public PlayerNotesView(Context context) {
         super(context);
     }
@@ -19,13 +23,22 @@ public class PlayerNotesView extends BaseSurfaceView {
         super(context, attrs, defStyle);
     }
 
+    public void setCurrentTime(float currentTime) {
+        this.currentTime = currentTime;
+        draw();
+    }
+
     public void draw() {
         Canvas canvas = holder.lockCanvas();
         if (canvas == null) {
             return;
         }
 
-        canvas.drawColor(Color.RED);
+        canvas.drawColor(Color.WHITE);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+
+        canvas.drawCircle(currentTime * 10, (int) (getHeight() / 2.0), CalcUtil.convertDp2Px(20, getContext()), paint);
 
         holder.unlockCanvasAndPost(canvas);
     }

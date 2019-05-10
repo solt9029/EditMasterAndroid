@@ -42,6 +42,7 @@ public class ScoreViewModel extends ViewModel {
     public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
+    public MutableLiveData<Float> currentTime = new MutableLiveData<>(0f);
 
     public Context context;
     public ScrollContainerView.OnScrollChangeListener onScrollChange = (x, y, oldX, oldY) -> translateY.setValue(y);
@@ -80,7 +81,7 @@ public class ScoreViewModel extends ViewModel {
         thread = new Thread(() -> {
             long prevTimeMillis = 0;
             float prevYouTubeSecond = 0;
-            float currentYouTubeSecond = 0;
+            float currentYouTubeSecond;
 
             while (thread != null) {
                 if (prevYouTubeSecond != tracker.getCurrentSecond()) {
@@ -90,7 +91,8 @@ public class ScoreViewModel extends ViewModel {
                 } else {
                     currentYouTubeSecond = prevYouTubeSecond + (System.currentTimeMillis() - prevTimeMillis) / 1000f;
                 }
-                Timber.d(currentYouTubeSecond + "");
+                currentTime.postValue(currentYouTubeSecond);
+                Timber.d("currentTime: " + currentYouTubeSecond);
             }
         });
         thread.start();

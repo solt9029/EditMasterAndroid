@@ -12,6 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.solt9029.editmasterandroid.util.CalcUtil;
 import com.solt9029.editmasterandroid.view.customview.EditorBarsView;
+import com.solt9029.editmasterandroid.view.customview.PlayerNotesView;
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView;
 
 import java.util.List;
@@ -60,5 +61,10 @@ public class DataBindingHelper {
     @BindingAdapter("you_tube_player_listener")
     public static void setYouTubePlayerListener(YouTubePlayerView view, AbstractYouTubePlayerListener listener) {
         view.addYouTubePlayerListener(listener);
+    }
+
+    @BindingAdapter("current_time")
+    public static void setCurrentTime(PlayerNotesView view, float currentTime) {
+        view.setCurrentTime(currentTime);
     }
 }
