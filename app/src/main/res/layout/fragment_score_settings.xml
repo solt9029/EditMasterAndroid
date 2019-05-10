@@ -45,7 +45,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/text"
+                        android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -61,8 +61,32 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:inputType="text"
-                        app:error="@{viewModel.username.error}"
-                        android:text="@={viewModel.username.value}" />
+                        android:text="@={viewModel.username.value}"
+                        app:error="@{viewModel.username.error}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/video_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="YouTube動画ID"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:inputType="text" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -81,13 +105,14 @@
                         android:textSize="20sp" />
 
                     <EditText
+                        android:id="@+id/bpm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:inputType="number"
-                        app:error="@{viewModel.bpm.error}"
-                        android:text="@={viewModel.bpm.value}" />
+                        android:text="@={viewModel.bpm.value}"
+                        app:error="@{viewModel.bpm.error}" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -106,6 +131,7 @@
                         android:textSize="20sp" />
 
                     <EditText
+                        android:id="@+id/offset"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -131,6 +157,7 @@
                         android:textSize="20sp" />
 
                     <EditText
+                        android:id="@+id/speed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -156,6 +183,7 @@
                         android:textSize="20sp" />
 
                     <EditText
+                        android:id="@+id/comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
