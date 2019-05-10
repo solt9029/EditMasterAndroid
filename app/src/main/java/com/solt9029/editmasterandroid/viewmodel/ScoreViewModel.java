@@ -5,10 +5,14 @@ import android.content.res.Resources;
 import android.view.View;
 
 import com.mlykotom.valifi.fields.ValiFieldText;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.repository.ScoreRepository;
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +42,7 @@ public class ScoreViewModel extends ViewModel {
     public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
 
+    public Context context;
     public ScrollContainerView.OnScrollChangeListener onScrollChange = (x, y, oldX, oldY) -> translateY.setValue(y);
     public View.OnTouchListener onTouch = (view, event) -> {
         view.performClick();
@@ -46,9 +51,16 @@ public class ScoreViewModel extends ViewModel {
         Timber.d("x" + x + ",y" + y);
         return false;
     };
-
-    public Context context;
+    private ScoreViewModel viewModel = this;
     private Thread thread;
+    private YouTubePlayer player;
+    public AbstractYouTubePlayerListener youTubePlayerListener = new AbstractYouTubePlayerListener() {
+        @Override
+        public void onReady(@NotNull YouTubePlayer player) {
+            super.onReady(player);
+            viewModel.player = player;
+        }
+    };
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ScoreRepository repository;
 
@@ -79,6 +91,7 @@ public class ScoreViewModel extends ViewModel {
             videoIdField.setError(context.getResources().getString(R.string.not_empty_validation_message));
         }
         videoId.setValue(videoIdField);
+        player.loadVideo(videoIdField.getValue(), 0f);
     }
 
     @Override

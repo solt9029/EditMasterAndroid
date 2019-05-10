@@ -8,6 +8,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.solt9029.editmasterandroid.util.CalcUtil;
 import com.solt9029.editmasterandroid.view.customview.EditorBarsView;
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView;
@@ -53,5 +55,10 @@ public class DataBindingHelper {
     @BindingAdapter("onTouch")
     public static void setOnTouchListener(ScrollContainerView view, View.OnTouchListener listener) {
         view.setOnTouchListener(listener);
+    }
+
+    @BindingAdapter("you_tube_player_listener")
+    public static void setYouTubePlayerListener(YouTubePlayerView view, AbstractYouTubePlayerListener listener) {
+        view.addYouTubePlayerListener(listener);
     }
 }
