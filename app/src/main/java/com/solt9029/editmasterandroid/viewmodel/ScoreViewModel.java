@@ -34,9 +34,8 @@ public class ScoreViewModel extends ViewModel {
     public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
-
+    public Context context;
     private ScoreRepository repository;
-    private Context context;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject

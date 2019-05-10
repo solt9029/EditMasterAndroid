@@ -10,7 +10,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.FragmentScoreBinding;
-import com.solt9029.editmasterandroid.util.CalcUtil;
 import com.solt9029.editmasterandroid.view.activity.ScoreActivity;
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel;
 
@@ -65,14 +64,6 @@ public class ScoreFragment extends DaggerFragment {
 
         binding.scrollContainerView.setOnScrollChangeListener((x, y, oldX, oldY) -> {
             viewModel.translateY.setValue(y);
-        });
-        viewModel.notes.observe(this, notes -> {
-            if (getContext() == null) {
-                return;
-            }
-            ViewGroup.LayoutParams params = binding.relativeLayout.getLayoutParams();
-            params.height = (int) CalcUtil.convertDp2Px((int) (notes.size() / 96.0) * 100 + 50, getContext());
-            binding.relativeLayout.setLayoutParams(params);
         });
 
         binding.scrollContainerView.setOnTouchListener((view, event) -> {
