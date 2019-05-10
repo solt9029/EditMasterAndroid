@@ -60,7 +60,7 @@ public class ScoreFragment extends DaggerFragment {
             public void onReady(@NotNull YouTubePlayer youTubePlayer) {
                 super.onReady(youTubePlayer);
                 fragment.youTubePlayer = youTubePlayer;
-                viewModel.videoId.observe(fragment, videoId -> youTubePlayer.loadVideo(videoId, 0f));
+                viewModel.videoId.observe(fragment, videoId -> youTubePlayer.loadVideo(videoId.getValue(), 0f));
             }
         });
 

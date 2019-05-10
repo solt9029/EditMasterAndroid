@@ -1,4 +1,4 @@
-package com.solt9029.editmasterandroid.model;
+package com.solt9029.editmasterandroid.viewmodel;
 
 public class Resource<T> {
     public T data = null;

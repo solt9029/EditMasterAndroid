@@ -86,7 +86,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:onTextChanged="@{viewModel::onVideoIdChange}"
+                        android:text="@{viewModel.videoId.value}"
+                        app:error="@{viewModel.videoId.error}" />
                 </LinearLayout>
 
                 <LinearLayout

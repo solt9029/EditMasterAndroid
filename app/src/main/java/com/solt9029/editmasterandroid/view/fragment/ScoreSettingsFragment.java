@@ -40,5 +40,7 @@ public class ScoreSettingsFragment extends DaggerFragment {
 
         ScoreViewModel viewModel = ViewModelProviders.of(activity, factory).get(ScoreViewModel.class);
         binding.setViewModel(viewModel);
+
+        binding.setLifecycleOwner(this);
     }
 }
