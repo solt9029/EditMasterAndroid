@@ -62,10 +62,6 @@ public class ScoreFragment extends DaggerFragment {
             }
         });
 
-        binding.scrollContainerView.setOnScrollChangeListener((x, y, oldX, oldY) -> {
-            viewModel.translateY.setValue(y);
-        });
-
         binding.scrollContainerView.setOnTouchListener((view, event) -> {
             view.performClick();
             float x = event.getX();
