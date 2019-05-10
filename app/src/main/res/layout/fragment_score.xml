@@ -24,6 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.solt9029.editmasterandroid.view.customview.PlayerNotesView
+                current_time="@{viewModel.currentTime}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3" />
