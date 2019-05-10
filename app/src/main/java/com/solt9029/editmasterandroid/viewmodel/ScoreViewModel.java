@@ -7,6 +7,7 @@ import android.view.View;
 import com.mlykotom.valifi.fields.ValiFieldText;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.repository.ScoreRepository;
@@ -54,11 +55,14 @@ public class ScoreViewModel extends ViewModel {
     private ScoreViewModel viewModel = this;
     private Thread thread;
     private YouTubePlayer player;
+    private YouTubePlayerTracker tracker = new YouTubePlayerTracker();
     public AbstractYouTubePlayerListener youTubePlayerListener = new AbstractYouTubePlayerListener() {
         @Override
         public void onReady(@NotNull YouTubePlayer player) {
             super.onReady(player);
             viewModel.player = player;
+            player.addListener(tracker);
+
             if (videoId.getValue() == null) {
                 return;
             }
@@ -74,8 +78,19 @@ public class ScoreViewModel extends ViewModel {
         this.context = context;
 
         thread = new Thread(() -> {
+            long prevTimeMillis = 0;
+            float prevYouTubeSecond = 0;
+            float currentYouTubeSecond = 0;
+
             while (thread != null) {
-                Timber.d("currentTimeMillis: " + System.currentTimeMillis());
+                if (prevYouTubeSecond != tracker.getCurrentSecond()) {
+                    prevTimeMillis = System.currentTimeMillis();
+                    prevYouTubeSecond = tracker.getCurrentSecond();
+                    currentYouTubeSecond = tracker.getCurrentSecond();
+                } else {
+                    currentYouTubeSecond = prevYouTubeSecond + (System.currentTimeMillis() - prevTimeMillis) / 1000f;
+                }
+                Timber.d(currentYouTubeSecond + "");
             }
         });
         thread.start();
