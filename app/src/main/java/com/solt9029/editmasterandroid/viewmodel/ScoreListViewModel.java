@@ -1,6 +1,5 @@
 package com.solt9029.editmasterandroid.viewmodel;
 
-import com.solt9029.editmasterandroid.model.Resource;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.repository.ScoreRepository;
 

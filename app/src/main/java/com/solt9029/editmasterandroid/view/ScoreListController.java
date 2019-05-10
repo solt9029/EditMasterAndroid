@@ -4,8 +4,8 @@ import com.airbnb.epoxy.AutoModel;
 import com.airbnb.epoxy.Typed2EpoxyController;
 import com.solt9029.editmasterandroid.ProgressBarItemBindingModel_;
 import com.solt9029.editmasterandroid.ScoreItemBindingModel_;
-import com.solt9029.editmasterandroid.model.Resource;
 import com.solt9029.editmasterandroid.model.Score;
+import com.solt9029.editmasterandroid.viewmodel.Resource;
 
 import java.util.List;
 

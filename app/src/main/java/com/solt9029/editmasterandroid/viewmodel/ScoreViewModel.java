@@ -26,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ScoreViewModel extends ViewModel {
     public UnitLiveEvent navigateToScoreSettingsFragment = new UnitLiveEvent();
     public ValiFieldText username = new ValiFieldText("通りすがりの創作の達人");
-    public MutableLiveData<String> videoId = new MutableLiveData<>("jhOVibLEDhA");
+    public MutableLiveData<Field<String>> videoId = new MutableLiveData<>(new Field<>("jhOVibLEDhA"));
     public ValiFieldFloat bpm = new ValiFieldFloat(158f);
     public ValiFieldFloat offset = new ValiFieldFloat(0.75f);
     public ValiFieldFloat speed = new ValiFieldFloat(1f);
@@ -36,11 +36,13 @@ public class ScoreViewModel extends ViewModel {
     public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
 
     private ScoreRepository repository;
+    private Context context;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     ScoreViewModel(ScoreRepository repository, Context context) {
         this.repository = repository;
+        this.context = context;
 
         Resources resources = context.getResources();
         username.addMaxLengthValidator(resources.getString(R.string.max_length_validation_message, 20), 20);
@@ -49,6 +51,14 @@ public class ScoreViewModel extends ViewModel {
         offset.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
         speed.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
         comment.addMaxLengthValidator(resources.getString(R.string.max_length_validation_message, 140), 140);
+    }
+
+    public void onVideoIdChange(CharSequence sequence, int start, int before, int count) {
+        Field<String> videoIdField = new Field<>(sequence.toString());
+        if (sequence.length() == 0) {
+            videoIdField.setError(context.getResources().getString(R.string.not_empty_validation_message));
+        }
+        videoId.setValue(videoIdField);
     }
 
     @Override
@@ -67,7 +77,7 @@ public class ScoreViewModel extends ViewModel {
                 result -> {
                     username.setValue(result.getUsername());
                     comment.setValue(result.getComment());
-                    videoId.setValue(result.getVideoId());
+                    videoId.setValue(new Field<>(result.getVideoId()));
                     bpm.setValue(result.getBpm().toString());
                     offset.setValue(result.getOffset().toString());
                     speed.setValue(result.getSpeed().toString());
