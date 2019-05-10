@@ -87,8 +87,12 @@ public class ScoreFragment extends DaggerFragment {
         viewModel.notes.observe(this, notes -> {
             Timber.d("notes observed");
             draw();
+
+            if (getContext() == null) {
+                return;
+            }
             ViewGroup.LayoutParams params = binding.relativeLayout.getLayoutParams();
-            params.height = (int) CalcUtil.convertDp2Px(notes.size() / 96 * 100 + 50, getContext());
+            params.height = (int) CalcUtil.convertDp2Px((int) (notes.size() / 96.0) * 100 + 50, getContext());
             binding.relativeLayout.setLayoutParams(params);
         });
 
