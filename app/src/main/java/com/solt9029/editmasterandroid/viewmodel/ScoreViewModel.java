@@ -1,6 +1,10 @@
 package com.solt9029.editmasterandroid.viewmodel;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import com.mlykotom.valifi.fields.ValiFieldText;
+import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.repository.ScoreRepository;
 
@@ -22,24 +26,29 @@ import io.reactivex.schedulers.Schedulers;
 public class ScoreViewModel extends ViewModel {
     public UnitLiveEvent navigateToScoreSettingsFragment = new UnitLiveEvent();
     public ValiFieldText username = new ValiFieldText("通りすがりの創作の達人");
-    public MutableLiveData<String> comment = new MutableLiveData<>("創作の達人で創作譜面をしました！");
     public MutableLiveData<String> videoId = new MutableLiveData<>("jhOVibLEDhA");
     public ValiFieldFloat bpm = new ValiFieldFloat(158f);
-    public MutableLiveData<Float> offset = new MutableLiveData<>(0.75f);
-    public MutableLiveData<Float> speed = new MutableLiveData<>(1f);
-    Integer[] array = new Integer[192];
-    public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(array)));
-    public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(array)));
+    public ValiFieldFloat offset = new ValiFieldFloat(0.75f);
+    public ValiFieldFloat speed = new ValiFieldFloat(1f);
+    public ValiFieldText comment = new ValiFieldText("創作の達人で創作譜面をしました！");
+    public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
+    public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
 
     private ScoreRepository repository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    ScoreViewModel(ScoreRepository repository) {
+    ScoreViewModel(ScoreRepository repository, Context context) {
         this.repository = repository;
-        username.addMaxLengthValidator("20文字以内の文字列を指定してください。", 20);
-        username.addNotEmptyValidator();
+
+        Resources resources = context.getResources();
+        username.addMaxLengthValidator(resources.getString(R.string.max_length_validation_message, 20), 20);
+        username.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
+        bpm.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
+        offset.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
+        speed.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
+        comment.addMaxLengthValidator(resources.getString(R.string.max_length_validation_message, 140), 140);
     }
 
     @Override
@@ -60,8 +69,8 @@ public class ScoreViewModel extends ViewModel {
                     comment.setValue(result.getComment());
                     videoId.setValue(result.getVideoId());
                     bpm.setValue(result.getBpm().toString());
-                    offset.setValue(result.getOffset());
-                    speed.setValue(result.getSpeed());
+                    offset.setValue(result.getOffset().toString());
+                    speed.setValue(result.getSpeed().toString());
                     notes.setValue(result.getNotes());
                     states.setValue(new ArrayList<>(Collections.nCopies(notes.getValue().size(), 0)));
                 },
