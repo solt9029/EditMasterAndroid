@@ -84,9 +84,6 @@ public class ScoreFragment extends DaggerFragment {
             viewModel.translateY.setValue(y);
             draw();
         });
-//        binding.scrollContainerView.addOnLayoutChangeListener((view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-//            draw();
-//        });
         viewModel.notes.observe(this, notes -> {
             Timber.d("notes observed");
             draw();
@@ -100,6 +97,7 @@ public class ScoreFragment extends DaggerFragment {
             float x = event.getX();
             float y = event.getY();
             Timber.d("x" + x + ",y" + y);
+            // update notes here.
             return false;
         });
     }
