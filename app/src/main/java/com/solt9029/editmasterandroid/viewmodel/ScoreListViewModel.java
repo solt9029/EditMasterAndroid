@@ -10,7 +10,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.Single;
@@ -22,7 +21,7 @@ import timber.log.Timber;
 
 public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<Resource<List<Score>>> resource = new MutableLiveData<>(new Resource<>());
-    public ObservableBoolean isRefreshing = new ObservableBoolean(false);
+    public MutableLiveData<Boolean> isRefreshing = new MutableLiveData<>(false);
     public LiveEvent<Integer> navigateToScoreActivity = new LiveEvent<>();
     public MutableLiveData<String> keyword = new MutableLiveData<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -43,11 +42,11 @@ public class ScoreListViewModel extends ViewModel {
         Timber.d("onRefresh");
         compositeDisposable.clear();
 
-        isRefreshing.set(true);
+        isRefreshing.setValue(true);
         resource.setValue(Resource.startLoading(getData()));
         Disposable disposable = fetchScoreTimeline().subscribe(
                 result -> {
-                    isRefreshing.set(false);
+                    isRefreshing.setValue(false);
                     resource.setValue(Resource.finishLoadingSuccess(result));
                     Timber.d("refresh success");
                 },
