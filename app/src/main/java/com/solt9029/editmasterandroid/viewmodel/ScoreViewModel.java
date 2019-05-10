@@ -59,6 +59,10 @@ public class ScoreViewModel extends ViewModel {
         public void onReady(@NotNull YouTubePlayer player) {
             super.onReady(player);
             viewModel.player = player;
+            if (videoId.getValue() == null) {
+                return;
+            }
+            player.loadVideo(videoId.getValue().getValue(), 0f);
         }
     };
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
