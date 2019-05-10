@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">創作の達人</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="max_length_validation_message">%1$d文字以内の文字列を指定してください。</string>
+    <string name="not_empty_validation_message">この項目は必須です。</string>
 </resources>
