@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.solt9029.editmasterandroid.util.CalcUtil;
 import com.solt9029.editmasterandroid.view.customview.EditorBarsView;
+import com.solt9029.editmasterandroid.view.customview.ScrollContainerView;
 
 import java.util.List;
 
@@ -42,5 +43,14 @@ public class DataBindingHelper {
         params.height = (int) CalcUtil.convertDp2Px((int) (notes.size() / 96.0) * 100 + 50, context);
         view.setLayoutParams(params);
     }
+
+    @BindingAdapter("onScrollChange")
+    public static void setOnScrollChangeListener(ScrollContainerView view, ScrollContainerView.OnScrollChangeListener listener) {
+        view.setOnScrollChangeListener(listener);
+    }
+
+//            binding.scrollContainerView.setOnScrollChangeListener((x, y, oldX, oldY) -> {
+//        viewModel.translateY.setValue(y);
+//    });
 }
 

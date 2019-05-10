@@ -7,6 +7,7 @@ import com.mlykotom.valifi.fields.ValiFieldText;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.repository.ScoreRepository;
+import com.solt9029.editmasterandroid.view.customview.ScrollContainerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +36,7 @@ public class ScoreViewModel extends ViewModel {
     public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
     public Context context;
+    public ScrollContainerView.OnScrollChangeListener onScrollChange = (x, y, oldX, oldY) -> translateY.setValue(y);
     private ScoreRepository repository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
