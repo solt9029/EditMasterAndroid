@@ -64,6 +64,8 @@ public class ScoreListFragment extends DaggerFragment {
         viewModel = ViewModelProviders.of(activity, factory).get(ScoreListViewModel.class);
         binding.setViewModel(viewModel);
 
+        binding.setLifecycleOwner(this);
+
         controller = new ScoreListController(id -> viewModel.navigateToScoreActivity(id));
         binding.setAdapter(controller.getAdapter());
 
@@ -97,7 +99,7 @@ public class ScoreListFragment extends DaggerFragment {
         viewModel.keyword.observe(this, keyword -> viewModel.onLoad());
 
         viewModel.resource.observe(this, resource -> {
-            Boolean isRefreshing = viewModel.isRefreshing.get();
+            Boolean isRefreshing = viewModel.isRefreshing.getValue();
             controller.setData(resource, isRefreshing);
         });
 
