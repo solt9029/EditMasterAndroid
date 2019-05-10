@@ -1,6 +1,7 @@
 package com.solt9029.editmasterandroid.view;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -49,8 +50,8 @@ public class DataBindingHelper {
         view.setOnScrollChangeListener(listener);
     }
 
-//            binding.scrollContainerView.setOnScrollChangeListener((x, y, oldX, oldY) -> {
-//        viewModel.translateY.setValue(y);
-//    });
+    @BindingAdapter("onTouch")
+    public static void setOnTouchListener(ScrollContainerView view, View.OnTouchListener listener) {
+        view.setOnTouchListener(listener);
+    }
 }
-
