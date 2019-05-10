@@ -6,9 +6,7 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import timber.log.Timber;
-
-public class BaseSurfaceView extends SurfaceView {
+public abstract class BaseSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
     protected SurfaceHolder holder;
     protected int width;
 
@@ -30,7 +28,24 @@ public class BaseSurfaceView extends SurfaceView {
     public void init() {
         holder = getHolder();
         setFocusable(true);
+        holder.addCallback(this);
         requestFocus();
+    }
+
+    public abstract void draw();
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        draw();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        draw();
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
     }
 
     @Override

@@ -6,12 +6,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
+import android.view.SurfaceHolder;
 
 import com.solt9029.editmasterandroid.util.CalcUtil;
 
 import java.util.List;
 
-public class EditorBarsView extends BaseSurfaceView {
+public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Callback {
+    private int translateY;
+    private List<Integer> notes;
+
     public EditorBarsView(Context context) {
         super(context);
     }
@@ -24,9 +28,19 @@ public class EditorBarsView extends BaseSurfaceView {
         super(context, attrs, defStyle);
     }
 
-    public void draw(int translateY, List<Integer> notes) {
+    public void setTranslateY(int translateY) {
+        this.translateY = translateY;
+        draw();
+    }
+
+    public void setNotes(List<Integer> notes) {
+        this.notes = notes;
+        draw();
+    }
+
+    public void draw() {
         Canvas canvas = holder.lockCanvas();
-        if (canvas == null) {
+        if (canvas == null || notes == null) {
             return;
         }
 
