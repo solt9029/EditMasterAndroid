@@ -10,6 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.Single;
@@ -17,10 +18,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<Resource<List<Score>>> resource = new MutableLiveData<>(new Resource<>());
-    public MutableLiveData<Boolean> isRefreshing = new MutableLiveData<>(false);
+    public ObservableBoolean isRefreshing = new ObservableBoolean(false);
     public LiveEvent<Integer> navigateToScoreActivity = new LiveEvent<>();
     public MutableLiveData<String> keyword = new MutableLiveData<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -38,16 +40,21 @@ public class ScoreListViewModel extends ViewModel {
     }
 
     public void onRefresh() {
+        Timber.d("onRefresh");
         compositeDisposable.clear();
 
-        isRefreshing.setValue(true);
+        isRefreshing.set(true);
         resource.setValue(Resource.startLoading(getData()));
         Disposable disposable = fetchScoreTimeline().subscribe(
                 result -> {
-                    isRefreshing.setValue(false);
+                    isRefreshing.set(false);
                     resource.setValue(Resource.finishLoadingSuccess(result));
+                    Timber.d("refresh success");
                 },
-                error -> resource.setValue(Resource.finishLoadingFailure(error))
+                error -> {
+                    resource.setValue(Resource.finishLoadingFailure(error));
+                    Timber.d("refresh failure");
+                }
         );
         compositeDisposable.add(disposable);
     }

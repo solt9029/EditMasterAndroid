@@ -1,5 +1,6 @@
 package com.solt9029.editmasterandroid;
 
+import com.mlykotom.valifi.ValiFi;
 import com.solt9029.editmasterandroid.di.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
@@ -10,6 +11,8 @@ public class App extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ValiFi.install(this);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());

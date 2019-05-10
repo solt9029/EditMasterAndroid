@@ -3,6 +3,7 @@ package com.solt9029.editmasterandroid.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,12 +11,14 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.FragmentScoreBinding;
+import com.solt9029.editmasterandroid.util.CalcUtil;
 import com.solt9029.editmasterandroid.util.SafeUnboxUtil;
 import com.solt9029.editmasterandroid.view.activity.ScoreActivity;
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -49,7 +52,8 @@ public class ScoreFragment extends DaggerFragment {
         viewModel = ViewModelProviders.of(activity, factory).get(ScoreViewModel.class);
         binding.setViewModel(viewModel);
 
-        // observe videoId
+        viewModel.navigateToScoreSettingsFragment.observe(this, it -> activity.navigateToScoreSettingsFragment());
+
         ScoreFragment fragment = this;
         binding.youTubePlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
@@ -60,28 +64,52 @@ public class ScoreFragment extends DaggerFragment {
             }
         });
 
-        // editor scroll
+        binding.editorBarsView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                draw();
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                draw();
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+            }
+        });
+
         binding.scrollContainerView.setOnScrollChangeListener((x, y, oldX, oldY) -> {
             viewModel.translateY.setValue(y);
-            binding.editorBarsView.draw(y);
+            draw();
         });
-        binding.scrollContainerView.addOnLayoutChangeListener((view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-            int y = SafeUnboxUtil.safeUnbox(viewModel.translateY.getValue());
-            binding.editorBarsView.draw(y);
+//        binding.scrollContainerView.addOnLayoutChangeListener((view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+//            draw();
+//        });
+        viewModel.notes.observe(this, notes -> {
+            Timber.d("notes observed");
+            draw();
+            ViewGroup.LayoutParams params = binding.relativeLayout.getLayoutParams();
+            params.height = (int) CalcUtil.convertDp2Px(notes.size() / 96 * 100 + 50, getContext());
+            binding.relativeLayout.setLayoutParams(params);
         });
 
-        // touch event
         binding.scrollContainerView.setOnTouchListener((view, event) -> {
             view.performClick();
-
             float x = event.getX();
             float y = event.getY();
-
             Timber.d("x" + x + ",y" + y);
             return false;
         });
+    }
 
-        // settings
-        viewModel.navigateToScoreSettingsFragment.observe(this, it -> activity.navigateToScoreSettingsFragment());
+    private void draw() {
+        if (viewModel == null || binding == null) {
+            return;
+        }
+        int y = SafeUnboxUtil.safeUnbox(viewModel.translateY.getValue());
+        List<Integer> notes = viewModel.notes.getValue();
+        binding.editorBarsView.draw(y, notes);
     }
 }

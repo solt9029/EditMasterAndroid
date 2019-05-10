@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 
-public class PlayerNotesView extends BaseSurfaceView implements SurfaceHolder.Callback {
+public class PlayerNotesView extends BaseSurfaceView {
     public PlayerNotesView(Context context) {
         super(context);
     }
@@ -28,12 +28,6 @@ public class PlayerNotesView extends BaseSurfaceView implements SurfaceHolder.Ca
         canvas.drawColor(Color.RED);
 
         holder.unlockCanvasAndPost(canvas);
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        super.surfaceCreated(holder);
-        draw();
     }
 }
 
