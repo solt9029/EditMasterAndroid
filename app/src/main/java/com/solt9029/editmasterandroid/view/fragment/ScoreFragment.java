@@ -6,14 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.databinding.FragmentScoreBinding;
 import com.solt9029.editmasterandroid.view.activity.ScoreActivity;
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -30,7 +26,6 @@ public class ScoreFragment extends DaggerFragment {
     @Inject
     ViewModelProvider.Factory factory;
     private FragmentScoreBinding binding;
-    private YouTubePlayer youTubePlayer;
     private ScoreViewModel viewModel;
 
     @Override
@@ -50,15 +45,5 @@ public class ScoreFragment extends DaggerFragment {
         binding.setLifecycleOwner(this);
 
         viewModel.navigateToScoreSettingsFragment.observe(this, it -> activity.navigateToScoreSettingsFragment());
-
-        ScoreFragment fragment = this;
-        binding.youTubePlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NotNull YouTubePlayer youTubePlayer) {
-                super.onReady(youTubePlayer);
-                fragment.youTubePlayer = youTubePlayer;
-                viewModel.videoId.observe(fragment, videoId -> youTubePlayer.loadVideo(videoId.getValue(), 0f));
-            }
-        });
     }
 }
