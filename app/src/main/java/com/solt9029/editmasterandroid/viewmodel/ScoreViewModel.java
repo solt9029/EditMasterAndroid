@@ -2,6 +2,7 @@ package com.solt9029.editmasterandroid.viewmodel;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.view.View;
 
 import com.mlykotom.valifi.fields.ValiFieldText;
 import com.solt9029.editmasterandroid.R;
@@ -23,6 +24,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class ScoreViewModel extends ViewModel {
     public UnitLiveEvent navigateToScoreSettingsFragment = new UnitLiveEvent();
@@ -35,10 +37,19 @@ public class ScoreViewModel extends ViewModel {
     public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
-    public Context context;
+
     public ScrollContainerView.OnScrollChangeListener onScrollChange = (x, y, oldX, oldY) -> translateY.setValue(y);
-    private ScoreRepository repository;
+    public View.OnTouchListener onTouch = (view, event) -> {
+        view.performClick();
+        float x = event.getX();
+        float y = event.getY();
+        Timber.d("x" + x + ",y" + y);
+        return false;
+    };
+
+    public Context context;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private ScoreRepository repository;
 
     @Inject
     ScoreViewModel(ScoreRepository repository, Context context) {

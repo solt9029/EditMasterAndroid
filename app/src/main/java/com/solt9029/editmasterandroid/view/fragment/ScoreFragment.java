@@ -25,7 +25,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import dagger.android.support.DaggerFragment;
-import timber.log.Timber;
 
 public class ScoreFragment extends DaggerFragment {
     @Inject
@@ -60,15 +59,6 @@ public class ScoreFragment extends DaggerFragment {
                 fragment.youTubePlayer = youTubePlayer;
                 viewModel.videoId.observe(fragment, videoId -> youTubePlayer.loadVideo(videoId.getValue(), 0f));
             }
-        });
-
-        binding.scrollContainerView.setOnTouchListener((view, event) -> {
-            view.performClick();
-            float x = event.getX();
-            float y = event.getY();
-            Timber.d("x" + x + ",y" + y);
-            // update notes here.
-            return false;
         });
     }
 }
