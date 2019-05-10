@@ -4,6 +4,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.solt9029.editmasterandroid.view.customview.EditorBarsView;
+
+import java.util.List;
 
 import androidx.databinding.BindingAdapter;
 
@@ -17,5 +20,15 @@ public class DataBindingHelper {
     @BindingAdapter("created_at")
     public static void setCreatedAt(TextView view, String date) {
         view.setText("created at " + date);
+    }
+
+    @BindingAdapter("translateY")
+    public static void setTranslateY(EditorBarsView view, int translateY) {
+        view.setTranslateY(translateY);
+    }
+
+    @BindingAdapter("notes")
+    public static void setNotes(EditorBarsView view, List<Integer> notes) {
+        view.setNotes(notes);
     }
 }
