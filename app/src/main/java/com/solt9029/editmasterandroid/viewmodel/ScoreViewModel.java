@@ -26,7 +26,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class ScoreViewModel extends ViewModel implements Runnable {
+public class ScoreViewModel extends ViewModel {
     public UnitLiveEvent navigateToScoreSettingsFragment = new UnitLiveEvent();
     public ValiFieldText username = new ValiFieldText("通りすがりの創作の達人");
     public MutableLiveData<Field<String>> videoId = new MutableLiveData<>(new Field<>("jhOVibLEDhA"));
@@ -57,7 +57,11 @@ public class ScoreViewModel extends ViewModel implements Runnable {
         this.repository = repository;
         this.context = context;
 
-        thread = new Thread(this);
+        thread = new Thread(() -> {
+            while (thread != null) {
+                Timber.d("currentTimeMillis: " + System.currentTimeMillis());
+            }
+        });
         thread.start();
 
         Resources resources = context.getResources();
@@ -67,13 +71,6 @@ public class ScoreViewModel extends ViewModel implements Runnable {
         offset.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
         speed.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
         comment.addMaxLengthValidator(resources.getString(R.string.max_length_validation_message, 140), 140);
-    }
-
-    @Override
-    public void run() {
-        while (thread != null) {
-            Timber.d("currentTimeMillis: " + System.currentTimeMillis());
-        }
     }
 
     public void onVideoIdChange(CharSequence sequence, int start, int before, int count) {
