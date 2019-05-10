@@ -26,7 +26,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class ScoreViewModel extends ViewModel {
+public class ScoreViewModel extends ViewModel implements Runnable {
     public UnitLiveEvent navigateToScoreSettingsFragment = new UnitLiveEvent();
     public ValiFieldText username = new ValiFieldText("通りすがりの創作の達人");
     public MutableLiveData<Field<String>> videoId = new MutableLiveData<>(new Field<>("jhOVibLEDhA"));
@@ -48,6 +48,7 @@ public class ScoreViewModel extends ViewModel {
     };
 
     public Context context;
+    private Thread thread;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ScoreRepository repository;
 
@@ -56,6 +57,9 @@ public class ScoreViewModel extends ViewModel {
         this.repository = repository;
         this.context = context;
 
+        thread = new Thread(this);
+        thread.start();
+
         Resources resources = context.getResources();
         username.addMaxLengthValidator(resources.getString(R.string.max_length_validation_message, 20), 20);
         username.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
@@ -63,6 +67,13 @@ public class ScoreViewModel extends ViewModel {
         offset.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
         speed.addNotEmptyValidator(resources.getString(R.string.not_empty_validation_message));
         comment.addMaxLengthValidator(resources.getString(R.string.max_length_validation_message, 140), 140);
+    }
+
+    @Override
+    public void run() {
+        while (thread != null) {
+            Timber.d("currentTimeMillis: " + System.currentTimeMillis());
+        }
     }
 
     public void onVideoIdChange(CharSequence sequence, int start, int before, int count) {
@@ -76,6 +87,7 @@ public class ScoreViewModel extends ViewModel {
     @Override
     public void onCleared() {
         compositeDisposable.clear();
+        thread = null;
     }
 
     public void initScore(int id) {
