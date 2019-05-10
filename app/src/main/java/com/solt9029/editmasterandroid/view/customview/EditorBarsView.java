@@ -6,16 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
-import android.view.SurfaceHolder;
 
 import com.solt9029.editmasterandroid.util.CalcUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import androidx.lifecycle.MutableLiveData;
-import timber.log.Timber;
 
 public class EditorBarsView extends BaseSurfaceView {
     public EditorBarsView(Context context) {
@@ -42,7 +36,7 @@ public class EditorBarsView extends BaseSurfaceView {
 
         int barNum = notes.size() / 96;
         for (int i = 0; i < barNum; i++) {
-            canvas.drawCircle(getWidth() / 2, CalcUtil.convertDp2Px(i * 100 + 50, getContext()) - translateY, CalcUtil.convertDp2Px(20, getContext()), paint);
+            canvas.drawCircle((int) (getWidth() / 2.0), CalcUtil.convertDp2Px(i * 100 + 50, getContext()) - translateY, CalcUtil.convertDp2Px(20, getContext()), paint);
         }
 
         holder.unlockCanvasAndPost(canvas);
