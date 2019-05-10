@@ -97,7 +97,7 @@ public class ScoreListFragment extends DaggerFragment {
         viewModel.keyword.observe(this, keyword -> viewModel.onLoad());
 
         viewModel.resource.observe(this, resource -> {
-            Boolean isRefreshing = viewModel.isRefreshing.getValue();
+            Boolean isRefreshing = viewModel.isRefreshing.get();
             controller.setData(resource, isRefreshing);
         });
 

@@ -1,5 +1,6 @@
 package com.solt9029.editmasterandroid.viewmodel;
 
+import com.mlykotom.valifi.fields.ValiFieldText;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.repository.ScoreRepository;
 
@@ -20,14 +21,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ScoreViewModel extends ViewModel {
     public UnitLiveEvent navigateToScoreSettingsFragment = new UnitLiveEvent();
-    public MutableLiveData<String> username = new MutableLiveData<>("通りすがりの創作の達人");
+    public ValiFieldText username = new ValiFieldText("通りすがりの創作の達人");
     public MutableLiveData<String> comment = new MutableLiveData<>("創作の達人で創作譜面をしました！");
     public MutableLiveData<String> videoId = new MutableLiveData<>("jhOVibLEDhA");
-    public MutableLiveData<Float> bpm = new MutableLiveData<>(158f);
+    public ValiFieldFloat bpm = new ValiFieldFloat(158f);
     public MutableLiveData<Float> offset = new MutableLiveData<>(0.75f);
     public MutableLiveData<Float> speed = new MutableLiveData<>(1f);
-    public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(0, 0)));
-    public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(0, 0)));
+    Integer[] array = new Integer[192];
+    public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(array)));
+    public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(array)));
     public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
 
     private ScoreRepository repository;
@@ -36,6 +38,8 @@ public class ScoreViewModel extends ViewModel {
     @Inject
     ScoreViewModel(ScoreRepository repository) {
         this.repository = repository;
+        username.addMaxLengthValidator("20文字以内の文字列を指定してください。", 20);
+        username.addNotEmptyValidator();
     }
 
     @Override
@@ -55,7 +59,7 @@ public class ScoreViewModel extends ViewModel {
                     username.setValue(result.getUsername());
                     comment.setValue(result.getComment());
                     videoId.setValue(result.getVideoId());
-                    bpm.setValue(result.getBpm());
+                    bpm.setValue(result.getBpm().toString());
                     offset.setValue(result.getOffset());
                     speed.setValue(result.getSpeed());
                     notes.setValue(result.getNotes());

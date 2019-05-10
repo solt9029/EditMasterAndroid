@@ -76,6 +76,8 @@ dependencies {
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.mlykotom:valifi:1.4.0'
 }
 
 repositories {
