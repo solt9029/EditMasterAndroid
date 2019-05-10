@@ -1,9 +1,13 @@
 package com.solt9029.editmasterandroid.view;
 
+import android.content.Context;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.solt9029.editmasterandroid.util.CalcUtil;
 import com.solt9029.editmasterandroid.view.customview.EditorBarsView;
 
 import java.util.List;
@@ -31,4 +35,12 @@ public class DataBindingHelper {
     public static void setNotes(EditorBarsView view, List<Integer> notes) {
         view.setNotes(notes);
     }
+
+    @BindingAdapter({"notes", "context"})
+    public static void setHeight(RelativeLayout view, List<Integer> notes, Context context) {
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.height = (int) CalcUtil.convertDp2Px((int) (notes.size() / 96.0) * 100 + 50, context);
+        view.setLayoutParams(params);
+    }
 }
+
