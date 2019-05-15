@@ -12,6 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTube
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.repository.ScoreRepository;
+import com.solt9029.editmasterandroid.util.SafeUnboxUtil;
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView;
 
 import org.jetbrains.annotations.NotNull;
@@ -92,11 +93,11 @@ public class ScoreViewModel extends ViewModel {
             if (videoId.getValue() == null) {
                 return;
             }
-            player.loadVideo(videoId.getValue().getValue(), 0f);
+            player.loadVideo(videoId.getValue().getValue(), SafeUnboxUtil.safeUnbox(currentTime.getValue()));
         }
 
         @Override
-        public void onStateChange(@NotNull YouTubePlayer player, PlayerConstants.PlayerState state) {
+        public void onStateChange(@NotNull YouTubePlayer player, @NotNull PlayerConstants.PlayerState state) {
             if (state == PlayerConstants.PlayerState.PLAYING) {
                 thread = new Thread(loop);
                 thread.start();
@@ -129,6 +130,7 @@ public class ScoreViewModel extends ViewModel {
             videoIdField.setError(context.getResources().getString(R.string.not_empty_validation_message));
         }
         videoId.setValue(videoIdField);
+        currentTime.setValue(0f);
         player.loadVideo(videoIdField.getValue(), 0f);
     }
 
