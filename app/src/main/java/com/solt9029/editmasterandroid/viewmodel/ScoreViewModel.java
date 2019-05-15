@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.view.View;
 
 import com.mlykotom.valifi.fields.ValiFieldText;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker;
@@ -43,7 +44,6 @@ public class ScoreViewModel extends ViewModel {
     public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
     public MutableLiveData<Float> currentTime = new MutableLiveData<>(0f);
-
     public Context context;
     public ScrollContainerView.OnScrollChangeListener onScrollChange = (x, y, oldX, oldY) -> translateY.setValue(y);
     public View.OnTouchListener onTouch = (view, event) -> {
@@ -57,6 +57,31 @@ public class ScoreViewModel extends ViewModel {
     private Thread thread;
     private YouTubePlayer player;
     private YouTubePlayerTracker tracker = new YouTubePlayerTracker();
+    private Runnable loop = new Runnable() {
+        private long prevTimeMillis = 0;
+        private float prevYouTubeSecond = 0;
+        private float currentYouTubeSecond;
+
+        @Override
+        public void run() {
+            while (thread != null) {
+                if (prevYouTubeSecond != tracker.getCurrentSecond()) {
+                    prevTimeMillis = System.currentTimeMillis();
+                    prevYouTubeSecond = tracker.getCurrentSecond();
+                    currentYouTubeSecond = tracker.getCurrentSecond();
+                } else {
+                    currentYouTubeSecond = prevYouTubeSecond + (System.currentTimeMillis() - prevTimeMillis) / 1000f;
+                }
+                currentTime.postValue(currentYouTubeSecond);
+                Timber.d("currentTime: " + currentTime.getValue());
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException error) {
+                    Timber.e(error.getMessage());
+                }
+            }
+        }
+    };
     public AbstractYouTubePlayerListener youTubePlayerListener = new AbstractYouTubePlayerListener() {
         @Override
         public void onReady(@NotNull YouTubePlayer player) {
@@ -69,6 +94,17 @@ public class ScoreViewModel extends ViewModel {
             }
             player.loadVideo(videoId.getValue().getValue(), 0f);
         }
+
+        @Override
+        public void onStateChange(@NotNull YouTubePlayer player, PlayerConstants.PlayerState state) {
+            if (state == PlayerConstants.PlayerState.PLAYING) {
+                thread = new Thread(loop);
+                thread.start();
+                return;
+            }
+            thread = null;
+
+        }
     };
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ScoreRepository repository;
@@ -77,25 +113,6 @@ public class ScoreViewModel extends ViewModel {
     ScoreViewModel(ScoreRepository repository, Context context) {
         this.repository = repository;
         this.context = context;
-
-        thread = new Thread(() -> {
-            long prevTimeMillis = 0;
-            float prevYouTubeSecond = 0;
-            float currentYouTubeSecond;
-
-            while (thread != null) {
-                if (prevYouTubeSecond != tracker.getCurrentSecond()) {
-                    prevTimeMillis = System.currentTimeMillis();
-                    prevYouTubeSecond = tracker.getCurrentSecond();
-                    currentYouTubeSecond = tracker.getCurrentSecond();
-                } else {
-                    currentYouTubeSecond = prevYouTubeSecond + (System.currentTimeMillis() - prevTimeMillis) / 1000f;
-                }
-                currentTime.postValue(currentYouTubeSecond);
-                Timber.d("currentTime: " + currentYouTubeSecond);
-            }
-        });
-        thread.start();
 
         Resources resources = context.getResources();
         username.addMaxLengthValidator(resources.getString(R.string.max_length_validation_message, 20), 20);
