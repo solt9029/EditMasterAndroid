@@ -1,11 +1,6 @@
 package com.solt9029.editmasterandroid.constants;
 
 public class PercentageConstants {
-    public class Player {
-        public static final int SPEED_TO_SPACE_WIDTH = 3;
-    }
-
-    public class Editor {
-        public static final double BAR_START_LINE = 0.02;
-    }
+    public static final int PLAYER_SPEED_TO_SPACE_WIDTH = 3;
+    public static final double EDITOR_BAR_START_LINE = 0.02;
 }
