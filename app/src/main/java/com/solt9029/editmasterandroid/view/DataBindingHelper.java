@@ -31,9 +31,9 @@ public class DataBindingHelper {
         view.setText("created at " + date);
     }
 
-    @BindingAdapter("translateY")
-    public static void setTranslateY(EditorBarsView view, int translateY) {
-        view.setTranslateY(translateY);
+    @BindingAdapter("translateYPx")
+    public static void setTranslateYPx(EditorBarsView view, int translateYPx) {
+        view.setTranslateYPx(translateYPx);
     }
 
     @BindingAdapter("notes")

@@ -13,7 +13,7 @@ import com.solt9029.editmasterandroid.util.CalcUtil;
 import java.util.List;
 
 public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Callback {
-    private int translateY;
+    private int translateYPx;
     private List<Integer> notes;
 
     public EditorBarsView(Context context) {
@@ -28,8 +28,8 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
         super(context, attrs, defStyle);
     }
 
-    public void setTranslateY(int translateY) {
-        this.translateY = translateY;
+    public void setTranslateYPx(int translateYPx) {
+        this.translateYPx = translateYPx;
         draw();
     }
 
@@ -50,7 +50,7 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
 
         int barNum = notes.size() / 96;
         for (int i = 0; i < barNum; i++) {
-            canvas.drawCircle((int) (getWidth() / 2.0), CalcUtil.convertDp2Px(i * 100 + 50, getContext()) - translateY, CalcUtil.convertDp2Px(20, getContext()), paint);
+            canvas.drawCircle((int) (getWidth() / 2.0), CalcUtil.convertDp2Px(i * 100 + 50, getContext()) - translateYPx, CalcUtil.convertDp2Px(20, getContext()), paint);
         }
 
         holder.unlockCanvasAndPost(canvas);
