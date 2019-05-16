@@ -62,7 +62,7 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:onRefreshListener="@{() -> viewModel.onRefresh()}"
-                app:refreshing="@{viewModel.isRefreshing}">
+                app:refreshing="@{safeUnbox(viewModel.isRefreshing)}">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"

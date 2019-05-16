@@ -43,10 +43,10 @@ public class ScoreViewModel extends ViewModel {
     public ValiFieldText comment = new ValiFieldText("創作の達人で創作譜面をしました！");
     public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
-    public MutableLiveData<Integer> translateY = new MutableLiveData<>(0);
+    public MutableLiveData<Integer> translateYPx = new MutableLiveData<>(0);
     public MutableLiveData<Float> currentTime = new MutableLiveData<>(0f);
     public Context context;
-    public ScrollContainerView.OnScrollChangeListener onScrollChange = (x, y, oldX, oldY) -> translateY.setValue(y);
+    public ScrollContainerView.OnScrollChangeListener onScrollChange = (x, y, oldX, oldY) -> translateYPx.setValue(y);
     public View.OnTouchListener onTouch = (view, event) -> {
         view.performClick();
         float x = event.getX();

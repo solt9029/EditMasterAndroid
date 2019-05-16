@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.solt9029.editmasterandroid.view.customview.PlayerNotesView
-                current_time="@{viewModel.currentTime}"
+                current_time="@{safeUnbox(viewModel.currentTime)}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3" />
@@ -64,7 +64,7 @@
                 <com.solt9029.editmasterandroid.view.customview.EditorBarsView xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/editor_bars_view"
                     notes="@{viewModel.notes}"
-                    translateY="@{viewModel.translateY}"
+                    translateYPx="@{safeUnbox(viewModel.translateYPx)}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#00ffffff" />
