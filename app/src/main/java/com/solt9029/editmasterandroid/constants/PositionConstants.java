@@ -1,4 +1,4 @@
-package com.solt9029.editmasterandroid.constant;
+package com.solt9029.editmasterandroid.constants;
 
 public class PositionConstants {
     public class Player {

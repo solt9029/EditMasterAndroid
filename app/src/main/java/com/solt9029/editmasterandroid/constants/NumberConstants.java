@@ -1,4 +1,4 @@
-package com.solt9029.editmasterandroid.constant;
+package com.solt9029.editmasterandroid.constants;
 
 public class NumberConstants {
     public static final int NOTES_PER_BAR = 96;

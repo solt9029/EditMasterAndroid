@@ -3,9 +3,9 @@ package com.solt9029.editmasterandroid.util;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
-import com.solt9029.editmasterandroid.constant.NumberConstants;
-import com.solt9029.editmasterandroid.constant.PercentageConstants;
-import com.solt9029.editmasterandroid.constant.PositionConstants;
+import com.solt9029.editmasterandroid.constants.NumberConstants;
+import com.solt9029.editmasterandroid.constants.PercentageConstants;
+import com.solt9029.editmasterandroid.constants.PositionConstants;
 
 public final class CalcUtil {
     public static float convertPx2Dp(int px, Context context) {
@@ -25,10 +25,10 @@ public final class CalcUtil {
         return 1f / notesPerSecond;
     }
 
-    public static NoteIndexRange<Double> calcNoteIndexRangeInSecondRange(double secondRange, float currentTime, float bpm, float offset) {
-        double first = Math.ceil((currentTime - secondRange - offset) / calcSecondsPerNote(bpm));
-        double last = Math.floor((currentTime + secondRange - offset) / calcSecondsPerNote(bpm));
-        return new NoteIndexRange<>(first, last);
+    public static IndexRange calcNoteIndexRangeInSecondRange(double secondRange, float currentTime, float bpm, float offset) {
+        int first = (int) Math.ceil((currentTime - secondRange - offset) / calcSecondsPerNote(bpm));
+        int last = (int) Math.floor((currentTime + secondRange - offset) / calcSecondsPerNote(bpm));
+        return new IndexRange(first, last);
     }
 
     public static float calcFirstNoteX(float currentTime, float bpm, float offset, float speed) {
