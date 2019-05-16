@@ -48,7 +48,7 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
         Paint paint = new Paint();
         paint.setStyle(Style.FILL);
 
-        int barNum = notes.size() / 96;
+        int barNum = CalcUtil.calcBarNum(notes.size());
         for (int i = 0; i < barNum; i++) {
             canvas.drawCircle((int) (getWidth() / 2.0), CalcUtil.convertDp2Px(i * 100 + 50, getContext()) - translateYPx, CalcUtil.convertDp2Px(20, getContext()), paint);
         }
