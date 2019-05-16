@@ -85,9 +85,9 @@ public final class CalcUtil {
         return new IndexRange(first, last);
     }
 
-    public static int calcEditorCanvasHeightPx(int notesLength, Context context) {
+    public static float calcEditorCanvasHeightPx(int notesLength, Context context) {
         int heightDp = (int) Math.ceil((double) notesLength / NumberConstants.NOTES_PER_BAR) * SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT;
-        return (int) Math.ceil(convertDp2Px(heightDp, context));
+        return convertDp2Px(heightDp, context);
     }
 
     public static float calcBarWidth(int widthPx, Context context) {
