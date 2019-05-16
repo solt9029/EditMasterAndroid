@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 
+import com.solt9029.editmasterandroid.constants.SizeConstants;
 import com.solt9029.editmasterandroid.util.CalcUtil;
 
 public class PlayerNotesView extends BaseSurfaceView {
@@ -38,7 +39,8 @@ public class PlayerNotesView extends BaseSurfaceView {
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
 
-        canvas.drawCircle(currentTime * 10, (int) (getHeight() / 2.0), CalcUtil.convertDp2Px(20, getContext()), paint);
+        float radiusPx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_NORMAL_OUTSIDE, getContext());
+        canvas.drawCircle(currentTime * 10, (int) (getHeight() / 2.0), radiusPx, paint);
 
         holder.unlockCanvasAndPost(canvas);
     }
