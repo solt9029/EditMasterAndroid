@@ -11,7 +11,7 @@ interface ScoreService {
     fun getScore(@Path("id") id: Int?): Single<Score>
 
     @GET("scores/timeline")
-    fun getScoreTimeline(@Query("count") count: Int?, @Query("keyword") keyword: String,
+    fun getScoreTimeline(@Query("count") count: Int?, @Query("keyword") keyword: String?,
                          @Query("max_id") maxId: Int?, @Query("since_id") sinceId: Int?): Single<List<Score>>
 
     companion object {
