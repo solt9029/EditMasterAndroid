@@ -2,11 +2,11 @@ package com.solt9029.editmasterandroid.view.customview;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
+import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.constants.PositionConstants;
 import com.solt9029.editmasterandroid.constants.SizeConstants;
 import com.solt9029.editmasterandroid.util.CalcUtil;
@@ -46,9 +46,11 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
             return;
         }
 
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(getResources().getColor(R.color.colorBackground));
+
         Paint paint = new Paint();
         paint.setStyle(Style.FILL);
+        paint.setColor(getResources().getColor(R.color.gray));
 
         int barNum = CalcUtil.calcBarNum(notes.size());
         Timber.d("barNum: " + barNum);
