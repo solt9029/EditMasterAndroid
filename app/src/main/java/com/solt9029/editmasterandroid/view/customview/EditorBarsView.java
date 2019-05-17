@@ -7,7 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
+import com.solt9029.editmasterandroid.constants.PositionConstants;
+import com.solt9029.editmasterandroid.constants.SizeConstants;
 import com.solt9029.editmasterandroid.util.CalcUtil;
+import timber.log.Timber;
 
 import java.util.List;
 
@@ -48,13 +51,24 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
         paint.setStyle(Style.FILL);
 
         int barNum = CalcUtil.calcBarNum(notes.size());
+        Timber.d("barNum: " + barNum);
         for (int i = 0; i < barNum; i++) {
-            canvas.drawCircle((int) (getWidth() / 2.0),
-                    CalcUtil.convertDp2Px(i * 100 + 50, getContext()) - translateYPx,
-                    CalcUtil.convertDp2Px(20, getContext()), paint);
+            float yPx = i * CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT, getContext()) - translateYPx;
+            drawBar(yPx, canvas, paint);
         }
 
         holder.unlockCanvasAndPost(canvas);
     }
+
+    public void drawBar(float yPx, Canvas canvas, Paint paint) {
+        float leftPx = CalcUtil.convertDp2Px(PositionConstants.EDITOR_BAR_X, getContext());
+        float topPx = yPx + CalcUtil.convertDp2Px(
+                (float) (SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT - SizeConstants.EDITOR_BAR_INSIDE_HEIGHT) / 2,
+                getContext());
+        float rightPx = leftPx + CalcUtil.calcBarWidthPx(getWidth(), getContext());
+        float bottomPx = topPx + CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_INSIDE_HEIGHT, getContext());
+        canvas.drawRect(leftPx, topPx, rightPx, bottomPx, paint);
+    }
+
 }
 

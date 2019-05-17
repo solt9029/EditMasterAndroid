@@ -38,9 +38,9 @@ public class ScoreViewModel extends ViewModel {
     public ValiFieldFloat speed = new ValiFieldFloat(1f);
     public ValiFieldText comment = new ValiFieldText("創作の達人で創作譜面をしました！");
     public MutableLiveData<List<Integer>> notes =
-            new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
+            new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192 * 5])));
     public MutableLiveData<List<Integer>> states =
-            new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
+            new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192 * 5])));
     public MutableLiveData<Integer> translateYPx = new MutableLiveData<>(0);
     public MutableLiveData<Float> currentTime = new MutableLiveData<>(0f);
     public Context context;
