@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-
 import com.solt9029.editmasterandroid.constants.SizeConstants;
 import com.solt9029.editmasterandroid.util.CalcUtil;
 

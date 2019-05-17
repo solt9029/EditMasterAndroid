@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
-
 import com.solt9029.editmasterandroid.util.CalcUtil;
 
 import java.util.List;
@@ -50,7 +49,9 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
 
         int barNum = CalcUtil.calcBarNum(notes.size());
         for (int i = 0; i < barNum; i++) {
-            canvas.drawCircle((int) (getWidth() / 2.0), CalcUtil.convertDp2Px(i * 100 + 50, getContext()) - translateYPx, CalcUtil.convertDp2Px(20, getContext()), paint);
+            canvas.drawCircle((int) (getWidth() / 2.0),
+                    CalcUtil.convertDp2Px(i * 100 + 50, getContext()) - translateYPx,
+                    CalcUtil.convertDp2Px(20, getContext()), paint);
         }
 
         holder.unlockCanvasAndPost(canvas);

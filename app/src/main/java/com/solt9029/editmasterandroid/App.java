@@ -2,7 +2,6 @@ package com.solt9029.editmasterandroid;
 
 import com.mlykotom.valifi.ValiFi;
 import com.solt9029.editmasterandroid.di.DaggerAppComponent;
-
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
 import timber.log.Timber;

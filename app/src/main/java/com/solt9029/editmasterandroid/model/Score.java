@@ -40,7 +40,8 @@ public class Score {
     @Expose
     private String updatedAt;
 
-    public Score(String username, String comment, String videoId, Float bpm, Float offset, Float speed, List<Integer> notes) {
+    public Score(String username, String comment, String videoId, Float bpm, Float offset, Float speed,
+                 List<Integer> notes) {
         this.username = username;
         this.comment = comment;
         this.videoId = videoId;

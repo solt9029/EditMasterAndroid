@@ -2,13 +2,11 @@ package com.solt9029.editmasterandroid.util;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
-
+import androidx.annotation.Nullable;
 import com.solt9029.editmasterandroid.constants.NumberConstants;
 import com.solt9029.editmasterandroid.constants.PercentageConstants;
 import com.solt9029.editmasterandroid.constants.PositionConstants;
 import com.solt9029.editmasterandroid.constants.SizeConstants;
-
-import androidx.annotation.Nullable;
 
 public final class CalcUtil {
     public static float convertPx2Dp(int px, Context context) {
@@ -28,7 +26,8 @@ public final class CalcUtil {
         return 1f / notesPerSecond;
     }
 
-    public static IndexRange calcNoteIndexRangeInSecondRange(double secondRange, float currentTime, float bpm, float offset) {
+    public static IndexRange calcNoteIndexRangeInSecondRange(double secondRange, float currentTime, float bpm,
+                                                             float offset) {
         int first = (int) Math.ceil((currentTime - secondRange - offset) / calcSecondsPerNote(bpm));
         int last = (int) Math.floor((currentTime + secondRange - offset) / calcSecondsPerNote(bpm));
         return new IndexRange(first, last);
@@ -39,9 +38,12 @@ public final class CalcUtil {
         return PositionConstants.PLAYER_JUDGE_X + ((offset - currentTime) / calcSecondsPerNote(bpm)) * spaceWidth;
     }
 
-    public static IndexRange calcNoteIndexRangeInEditorCanvas(int notesSize, int translateYPx, int heightPx, Context context) {
-        final int firstBarIndex = (int) Math.floor((double) convertPx2Dp(translateYPx, context) / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
-        final int lastBarIndex = (int) Math.ceil((double) convertPx2Dp(translateYPx + heightPx, context) / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
+    public static IndexRange calcNoteIndexRangeInEditorCanvas(int notesSize, int translateYPx, int heightPx,
+                                                              Context context) {
+        final int firstBarIndex = (int) Math
+                .floor((double) convertPx2Dp(translateYPx, context) / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
+        final int lastBarIndex = (int) Math.ceil((double) convertPx2Dp(translateYPx + heightPx, context) /
+                SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
 
         final int firstNoteIndex = firstBarIndex * NumberConstants.NOTES_PER_BAR;
         int lastNoteIndex = lastBarIndex * NumberConstants.NOTES_PER_BAR - 1;
@@ -52,9 +54,12 @@ public final class CalcUtil {
         return new IndexRange(firstNoteIndex, lastNoteIndex);
     }
 
-    public static IndexRange calcBarIndexRangeInEditorCanvas(int barNum, int translateYPx, int heightPx, Context context) {
-        final int first = (int) Math.floor((double) convertPx2Dp(translateYPx, context) / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
-        int last = (int) Math.ceil((double) convertPx2Dp(translateYPx + heightPx, context) / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
+    public static IndexRange calcBarIndexRangeInEditorCanvas(int barNum, int translateYPx, int heightPx,
+                                                             Context context) {
+        final int first = (int) Math
+                .floor((double) convertPx2Dp(translateYPx, context) / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
+        int last = (int) Math.ceil((double) convertPx2Dp(translateYPx + heightPx, context) /
+                SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
         if (last >= barNum) {
             last = barNum - 1;
         }
@@ -86,7 +91,8 @@ public final class CalcUtil {
     }
 
     public static float calcEditorCanvasHeightPx(int notesSize, Context context) {
-        int heightDp = (int) Math.ceil((double) notesSize / NumberConstants.NOTES_PER_BAR) * SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT;
+        int heightDp = (int) Math.ceil((double) notesSize / NumberConstants.NOTES_PER_BAR) *
+                SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT;
         return convertDp2Px(heightDp, context);
     }
 

@@ -1,11 +1,8 @@
 package com.solt9029.editmasterandroid.view.activity;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.solt9029.editmasterandroid.R;
-
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class ScoreListActivity extends DaggerAppCompatActivity {

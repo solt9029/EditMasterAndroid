@@ -3,18 +3,16 @@ package com.solt9029.editmasterandroid.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import com.solt9029.editmasterandroid.R;
 import com.solt9029.editmasterandroid.view.fragment.ScoreFragment;
 import com.solt9029.editmasterandroid.view.fragment.ScoreSettingsFragment;
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel;
-
-import javax.inject.Inject;
-
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import dagger.android.support.DaggerAppCompatActivity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import javax.inject.Inject;
 
 public class ScoreActivity extends DaggerAppCompatActivity {
     public static final String ID = "score_id"; // for intent.

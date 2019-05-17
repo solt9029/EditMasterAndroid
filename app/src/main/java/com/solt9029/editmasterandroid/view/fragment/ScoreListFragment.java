@@ -3,29 +3,11 @@ package com.solt9029.editmasterandroid.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.solt9029.editmasterandroid.R;
-import com.solt9029.editmasterandroid.databinding.FragmentScoreListBinding;
-import com.solt9029.editmasterandroid.view.EndlessScrollListener;
-import com.solt9029.editmasterandroid.view.ScoreListController;
-import com.solt9029.editmasterandroid.view.activity.ScoreListActivity;
-import com.solt9029.editmasterandroid.viewmodel.ScoreListViewModel;
-
-import java.util.Objects;
-
-import javax.inject.Inject;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -34,7 +16,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.solt9029.editmasterandroid.R;
+import com.solt9029.editmasterandroid.databinding.FragmentScoreListBinding;
+import com.solt9029.editmasterandroid.view.EndlessScrollListener;
+import com.solt9029.editmasterandroid.view.ScoreListController;
+import com.solt9029.editmasterandroid.view.activity.ScoreListActivity;
+import com.solt9029.editmasterandroid.viewmodel.ScoreListViewModel;
 import dagger.android.support.DaggerFragment;
+
+import javax.inject.Inject;
+import java.util.Objects;
 
 public class ScoreListFragment extends DaggerFragment {
     @Inject
@@ -51,7 +42,8 @@ public class ScoreListFragment extends DaggerFragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_score_list, container, false);
         return binding.getRoot();
     }
@@ -88,7 +80,8 @@ public class ScoreListFragment extends DaggerFragment {
                 viewModel.keyword.setValue(v.getText().toString());
 
                 // close keyboard
-                InputMethodManager manager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager manager =
+                        (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
                 manager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
                 return true;
