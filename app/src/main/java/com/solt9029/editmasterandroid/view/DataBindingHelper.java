@@ -14,6 +14,7 @@ import com.solt9029.editmasterandroid.util.CalcUtil;
 import com.solt9029.editmasterandroid.view.customview.EditorBarsView;
 import com.solt9029.editmasterandroid.view.customview.PlayerNotesView;
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView;
+import timber.log.Timber;
 
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class DataBindingHelper {
     public static void setHeight(RelativeLayout view, List<Integer> notes, Context context) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height = (int) (CalcUtil.calcEditorHeightPx(notes.size(), context));
+        Timber.d("editorHeightPx: " + params.height);
         view.setLayoutParams(params);
     }
 
