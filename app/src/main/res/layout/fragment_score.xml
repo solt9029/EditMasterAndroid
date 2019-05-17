@@ -20,7 +20,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                app:layout_constrainedHeight="true"
                 app:layout_constraintBottom_toTopOf="@id/palette"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
             <com.solt9029.editmasterandroid.view.customview.PlayerNotesView
@@ -68,8 +71,10 @@
                         notes="@{viewModel.notes}"
                         translateYPx="@{safeUnbox(viewModel.translateYPx)}"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#00ffffff"/>
+                        android:layout_height="wrap_content"
+                        android:background="#00ffffff"
+                        android:layout_y="0dp"
+                        android:layout_x="0dp"/>
             </AbsoluteLayout>
 
         </LinearLayout>
