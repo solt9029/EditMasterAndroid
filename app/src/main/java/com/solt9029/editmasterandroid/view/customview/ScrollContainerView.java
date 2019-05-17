@@ -11,15 +11,15 @@ public class ScrollContainerView extends ScrollView {
     @Nullable
     private OnScrollChangeListener listener;
 
-    ScrollContainerView(Context context) {
+    public ScrollContainerView(Context context) {
         super(context);
     }
 
-    ScrollContainerView(Context context, AttributeSet attrs) {
+    public ScrollContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    ScrollContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ScrollContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
