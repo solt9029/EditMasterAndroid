@@ -24,7 +24,7 @@ public class AppModule {
     ScoreService provideScoreService() {
         final Retrofit retrofit = new Retrofit
                 .Builder()
-                .baseUrl(ScoreService.BASE_URL)
+                .baseUrl(ScoreService.Companion.getBASE_URL())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
