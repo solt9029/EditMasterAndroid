@@ -4,7 +4,6 @@ package com.solt9029.editmasterandroid.view.customview;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
-
 import androidx.annotation.Nullable;
 import timber.log.Timber;
 

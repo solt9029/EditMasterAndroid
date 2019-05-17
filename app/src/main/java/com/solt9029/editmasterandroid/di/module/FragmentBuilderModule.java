@@ -3,7 +3,6 @@ package com.solt9029.editmasterandroid.di.module;
 import com.solt9029.editmasterandroid.view.fragment.ScoreFragment;
 import com.solt9029.editmasterandroid.view.fragment.ScoreListFragment;
 import com.solt9029.editmasterandroid.view.fragment.ScoreSettingsFragment;
-
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 

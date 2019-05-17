@@ -4,11 +4,10 @@ package com.solt9029.editmasterandroid.di;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
+import java.util.Map;
 
 @Singleton
 public class ViewModelFactory implements ViewModelProvider.Factory {

@@ -1,22 +1,20 @@
 package com.solt9029.editmasterandroid.viewmodel;
 
-import com.solt9029.editmasterandroid.model.Score;
-import com.solt9029.editmasterandroid.repository.ScoreRepository;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import com.solt9029.editmasterandroid.model.Score;
+import com.solt9029.editmasterandroid.repository.ScoreRepository;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScoreListViewModel extends ViewModel {
     public MutableLiveData<Resource<List<Score>>> resource = new MutableLiveData<>(new Resource<>());
@@ -26,8 +24,7 @@ public class ScoreListViewModel extends ViewModel {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ScoreRepository repository;
 
-    @Inject
-    ScoreListViewModel(ScoreRepository repository) {
+    @Inject ScoreListViewModel(ScoreRepository repository) {
         this.repository = repository;
         onLoad();
     }

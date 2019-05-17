@@ -3,7 +3,8 @@ package com.solt9029.editmasterandroid.viewmodel;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.View;
-
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import com.mlykotom.valifi.fields.ValiFieldText;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -14,24 +15,19 @@ import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.repository.ScoreRepository;
 import com.solt9029.editmasterandroid.util.SafeUnboxUtil;
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import org.jetbrains.annotations.NotNull;
 import timber.log.Timber;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ScoreViewModel extends ViewModel {
     public UnitLiveEvent navigateToScoreSettingsFragment = new UnitLiveEvent();
@@ -41,8 +37,10 @@ public class ScoreViewModel extends ViewModel {
     public ValiFieldFloat offset = new ValiFieldFloat(0.75f);
     public ValiFieldFloat speed = new ValiFieldFloat(1f);
     public ValiFieldText comment = new ValiFieldText("創作の達人で創作譜面をしました！");
-    public MutableLiveData<List<Integer>> notes = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
-    public MutableLiveData<List<Integer>> states = new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
+    public MutableLiveData<List<Integer>> notes =
+            new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
+    public MutableLiveData<List<Integer>> states =
+            new MutableLiveData<>(new ArrayList<>(Arrays.asList(new Integer[192])));
     public MutableLiveData<Integer> translateYPx = new MutableLiveData<>(0);
     public MutableLiveData<Float> currentTime = new MutableLiveData<>(0f);
     public Context context;
@@ -110,8 +108,7 @@ public class ScoreViewModel extends ViewModel {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private ScoreRepository repository;
 
-    @Inject
-    ScoreViewModel(ScoreRepository repository, Context context) {
+    @Inject ScoreViewModel(ScoreRepository repository, Context context) {
         this.repository = repository;
         this.context = context;
 

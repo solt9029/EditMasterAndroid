@@ -5,279 +5,281 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.solt9029.editmasterandroid.viewmodel.ScoreViewModel" />
+                name="viewModel"
+                type="com.solt9029.editmasterandroid.viewmodel.ScoreViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.activity.ScoreActivity">
+                                                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                       xmlns:tools="http://schemas.android.com/tools"
+                                                       android:layout_width="match_parent"
+                                                       android:layout_height="match_parent"
+                                                       tools:context=".view.activity.ScoreActivity">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/palette"
-            app:layout_constraintTop_toTopOf="parent">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/palette"
+                app:layout_constraintTop_toTopOf="parent">
 
             <com.solt9029.editmasterandroid.view.customview.PlayerNotesView
-                current_time="@{safeUnbox(viewModel.currentTime)}"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3" />
+                    current_time="@{safeUnbox(viewModel.currentTime)}"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"/>
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/you_tube_player"
-                you_tube_player_listener="@{viewModel.youTubePlayerListener}"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                app:showFullScreenButton="false" />
+                    android:id="@+id/you_tube_player"
+                    you_tube_player_listener="@{viewModel.youTubePlayerListener}"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    app:showFullScreenButton="false"/>
 
             <AbsoluteLayout
-                android:id="@+id/editor"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="11"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-                <com.solt9029.editmasterandroid.view.customview.ScrollContainerView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/scroll_container_view"
-                    onScrollChange="@{viewModel.onScrollChange}"
-                    onTouch="@{viewModel.onTouch}"
+                    android:id="@+id/editor"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="0dp"
+                    android:layout_weight="11"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                <com.solt9029.editmasterandroid.view.customview.ScrollContainerView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/scroll_container_view"
+                        onScrollChange="@{viewModel.onScrollChange}"
+                        onTouch="@{viewModel.onTouch}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                     <RelativeLayout
-                        android:id="@+id/relative_layout"
-                        context="@{viewModel.context}"
-                        notes="@{viewModel.notes}"
-                        android:layout_width="match_parent"
-                        android:layout_height="2000dp" />
+                            android:id="@+id/relative_layout"
+                            context="@{viewModel.context}"
+                            notes="@{viewModel.notes}"
+                            android:layout_width="match_parent"
+                            android:layout_height="2000dp"/>
                 </com.solt9029.editmasterandroid.view.customview.ScrollContainerView>
 
-                <com.solt9029.editmasterandroid.view.customview.EditorBarsView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/editor_bars_view"
-                    notes="@{viewModel.notes}"
-                    translateYPx="@{safeUnbox(viewModel.translateYPx)}"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#00ffffff" />
+                <com.solt9029.editmasterandroid.view.customview.EditorBarsView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/editor_bars_view"
+                        notes="@{viewModel.notes}"
+                        translateYPx="@{safeUnbox(viewModel.translateYPx)}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#00ffffff"/>
             </AbsoluteLayout>
 
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/palette"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent">
+                      xmlns:app="http://schemas.android.com/apk/res-auto"
+                      android:id="@+id/palette"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                 <TextView
-                    fontPath="fonts/RictyDiminished-Bold.ttf"
-                    android:layout_width="0dp"
-                    android:layout_height="33dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="6"
-                    android:background="#ffffff"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="1小節の分割数"
-                    android:textColor="@color/black"
-                    android:textSize="12dp" />
+                        fontPath="fonts/RictyDiminished-Bold.ttf"
+                        android:layout_width="0dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="6"
+                        android:background="#ffffff"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="1小節の分割数"
+                        android:textColor="@color/black"
+                        android:textSize="12dp"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButtonGroup
-                    android:id="@+id/division"
-                    android:layout_width="0dp"
-                    android:layout_height="33dp"
-                    android:layout_weight="10"
-                    app:rrbg_selectorFullSize="true">
+                        android:id="@+id/division"
+                        android:layout_width="0dp"
+                        android:layout_height="33dp"
+                        android:layout_weight="10"
+                        app:rrbg_selectorFullSize="true">
 
                     <co.ceryle.radiorealbutton.RadioRealButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="33dp"
-                        app:rrb_checked="true"
-                        app:rrb_drawable="@drawable/sixteen"
-                        app:rrb_drawableHeight="30dp"
-                        app:rrb_drawablePadding="2dp"
-                        app:rrb_drawableWidth="30dp"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="#000000" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            app:rrb_checked="true"
+                            app:rrb_drawable="@drawable/sixteen"
+                            app:rrb_drawableHeight="30dp"
+                            app:rrb_drawablePadding="2dp"
+                            app:rrb_drawableWidth="30dp"
+                            app:rrb_ripple="true"
+                            app:rrb_rippleColor="#000000"/>
 
                     <co.ceryle.radiorealbutton.RadioRealButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="33dp"
-                        app:rrb_checked="true"
-                        app:rrb_drawable="@drawable/twenty_four"
-                        app:rrb_drawableHeight="30dp"
-                        app:rrb_drawablePadding="2dp"
-                        app:rrb_drawableWidth="30dp"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="#000000" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            app:rrb_checked="true"
+                            app:rrb_drawable="@drawable/twenty_four"
+                            app:rrb_drawableHeight="30dp"
+                            app:rrb_drawablePadding="2dp"
+                            app:rrb_drawableWidth="30dp"
+                            app:rrb_ripple="true"
+                            app:rrb_rippleColor="#000000"/>
 
                     <co.ceryle.radiorealbutton.RadioRealButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="33dp"
-                        app:rrb_checked="true"
-                        app:rrb_drawable="@drawable/thirty_two"
-                        app:rrb_drawableHeight="30dp"
-                        app:rrb_drawablePadding="2dp"
-                        app:rrb_drawableWidth="30dp"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="#000000" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            app:rrb_checked="true"
+                            app:rrb_drawable="@drawable/thirty_two"
+                            app:rrb_drawableHeight="30dp"
+                            app:rrb_drawablePadding="2dp"
+                            app:rrb_drawableWidth="30dp"
+                            app:rrb_ripple="true"
+                            app:rrb_rippleColor="#000000"/>
 
                     <co.ceryle.radiorealbutton.RadioRealButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="33dp"
-                        app:rrb_checked="true"
-                        app:rrb_drawable="@drawable/forty_eight"
-                        app:rrb_drawableHeight="30dp"
-                        app:rrb_drawablePadding="2dp"
-                        app:rrb_drawableWidth="30dp"
-                        app:rrb_ripple="true"
-                        app:rrb_rippleColor="#000000" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="33dp"
+                            app:rrb_checked="true"
+                            app:rrb_drawable="@drawable/forty_eight"
+                            app:rrb_drawableHeight="30dp"
+                            app:rrb_drawablePadding="2dp"
+                            app:rrb_drawableWidth="30dp"
+                            app:rrb_ripple="true"
+                            app:rrb_rippleColor="#000000"/>
 
 
                 </co.ceryle.radiorealbutton.RadioRealButtonGroup>
 
                 <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/save"
-                    android:layout_width="0dp"
-                    android:layout_height="33dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="3"
-                    android:background="@drawable/image_button_background"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_save_black_24dp" />
+                        android:id="@+id/save"
+                        android:layout_width="0dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:background="@drawable/image_button_background"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_save_black_24dp"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/settings"
-                    android:layout_width="0dp"
-                    android:layout_height="33dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="3"
-                    android:background="@drawable/image_button_background"
-                    android:onClick="@{() -> viewModel.navigateToScoreSettingsFragment()}"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_settings_black_24dp" />
+                        android:id="@+id/settings"
+                        android:layout_width="0dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="3"
+                        android:background="@drawable/image_button_background"
+                        android:onClick="@{() -> viewModel.navigateToScoreSettingsFragment()}"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_settings_black_24dp"/>
             </LinearLayout>
 
             <co.ceryle.radiorealbutton.RadioRealButtonGroup
-                android:id="@+id/note"
-                android:layout_width="match_parent"
-                android:layout_height="33dp"
-                app:rrbg_selectorFullSize="true">
+                    android:id="@+id/note"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    app:rrbg_selectorFullSize="true">
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_checked="true"
-                    app:rrb_drawable="@drawable/don"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_checked="true"
+                        app:rrb_drawable="@drawable/don"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_drawable="@drawable/ka"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_drawable="@drawable/ka"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_drawable="@drawable/bigdon"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_drawable="@drawable/bigdon"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_drawable="@drawable/bigka"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_drawable="@drawable/bigka"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_drawable="@drawable/renda"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_drawable="@drawable/renda"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_drawable="@drawable/bigrenda"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_drawable="@drawable/bigrenda"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_drawable="@drawable/balloon"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_drawable="@drawable/balloon"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_drawable="@drawable/space"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_drawable="@drawable/space"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_drawable="@drawable/ic_content_copy_black_24dp"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_drawable="@drawable/ic_content_copy_black_24dp"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    app:rrb_drawable="@drawable/ic_content_paste_black_24dp"
-                    app:rrb_drawableHeight="30dp"
-                    app:rrb_drawablePadding="2dp"
-                    app:rrb_drawableWidth="30dp"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="#000000" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="33dp"
+                        app:rrb_drawable="@drawable/ic_content_paste_black_24dp"
+                        app:rrb_drawableHeight="30dp"
+                        app:rrb_drawablePadding="2dp"
+                        app:rrb_drawableWidth="30dp"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="#000000"/>
             </co.ceryle.radiorealbutton.RadioRealButtonGroup>
 
         </LinearLayout>

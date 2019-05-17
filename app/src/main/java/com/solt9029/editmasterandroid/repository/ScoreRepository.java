@@ -2,12 +2,10 @@ package com.solt9029.editmasterandroid.repository;
 
 import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.service.ScoreService;
-
-import java.util.List;
+import io.reactivex.Single;
 
 import javax.inject.Inject;
-
-import io.reactivex.Single;
+import java.util.List;
 
 public class ScoreRepository {
     private ScoreService service;

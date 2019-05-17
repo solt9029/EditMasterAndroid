@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -16,8 +16,6 @@ import com.solt9029.editmasterandroid.view.customview.PlayerNotesView;
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView;
 
 import java.util.List;
-
-import androidx.databinding.BindingAdapter;
 
 public class DataBindingHelper {
     @BindingAdapter("youtube_image")
@@ -49,7 +47,8 @@ public class DataBindingHelper {
     }
 
     @BindingAdapter("onScrollChange")
-    public static void setOnScrollChangeListener(ScrollContainerView view, ScrollContainerView.OnScrollChangeListener listener) {
+    public static void setOnScrollChangeListener(ScrollContainerView view,
+                                                 ScrollContainerView.OnScrollChangeListener listener) {
         view.setOnScrollChangeListener(listener);
     }
 

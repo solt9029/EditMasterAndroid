@@ -1,5 +1,7 @@
 package com.solt9029.editmasterandroid.view;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.airbnb.epoxy.AutoModel;
 import com.airbnb.epoxy.Typed2EpoxyController;
 import com.solt9029.editmasterandroid.ProgressBarItemBindingModel_;
@@ -8,9 +10,6 @@ import com.solt9029.editmasterandroid.model.Score;
 import com.solt9029.editmasterandroid.viewmodel.Resource;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class ScoreListController extends Typed2EpoxyController<Resource<List<Score>>, Boolean> {
     @AutoModel

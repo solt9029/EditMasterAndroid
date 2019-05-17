@@ -1,8 +1,7 @@
 package com.solt9029.editmasterandroid.viewmodel;
 
-import com.mlykotom.valifi.fields.number.ValiFieldNumber;
-
 import androidx.annotation.Nullable;
+import com.mlykotom.valifi.fields.number.ValiFieldNumber;
 
 public class ValiFieldFloat extends ValiFieldNumber<Float> {
     public ValiFieldFloat() {
