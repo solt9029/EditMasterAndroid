@@ -27,13 +27,13 @@ public class ScoreListController extends Typed2EpoxyController<Resource<List<Sco
             return;
         }
 
-        if (resource.data != null) {
-            for (Score score : resource.data) {
+        if (resource.getData() != null) {
+            for (Score score : resource.getData()) {
                 new ScoreItemBindingModel_().score(score).listener(listener).id(score.getId()).addTo(this);
             }
         }
 
-        progressBarItemBindingModel.addIf(resource.isLoading && !isRefreshing, this);
+        progressBarItemBindingModel.addIf(resource.isLoading() && !isRefreshing, this);
 
     }
 
