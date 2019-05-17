@@ -39,15 +39,15 @@ public class ScoreListViewModel extends ViewModel {
         compositeDisposable.clear();
 
         isRefreshing.setValue(true);
-        resource.setValue(Resource.startLoading(getData()));
+        resource.setValue(Resource.Companion.startLoading(getData()));
         Disposable disposable = fetchScoreTimeline().subscribe(
                 result -> {
                     isRefreshing.setValue(false);
-                    resource.setValue(Resource.finishLoadingSuccess(result));
+                    resource.setValue(Resource.Companion.finishLoadingSuccess(result));
                     Timber.d("refresh success");
                 },
                 error -> {
-                    resource.setValue(Resource.finishLoadingFailure(error));
+                    resource.setValue(Resource.Companion.finishLoadingFailure(error));
                     Timber.d("refresh failure");
                 }
         );
@@ -57,10 +57,10 @@ public class ScoreListViewModel extends ViewModel {
     public void onLoad() {
         compositeDisposable.clear();
 
-        resource.setValue(Resource.startLoading(null));
+        resource.setValue(Resource.Companion.startLoading(null));
         Disposable disposable = fetchScoreTimeline().subscribe(
-                result -> resource.setValue(Resource.finishLoadingSuccess(result)),
-                error -> resource.setValue(Resource.finishLoadingFailure(error))
+                result -> resource.setValue(Resource.Companion.finishLoadingSuccess(result)),
+                error -> resource.setValue(Resource.Companion.finishLoadingFailure(error))
         );
         compositeDisposable.add(disposable);
     }
@@ -75,10 +75,10 @@ public class ScoreListViewModel extends ViewModel {
             return;
         }
 
-        resource.setValue(Resource.startLoading(getData()));
+        resource.setValue(Resource.Companion.startLoading(getData()));
         Disposable disposable = fetchScoreTimeline(maxId).subscribe(
-                result -> resource.setValue(Resource.finishLoadingSuccess(addData(result))),
-                error -> resource.setValue(Resource.finishLoadingFailure(error))
+                result -> resource.setValue(Resource.Companion.finishLoadingSuccess(addData(result))),
+                error -> resource.setValue(Resource.Companion.finishLoadingFailure(error))
         );
         compositeDisposable.add(disposable);
     }
@@ -96,7 +96,7 @@ public class ScoreListViewModel extends ViewModel {
     public List<Score> getData() {
         List<Score> data = null;
         if (resource.getValue() != null) {
-            data = resource.getValue().data;
+            data = resource.getValue().getData();
         }
         return data;
     }
@@ -104,7 +104,7 @@ public class ScoreListViewModel extends ViewModel {
     private boolean getIsLoading() {
         boolean isLoading = true;
         if (resource.getValue() != null) {
-            isLoading = resource.getValue().isLoading;
+            isLoading = resource.getValue().isLoading();
         }
         return isLoading;
     }
