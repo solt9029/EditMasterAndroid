@@ -42,7 +42,7 @@ public class DataBindingHelper {
     @BindingAdapter({"notes", "context"})
     public static void setHeight(RelativeLayout view, List<Integer> notes, Context context) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
-        params.height = (int) CalcUtil.convertDp2Px((int) (notes.size() / 96.0) * 100 + 50, context);
+        params.height = (int) (CalcUtil.calcEditorHeightPx(notes.size(), context));
         view.setLayoutParams(params);
     }
 

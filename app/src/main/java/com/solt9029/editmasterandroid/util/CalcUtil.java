@@ -38,8 +38,8 @@ public final class CalcUtil {
         return PositionConstants.PLAYER_JUDGE_X + ((offset - currentTime) / calcSecondsPerNote(bpm)) * spaceWidth;
     }
 
-    public static IndexRange calcNoteIndexRangeInEditorCanvas(int notesSize, int translateYPx, int heightPx,
-                                                              Context context) {
+    public static IndexRange calcNoteIndexRangeInEditor(int notesSize, int translateYPx, int heightPx,
+                                                        Context context) {
         final int firstBarIndex = (int) Math
                 .floor((double) convertPx2Dp(translateYPx, context) / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
         final int lastBarIndex = (int) Math.ceil((double) convertPx2Dp(translateYPx + heightPx, context) /
@@ -54,8 +54,8 @@ public final class CalcUtil {
         return new IndexRange(firstNoteIndex, lastNoteIndex);
     }
 
-    public static IndexRange calcBarIndexRangeInEditorCanvas(int barNum, int translateYPx, int heightPx,
-                                                             Context context) {
+    public static IndexRange calcBarIndexRangeInEditor(int barNum, int translateYPx, int heightPx,
+                                                       Context context) {
         final int first = (int) Math
                 .floor((double) convertPx2Dp(translateYPx, context) / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT);
         int last = (int) Math.ceil((double) convertPx2Dp(translateYPx + heightPx, context) /
@@ -67,7 +67,7 @@ public final class CalcUtil {
     }
 
     @Nullable
-    public static IndexRange calcNoteIndexRangeInPlayerCanvas(int notesSize, float speed, int widthPx, int firstNoteX) {
+    public static IndexRange calcNoteIndexRangeInPlayer(int notesSize, float speed, int widthPx, int firstNoteX) {
         final float spaceWidth = speed * PercentageConstants.PLAYER_SPEED_TO_SPACE_WIDTH;
         int first = (int) Math.floor(-firstNoteX / spaceWidth) - 3;
         final int noteNum = (int) Math.ceil((widthPx - 1) / spaceWidth);
@@ -90,17 +90,20 @@ public final class CalcUtil {
         return new IndexRange(first, last);
     }
 
-    public static float calcEditorCanvasHeightPx(int notesSize, Context context) {
-        int heightDp = (int) Math.ceil((double) notesSize / NumberConstants.NOTES_PER_BAR) *
-                SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT;
+    public static float calcEditorHeightPx(int notesSize, Context context) {
+        float heightDp = (float) notesSize / NumberConstants.NOTES_PER_BAR * SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT;
         return convertDp2Px(heightDp, context);
     }
 
     public static float calcBarWidth(int widthPx, Context context) {
-        return convertPx2Dp(widthPx, context) - 1 - PositionConstants.EDITOR_BAR_X * 2;
+        return convertPx2Dp(widthPx, context) - PositionConstants.EDITOR_BAR_X * 2;
+    }
+
+    public static float calcBarWidthPx(int widthPx, Context context) {
+        return convertDp2Px(calcBarWidth(widthPx, context), context);
     }
 
     public static int calcBarNum(int notesSize) {
-        return (int) Math.ceil(notesSize / NumberConstants.NOTES_PER_BAR);
+        return (int) Math.ceil((double) notesSize / NumberConstants.NOTES_PER_BAR);
     }
 }
