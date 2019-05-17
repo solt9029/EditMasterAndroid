@@ -15,6 +15,6 @@ interface ScoreService {
                          @Query("max_id") maxId: Int?, @Query("since_id") sinceId: Int?): Single<List<Score>>
 
     companion object {
-        val BASE_URL = "http://editmasterapi.solt9029.com"
+        const val BASE_URL = "http://editmasterapi.solt9029.com"
     }
 }
