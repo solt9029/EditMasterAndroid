@@ -29,7 +29,7 @@ public class PlayerNotesView extends BaseSurfaceView {
     }
 
     public void draw() {
-        Canvas canvas = holder.lockCanvas();
+        Canvas canvas = getHolder().lockCanvas();
         if (canvas == null) {
             return;
         }
@@ -41,7 +41,7 @@ public class PlayerNotesView extends BaseSurfaceView {
         float radiusPx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_NORMAL_OUTSIDE, getContext());
         canvas.drawCircle(currentTime * 10, (int) (getHeight() / 2.0), radiusPx, paint);
 
-        holder.unlockCanvasAndPost(canvas);
+        getHolder().unlockCanvasAndPost(canvas);
     }
 }
 
