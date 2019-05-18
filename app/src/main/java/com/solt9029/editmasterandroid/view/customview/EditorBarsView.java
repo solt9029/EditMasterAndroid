@@ -41,7 +41,7 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
     }
 
     public void draw() {
-        Canvas canvas = holder.lockCanvas();
+        Canvas canvas = getHolder().lockCanvas();
         if (canvas == null || notes == null) {
             return;
         }
@@ -59,7 +59,7 @@ public class EditorBarsView extends BaseSurfaceView implements SurfaceHolder.Cal
             drawBar(yPx, canvas, paint);
         }
 
-        holder.unlockCanvasAndPost(canvas);
+        getHolder().unlockCanvasAndPost(canvas);
     }
 
     public void drawBar(float yPx, Canvas canvas, Paint paint) {
