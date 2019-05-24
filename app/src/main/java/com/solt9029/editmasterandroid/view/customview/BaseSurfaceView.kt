@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import android.view.View
 
 abstract class BaseSurfaceView : SurfaceView, SurfaceHolder.Callback {
     constructor(context: Context) : super(context) {
@@ -23,6 +22,7 @@ abstract class BaseSurfaceView : SurfaceView, SurfaceHolder.Callback {
         isFocusable = true
         holder.addCallback(this)
         requestFocus()
+        setZOrderOnTop(true)
     }
 
     abstract fun draw()
@@ -39,8 +39,8 @@ abstract class BaseSurfaceView : SurfaceView, SurfaceHolder.Callback {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val widthSize = View.MeasureSpec.getSize(widthMeasureSpec)
-        val heightSize = View.MeasureSpec.getSize(heightMeasureSpec)
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
         setMeasuredDimension(widthSize, heightSize)
     }
