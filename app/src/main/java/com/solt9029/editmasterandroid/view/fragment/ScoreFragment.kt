@@ -14,6 +14,7 @@ import com.solt9029.editmasterandroid.databinding.FragmentScoreBinding
 import com.solt9029.editmasterandroid.view.activity.ScoreActivity
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel
 import dagger.android.support.DaggerFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class ScoreFragment : DaggerFragment() {
@@ -36,5 +37,11 @@ class ScoreFragment : DaggerFragment() {
         viewModel.navigateToScoreSettingsFragment.observe(this, "", Observer {
             (activity!! as ScoreActivity).navigateToScoreSettingsFragment()
         })
+    }
+
+    override fun onDestroyView() {
+        Timber.d("onDestroyView")
+        viewModel.thread = null
+        super.onDestroyView()
     }
 }
