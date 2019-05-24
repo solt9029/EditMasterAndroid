@@ -54,7 +54,7 @@ class ScoreViewModel @Inject constructor(
     val onCurrentNoteChange = object : RadioRealButtonGroup.OnPositionChangedListener {
         override fun onPositionChanged(button: RadioRealButton?, currentPosition: Int, lastPosition: Int) {
             Timber.d("currentNote $currentPosition (index) has been selected")
-            currentNote.value = currentPosition
+            currentNote.value = IdConstants.Note.RADIO_NOTE_MAPPING[currentPosition]
         }
     }
     val onScrollChange: ScrollContainerView.OnScrollChangeListener =

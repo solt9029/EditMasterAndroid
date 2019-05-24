@@ -33,7 +33,7 @@ class EditorBarsView : BaseSurfaceView, SurfaceHolder.Callback {
         draw()
     }
 
-    fun setNotes(notes: List<Int>) {
+    fun setNotes(notes: List<Int>?) {
         this.notes = notes
         draw()
     }
