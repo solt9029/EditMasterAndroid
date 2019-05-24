@@ -104,6 +104,7 @@
                         android:textSize="12dp"/>
 
                 <co.ceryle.radiorealbutton.RadioRealButtonGroup
+                        onPositionChange="@{viewModel.onCurrentDivisionChange}"
                         android:id="@+id/division"
                         android:layout_width="0dp"
                         android:layout_height="33dp"
@@ -180,6 +181,7 @@
             </LinearLayout>
 
             <co.ceryle.radiorealbutton.RadioRealButtonGroup
+                    onPositionChange="@{viewModel.onCurrentNoteChange}"
                     android:id="@+id/note"
                     android:layout_width="match_parent"
                     android:layout_height="33dp"
