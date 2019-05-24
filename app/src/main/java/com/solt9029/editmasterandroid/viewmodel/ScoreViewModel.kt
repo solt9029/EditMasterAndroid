@@ -73,7 +73,7 @@ class ScoreViewModel @Inject constructor(
         }
     }
     private val viewModel = this
-    private var thread: Thread? = null
+    var thread: Thread? = null
     private var player: YouTubePlayer? = null
     private val tracker = YouTubePlayerTracker()
     private val loop = object : Runnable {
