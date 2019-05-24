@@ -13,15 +13,15 @@ class Resource<T>() {
 
     companion object {
 
-        fun <T> startLoading(data: T): Resource<T> {
+        fun <T> startLoading(data: T?): Resource<T> {
             return Resource(data, true, null)
         }
 
-        fun <T> finishLoadingSuccess(data: T): Resource<T> {
+        fun <T> finishLoadingSuccess(data: T?): Resource<T> {
             return Resource(data, false, null)
         }
 
-        fun <T> finishLoadingFailure(error: Throwable): Resource<T> {
+        fun <T> finishLoadingFailure(error: Throwable?): Resource<T> {
             return Resource(null, false, error)
         }
     }
