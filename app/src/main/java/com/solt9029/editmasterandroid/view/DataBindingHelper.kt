@@ -12,6 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.view.customview.EditorBarsView
+import com.solt9029.editmasterandroid.view.customview.EditorNotesView
 import com.solt9029.editmasterandroid.view.customview.PlayerNotesView
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView
 import timber.log.Timber
@@ -35,6 +36,16 @@ object DataBindingHelper {
 
     @JvmStatic @BindingAdapter("notes")
     fun setNotes(view: EditorBarsView, notes: List<Int>) {
+        view.setNotes(notes)
+    }
+
+    @JvmStatic @BindingAdapter("translateYPx")
+    fun setTranslateYPx(view: EditorNotesView, translateYPx: Int) {
+        view.setTranslateYPx(translateYPx)
+    }
+
+    @JvmStatic @BindingAdapter("notes")
+    fun setNotes(view: EditorNotesView, notes: List<Int>) {
         view.setNotes(notes)
     }
 
