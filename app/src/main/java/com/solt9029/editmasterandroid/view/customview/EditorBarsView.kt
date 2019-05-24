@@ -12,7 +12,6 @@ import com.solt9029.editmasterandroid.constants.PercentageConstants
 import com.solt9029.editmasterandroid.constants.PositionConstants
 import com.solt9029.editmasterandroid.constants.SizeConstants
 import com.solt9029.editmasterandroid.util.CalcUtil
-import timber.log.Timber
 
 class EditorBarsView : BaseSurfaceView, SurfaceHolder.Callback {
     private var translateYPx: Int = 0
@@ -49,8 +48,8 @@ class EditorBarsView : BaseSurfaceView, SurfaceHolder.Callback {
         paint.style = Style.FILL
 
         val barNum = CalcUtil.calcBarNum(notesSize)
-        Timber.d("barNum: $barNum")
-        for (i in 0 until barNum) {
+        val range = CalcUtil.calcBarIndexRangeInEditor(barNum, translateYPx, height, context)
+        for (i in range.first..range.last) {
             val yPx =
                     i * CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT.toFloat(), context) - translateYPx
             drawBar(yPx, canvas, paint)
