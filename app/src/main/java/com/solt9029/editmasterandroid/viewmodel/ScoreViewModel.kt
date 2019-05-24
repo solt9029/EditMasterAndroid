@@ -5,12 +5,15 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import co.ceryle.radiorealbutton.RadioRealButton
+import co.ceryle.radiorealbutton.RadioRealButtonGroup
 import com.mlykotom.valifi.fields.ValiFieldText
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker
 import com.solt9029.editmasterandroid.R
+import com.solt9029.editmasterandroid.constants.IdConstants
 import com.solt9029.editmasterandroid.constants.NumberConstants
 import com.solt9029.editmasterandroid.model.Score
 import com.solt9029.editmasterandroid.repository.ScoreRepository
@@ -39,6 +42,21 @@ class ScoreViewModel @Inject constructor(
     var states = MutableLiveData<List<Int>>(ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
     var translateYPx = MutableLiveData(0)
     var currentTime = MutableLiveData(0f)
+    var currentNote = MutableLiveData(IdConstants.Note.DON)
+    var currentDivision = MutableLiveData(NumberConstants.DIVISIONS[0])
+    val onCurrentDivisionChange =
+            object : RadioRealButtonGroup.OnPositionChangedListener {
+                override fun onPositionChanged(button: RadioRealButton?, currentPosition: Int, lastPosition: Int) {
+                    Timber.d("currentDivision $currentPosition (index) has been selected")
+                    currentDivision.value = NumberConstants.DIVISIONS[currentPosition]
+                }
+            }
+    val onCurrentNoteChange = object : RadioRealButtonGroup.OnPositionChangedListener {
+        override fun onPositionChanged(button: RadioRealButton?, currentPosition: Int, lastPosition: Int) {
+            Timber.d("currentNote $currentPosition (index) has been selected")
+            currentNote.value = currentPosition
+        }
+    }
     val onScrollChange: ScrollContainerView.OnScrollChangeListener =
             object : ScrollContainerView.OnScrollChangeListener {
                 override fun onScrollChange(x: Int, y: Int, oldX: Int, oldY: Int) {

@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import co.ceryle.radiorealbutton.RadioRealButtonGroup
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -64,5 +65,11 @@ object DataBindingHelper {
     @JvmStatic @BindingAdapter("current_time")
     fun setCurrentTime(view: PlayerNotesView, currentTime: Float) {
         view.setCurrentTime(currentTime)
+    }
+
+    @JvmStatic @BindingAdapter("onPositionChange")
+    fun setOnPositionChangeListener(view: RadioRealButtonGroup,
+                                    listener: RadioRealButtonGroup.OnPositionChangedListener) {
+        view.setOnPositionChangedListener(listener)
     }
 }
