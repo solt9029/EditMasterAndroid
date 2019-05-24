@@ -12,7 +12,17 @@ object CalcUtil {
         return px / metrics.density
     }
 
+    @JvmStatic fun convertPx2Dp(px: Float, context: Context): Float {
+        val metrics = context.resources.displayMetrics
+        return px / metrics.density
+    }
+
     @JvmStatic fun convertDp2Px(dp: Float, context: Context): Float {
+        val metrics = context.resources.displayMetrics
+        return dp * metrics.density
+    }
+
+    @JvmStatic fun convertDp2Px(dp: Int, context: Context): Float {
         val metrics = context.resources.displayMetrics
         return dp * metrics.density
     }
