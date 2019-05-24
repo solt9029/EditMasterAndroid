@@ -159,6 +159,7 @@ class ScoreViewModel @Inject constructor(
                     this.username.value = username
                     this.comment.value = comment
                     this.videoId.value = Field(videoId)
+                    player?.loadVideo(videoId ?: "", currentTime.value ?: 0f)
                     this.bpm.value = bpm?.toString()
                     this.offset.value = offset?.toString()
                     this.speed.value = speed?.toString()

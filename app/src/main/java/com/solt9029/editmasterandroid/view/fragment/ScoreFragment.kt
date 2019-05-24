@@ -39,9 +39,9 @@ class ScoreFragment : DaggerFragment() {
         })
     }
 
-    override fun onDestroyView() {
-        Timber.d("onDestroyView")
+    override fun onDestroy() {
+        Timber.d("onDestroy")
         viewModel.thread = null
-        super.onDestroyView()
+        super.onDestroy()
     }
 }
