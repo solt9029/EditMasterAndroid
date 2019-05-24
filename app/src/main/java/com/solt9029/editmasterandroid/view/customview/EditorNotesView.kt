@@ -9,6 +9,9 @@ import android.util.AttributeSet
 import android.view.SurfaceHolder
 
 class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
+    private var translateYPx: Int = 0
+    private var notes: List<Int>? = null
+
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
@@ -17,6 +20,16 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
 
     init {
         holder.setFormat(PixelFormat.TRANSLUCENT)
+    }
+
+    fun setTranslateYPx(translateYPx: Int) {
+        this.translateYPx = translateYPx
+        draw()
+    }
+
+    fun setNotes(notes: List<Int>) {
+        this.notes = notes
+        draw()
     }
 
     override fun draw() {

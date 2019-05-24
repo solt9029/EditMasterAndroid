@@ -77,9 +77,14 @@
                         android:layout_x="0dp"/>
 
                 <com.solt9029.editmasterandroid.view.customview.EditorNotesView
+                        android:id="@+id/editor_notes_view"
+                        notes="@{viewModel.notes}"
+                        translateYPx="@{safeUnbox(viewModel.translateYPx)}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#ffffffff"/>
+                        android:background="#ffffffff"
+                        android:layout_y="0dp"
+                        android:layout_x="0dp"/>
 
                 <com.solt9029.editmasterandroid.view.customview.EditorCurrentTimeMarkView
                         android:layout_width="match_parent"
