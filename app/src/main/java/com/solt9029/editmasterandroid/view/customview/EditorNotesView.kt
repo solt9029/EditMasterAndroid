@@ -33,7 +33,7 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     }
 
     override fun draw() {
-        val canvas = holder.lockCanvas()
+        val canvas = holder.lockCanvas() ?: return
 
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 
