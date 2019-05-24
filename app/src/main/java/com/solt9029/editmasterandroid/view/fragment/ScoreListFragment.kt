@@ -63,10 +63,10 @@ class ScoreListFragment : DaggerFragment() {
         })
 
         val editText = binding.editText
-        editText.setOnEditorActionListener { v: TextView, actionId: Int, _: KeyEvent ->
+        editText.setOnEditorActionListener { v: TextView?, actionId: Int, _: KeyEvent? ->
             when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    viewModel.keyword.value = v.text.toString()
+                    viewModel.keyword.value = v?.text.toString()
 
                     // close keyboard
                     val manager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
