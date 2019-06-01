@@ -39,9 +39,10 @@ class ScoreFragment : DaggerFragment() {
         })
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         Timber.d("onDestroy")
         viewModel.thread = null
-        super.onDestroy()
+        binding.youTubePlayer.release()
+        super.onPause()
     }
 }
