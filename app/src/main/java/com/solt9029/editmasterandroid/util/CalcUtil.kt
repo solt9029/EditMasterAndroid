@@ -54,7 +54,10 @@ object CalcUtil {
                 convertPx2Dp(translateYPx + heightPx, context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT)
                 .toInt()
 
-        val firstNoteIndex = firstBarIndex * NumberConstants.NOTES_PER_BAR
+        var firstNoteIndex = firstBarIndex * NumberConstants.NOTES_PER_BAR
+        if (firstNoteIndex < 0) {
+            firstNoteIndex = 0
+        }
         var lastNoteIndex = lastBarIndex * NumberConstants.NOTES_PER_BAR - 1
         if (lastNoteIndex >= notesSize) {
             lastNoteIndex = notesSize - 1
@@ -65,8 +68,11 @@ object CalcUtil {
 
     @JvmStatic fun calcBarIndexRangeInEditor(barNum: Int, translateYPx: Int, heightPx: Int,
                                              context: Context): IndexRange {
-        val first = Math
+        var first = Math
                 .floor(convertPx2Dp(translateYPx, context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT).toInt()
+        if (first < 0) {
+            first = 0
+        }
         var last = Math.ceil(
                 convertPx2Dp(translateYPx + heightPx, context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT)
                 .toInt()
