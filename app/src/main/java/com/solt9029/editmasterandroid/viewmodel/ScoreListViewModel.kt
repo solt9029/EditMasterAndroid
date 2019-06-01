@@ -43,20 +43,30 @@ class ScoreListViewModel @Inject constructor(
                     Timber.d("refresh success")
                 },
                 { error ->
+                    isRefreshing.value = false
                     resource.value = Resource.finishLoadingFailure(error)
-                    Timber.d("refresh failure")
+                    Timber.e("refresh failure")
+                    Timber.e(error.message)
                 }
         )
         compositeDisposable.add(disposable)
     }
 
     fun onLoad() {
+        Timber.d("onLoad")
         compositeDisposable.clear()
 
         resource.value = Resource.startLoading(null)
         val disposable = fetchScoreTimeline().subscribe(
-                { result -> resource.setValue(Resource.finishLoadingSuccess(result)) },
-                { error -> resource.setValue(Resource.finishLoadingFailure(error)) }
+                { result ->
+                    resource.value = Resource.finishLoadingSuccess(result)
+                    Timber.d("load success")
+                },
+                { error ->
+                    resource.value = Resource.finishLoadingFailure(error)
+                    Timber.e("load failure")
+                    Timber.e(error.message)
+                }
         )
         compositeDisposable.add(disposable)
     }
@@ -70,6 +80,8 @@ class ScoreListViewModel @Inject constructor(
             return
         }
 
+        Timber.d("onLoadMore")
+
         resource.value = Resource.startLoading(resource.value?.data)
         val disposable = fetchScoreTimeline(maxId).subscribe(
                 { result ->
@@ -79,8 +91,13 @@ class ScoreListViewModel @Inject constructor(
                     }
                     newData.addAll(result)
                     resource.setValue(Resource.finishLoadingSuccess(newData))
+                    Timber.d("load more success")
                 },
-                { error -> resource.setValue(Resource.finishLoadingFailure(error)) }
+                { error ->
+                    resource.value = Resource.finishLoadingFailure(error)
+                    Timber.e("load more failure")
+                    Timber.e(error.message)
+                }
         )
         compositeDisposable.add(disposable)
     }
