@@ -53,17 +53,17 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
         val range: IndexRange = CalcUtil.calcNoteIndexRangeInEditor(notes!!.size, translateYPx, height, context)
 
         for (i in range.last downTo range.first) {
-            val note: Int = notes!![i]
+            val note: Int? = notes!![i]
             if (note == IdConstants.Note.SPACE) {
                 continue
             }
             val c: Int = i % NumberConstants.NOTES_PER_BAR
             val l: Int = Math.floor(i.toDouble() / NumberConstants.NOTES_PER_BAR).toInt()
-            val x = barStartLineXPx + spaceWidthPx * c
-            val y = editorBarOutsideHeightPx * (l + 0.5)
+            val x: Double = barStartLineXPx + spaceWidthPx * c
+            val y: Double = editorBarOutsideHeightPx * (l + 0.5)
 
-            val previousNote = if (i > 0) notes!![i - 1] else IdConstants.Note.SPACE
-            val nextNote = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
+            val previousNote: Int? = if (i > 0) notes!![i - 1] else IdConstants.Note.SPACE
+            val nextNote: Int? = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
 
             // draw notes here
         }
