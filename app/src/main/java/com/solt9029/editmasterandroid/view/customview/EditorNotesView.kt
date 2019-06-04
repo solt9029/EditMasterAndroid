@@ -1,10 +1,7 @@
 package com.solt9029.editmasterandroid.view.customview
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PixelFormat
-import android.graphics.PorterDuff
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import com.solt9029.editmasterandroid.constants.*
@@ -59,8 +56,8 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
             }
             val c: Int = i % NumberConstants.NOTES_PER_BAR
             val l: Int = Math.floor(i.toDouble() / NumberConstants.NOTES_PER_BAR).toInt()
-            val x: Double = barStartLineXPx + spaceWidthPx * c
-            val y: Double = editorBarOutsideHeightPx * (l + 0.5)
+            val xPx: Double = barStartLineXPx + spaceWidthPx * c
+            val yPx: Double = editorBarOutsideHeightPx * (l + 0.5) - translateYPx
 
             val previousNote: Int? = if (i > 0) notes!![i - 1] else IdConstants.Note.SPACE
             val nextNote: Int? = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
@@ -69,6 +66,12 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
         }
 
         holder.unlockCanvasAndPost(canvas)
+    }
+
+    fun drawNote(xPx: Double, yPx: Double, note: Int?, spaceWidthPx: Double, previousNote: Int?, nextNote: Int?,
+                 canvas: Canvas, paint: Paint) {
+
+
     }
 }
 
