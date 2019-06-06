@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.SurfaceHolder
+import androidx.core.content.ContextCompat
+import com.solt9029.editmasterandroid.R
 import com.solt9029.editmasterandroid.constants.*
 import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.util.IndexRange
@@ -14,6 +16,7 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
 
     private val editorBarXPx = CalcUtil.convertDp2Px(PositionConstants.EDITOR_BAR_X, context)
     private val editorBarOutsideHeightPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT, context)
+    private val editorNormalOutsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_NORMAL_OUTSIDE, context)
 
     constructor(context: Context) : super(context)
 
@@ -56,21 +59,30 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
             }
             val c: Int = i % NumberConstants.NOTES_PER_BAR
             val l: Int = Math.floor(i.toDouble() / NumberConstants.NOTES_PER_BAR).toInt()
-            val xPx: Double = barStartLineXPx + spaceWidthPx * c
-            val yPx: Double = editorBarOutsideHeightPx * (l + 0.5) - translateYPx
+            val xPx: Float = (barStartLineXPx + spaceWidthPx * c).toFloat()
+            val yPx: Float = (editorBarOutsideHeightPx * (l + 0.5) - translateYPx).toFloat()
 
             val previousNote: Int? = if (i > 0) notes!![i - 1] else IdConstants.Note.SPACE
             val nextNote: Int? = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
 
             // draw notes here
+            drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas, paint)
         }
 
         holder.unlockCanvasAndPost(canvas)
     }
 
-    fun drawNote(xPx: Double, yPx: Double, note: Int?, spaceWidthPx: Double, previousNote: Int?, nextNote: Int?,
-                 canvas: Canvas, paint: Paint) {
+    private fun drawNote(xPx: Float, yPx: Float, note: Int?, spaceWidthPx: Double, previousNote: Int?, nextNote: Int?,
+                         canvas: Canvas, paint: Paint) {
+        when (note) {
+            IdConstants.Note.SPACE -> return
+            else -> {
+            }
+        }
 
+        paint.style = Paint.Style.FILL_AND_STROKE
+        paint.color = ContextCompat.getColor(context, R.color.white)
+        canvas.drawCircle(xPx, yPx, editorNormalOutsidePx, paint)
 
     }
 }
