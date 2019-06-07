@@ -29,7 +29,6 @@ import javax.inject.Inject
 class ScoreViewModel @Inject constructor(
         private val repository: ScoreRepository, var context: Context
 ) : ViewModel() {
-
     private val compositeDisposable = CompositeDisposable()
     var navigateToScoreSettingsFragment = UnitLiveEvent()
     var username = ValiFieldText("通りすがりの創作の達人")
@@ -106,10 +105,7 @@ class ScoreViewModel @Inject constructor(
             super.onReady(youTubePlayer)
             viewModel.player = youTubePlayer
             youTubePlayer.addListener(tracker)
-
-            videoId.value?.value?.let {
-                youTubePlayer.loadVideo(it, currentTime.value ?: 0f)
-            }
+            playVideo()
         }
 
         override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
@@ -120,6 +116,19 @@ class ScoreViewModel @Inject constructor(
             }
             thread = null
         }
+    }
+
+    fun playVideo() {
+        if (tracker.state == PlayerConstants.PlayerState.PLAYING) {
+            return
+        }
+        videoId.value?.value?.let {
+            player?.loadVideo(it, currentTime.value ?: 0f)
+        }
+    }
+
+    fun pauseVideo() {
+        player?.pause()
     }
 
     init {
@@ -139,7 +148,7 @@ class ScoreViewModel @Inject constructor(
         }
         videoId.value = field
         currentTime.value = 0f
-        player?.loadVideo(sequence.toString(), 0f)
+        playVideo()
     }
 
     public override fun onCleared() {

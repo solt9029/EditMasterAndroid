@@ -25,12 +25,14 @@ class ScoreFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Timber.d("onCreateView")
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_score, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        Timber.d("onActivityCreated")
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
@@ -39,10 +41,16 @@ class ScoreFragment : DaggerFragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        Timber.d("onResume")
+        viewModel.playVideo()
+    }
+
     override fun onPause() {
-        Timber.d("onDestroy")
+        Timber.d("onPause")
         viewModel.thread = null
-        binding.youTubePlayer.release()
+        viewModel.pauseVideo()
         super.onPause()
     }
 }
