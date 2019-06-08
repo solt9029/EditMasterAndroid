@@ -17,6 +17,9 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     private val editorBarXPx = CalcUtil.convertDp2Px(PositionConstants.EDITOR_BAR_X, context)
     private val editorBarOutsideHeightPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT, context)
     private val editorNormalOutsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_NORMAL_OUTSIDE, context)
+    private val editorNormalInsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_NORMAL_INSIDE, context)
+    private val editorBigOutsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BIG_OUTSIDE, context)
+    private val editorBigInsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BIG_INSIDE, context)
 
     constructor(context: Context) : super(context)
 
@@ -74,16 +77,78 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
 
     private fun drawNote(xPx: Float, yPx: Float, note: Int?, spaceWidthPx: Double, previousNote: Int?, nextNote: Int?,
                          canvas: Canvas, paint: Paint) {
-        when (note) {
-            IdConstants.Note.SPACE -> return
-            else -> {
+        val outsidePx: Float = when (note) {
+            IdConstants.Note.DON, IdConstants.Note.KA, IdConstants.Note.BALLOON, IdConstants.Note.RENDA -> editorNormalOutsidePx
+            IdConstants.Note.BIGDON, IdConstants.Note.BIGKA, IdConstants.Note.BIGRENDA -> editorBigOutsidePx
+            else -> return
+        }
+        val insidePx: Float = when (note) {
+            IdConstants.Note.DON, IdConstants.Note.KA, IdConstants.Note.BALLOON, IdConstants.Note.RENDA -> editorNormalInsidePx
+            IdConstants.Note.BIGDON, IdConstants.Note.BIGKA, IdConstants.Note.BIGRENDA -> editorBigInsidePx
+            else -> return
+        }
+        val color: Int = when (note) {
+            IdConstants.Note.DON, IdConstants.Note.BIGDON, IdConstants.Note.BALLOON ->
+                ContextCompat.getColor(context, R.color.red)
+            IdConstants.Note.KA, IdConstants.Note.BIGKA -> ContextCompat.getColor(context, R.color.blue)
+            IdConstants.Note.RENDA, IdConstants.Note.BIGRENDA -> ContextCompat.getColor(context, R.color.yellow)
+            else -> return
+        }
+
+        if (note == IdConstants.Note.BALLOON || note == IdConstants.Note.RENDA || note == IdConstants.Note.BIGRENDA) {
+            if (note == previousNote) {
+                if (note == nextNote) {
+                    val leftPx: Float = (xPx - spaceWidthPx - 1).toFloat()
+                    val topPx: Float = yPx - outsidePx
+                    val rightPx: Float = (leftPx + spaceWidthPx * 2 + 2).toFloat()
+                    val bottomPx: Float = topPx + outsidePx * 2
+
+                    paint.style = Paint.Style.FILL_AND_STROKE
+                    paint.color = color
+                    canvas.drawRect(leftPx, topPx, rightPx, bottomPx, paint)
+
+                    paint.style = Paint.Style.STROKE
+                    paint.color = ContextCompat.getColor(context, R.color.black)
+                    canvas.drawLine(leftPx, topPx, rightPx, topPx, paint)
+                    canvas.drawLine(leftPx, bottomPx, rightPx, bottomPx, paint)
+
+                    return
+                }
+
+                // fill outside
+                paint.style = Paint.Style.FILL_AND_STROKE
+                paint.color = color
+                canvas.drawCircle(xPx, yPx, outsidePx, paint)
+
+                // stroke outside
+                paint.style = Paint.Style.STROKE
+                paint.color = ContextCompat.getColor(context, R.color.black)
+                canvas.drawCircle(xPx, yPx, outsidePx, paint)
+
+                return
             }
         }
 
+
+        // fill outside
         paint.style = Paint.Style.FILL_AND_STROKE
         paint.color = ContextCompat.getColor(context, R.color.white)
-        canvas.drawCircle(xPx, yPx, editorNormalOutsidePx, paint)
+        canvas.drawCircle(xPx, yPx, outsidePx, paint)
 
+        // stroke outside
+        paint.style = Paint.Style.STROKE
+        paint.color = ContextCompat.getColor(context, R.color.black)
+        canvas.drawCircle(xPx, yPx, outsidePx, paint)
+
+        // fill inside
+        paint.style = Paint.Style.FILL_AND_STROKE
+        paint.color = color
+        canvas.drawCircle(xPx, yPx, insidePx, paint)
+
+        // stroke inside
+        paint.style = Paint.Style.STROKE
+        paint.color = ContextCompat.getColor(context, R.color.black)
+        canvas.drawCircle(xPx, yPx, insidePx, paint)
     }
 }
 
