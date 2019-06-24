@@ -87,6 +87,10 @@
                         android:layout_x="0dp"/>
 
                 <com.solt9029.editmasterandroid.view.customview.EditorCurrentTimeMarkView
+                        bpm="@{viewModel.bpm.value}"
+                        offset="@{viewModel.offset.value}"
+                        current_time="@{viewModel.currentTime}"
+                        translateYPx="@{viewModel.translateYPx}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#ffffffff"/>

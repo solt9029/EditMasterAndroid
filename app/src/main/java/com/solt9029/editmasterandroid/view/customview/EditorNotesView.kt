@@ -9,6 +9,7 @@ import com.solt9029.editmasterandroid.R
 import com.solt9029.editmasterandroid.constants.*
 import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.util.IndexRange
+import kotlin.math.floor
 
 class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     private var translateYPx: Int = 0
@@ -61,7 +62,7 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
                 continue
             }
             val c: Int = i % NumberConstants.NOTES_PER_BAR
-            val l: Int = Math.floor(i.toDouble() / NumberConstants.NOTES_PER_BAR).toInt()
+            val l: Int = floor(i.toDouble() / NumberConstants.NOTES_PER_BAR).toInt()
             val xPx: Float = (barStartLineXPx + spaceWidthPx * c).toFloat()
             val yPx: Float = (editorBarOutsideHeightPx * (l + 0.5) - translateYPx).toFloat()
 

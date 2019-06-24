@@ -124,4 +124,22 @@ object CalcUtil {
     @JvmStatic fun calcBarNum(notesSize: Int): Int {
         return ceil(notesSize.toDouble() / NumberConstants.NOTES_PER_BAR).toInt()
     }
+
+    @JvmStatic fun calcCurrentTimeMarkPosition(widthPx: Int, bpm: Float, offset: Float, currentTime: Float,
+                                               context: Context): Position {
+        val barWidthPx = calcBarWidthPx(widthPx, context)
+        val actualBarWidthPx = barWidthPx * (1 - PercentageConstants.EDITOR_BAR_START_LINE)
+        val spaceWidthPx = actualBarWidthPx / NumberConstants.NOTES_PER_BAR
+
+        val currentNoteIndexFloat: Float = (currentTime - offset) / calcSecondsPerNote(bpm)
+        val currentBarIndexFloat: Float = currentNoteIndexFloat % NumberConstants.NOTES_PER_BAR
+        val currentBarIndex: Int = floor(currentNoteIndexFloat / NumberConstants.NOTES_PER_BAR).toInt()
+
+        val xPx = (currentBarIndexFloat * spaceWidthPx).toFloat()
+        val yPx = currentBarIndex * convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT, context) +
+                (convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT, context) - convertDp2Px(
+                        SizeConstants.EDITOR_BAR_INSIDE_HEIGHT, context)) / 2
+
+        return Position(xPx, yPx)
+    }
 }

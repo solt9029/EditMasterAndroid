@@ -11,10 +11,7 @@ import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.solt9029.editmasterandroid.util.CalcUtil
-import com.solt9029.editmasterandroid.view.customview.EditorBarsView
-import com.solt9029.editmasterandroid.view.customview.EditorNotesView
-import com.solt9029.editmasterandroid.view.customview.PlayerNotesView
-import com.solt9029.editmasterandroid.view.customview.ScrollContainerView
+import com.solt9029.editmasterandroid.view.customview.*
 import timber.log.Timber
 
 object DataBindingHelper {
@@ -47,6 +44,26 @@ object DataBindingHelper {
     @JvmStatic @BindingAdapter("notes")
     fun setNotes(view: EditorNotesView, notes: List<Int>) {
         view.setNotes(notes)
+    }
+
+    @JvmStatic @BindingAdapter("bpm")
+    fun setBpm(view: EditorCurrentTimeMarkView, bpm: String) {
+        view.setBpm(bpm.toFloat())
+    }
+
+    @JvmStatic @BindingAdapter("offset")
+    fun setOffset(view: EditorCurrentTimeMarkView, offset: String) {
+        view.setOffset(offset.toFloat())
+    }
+
+    @JvmStatic @BindingAdapter("current_time")
+    fun setCurrentTime(view: EditorCurrentTimeMarkView, currentTime: Float) {
+        view.setCurrentTime(currentTime)
+    }
+
+    @JvmStatic @BindingAdapter("translateYPx")
+    fun setTranslateYPx(view: EditorCurrentTimeMarkView, translateYPx: Int) {
+        view.setTranslateYPx(translateYPx)
     }
 
     @JvmStatic @BindingAdapter("notes", "context")
