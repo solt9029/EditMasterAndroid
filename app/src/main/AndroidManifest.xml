@@ -27,8 +27,7 @@
                 android:name=".view.activity.HelpActivity"
                 android:screenOrientation="portrait"/>
         <activity
-                android:name=".view.activity.ScoreActivity"
-                android:screenOrientation="portrait"/>
+                android:name=".view.activity.ScoreActivity"/>
     </application>
 
 </manifest>
