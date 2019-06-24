@@ -26,7 +26,7 @@ object DataBindingHelper {
         view.text = "created at $date"
     }
 
-    @JvmStatic @BindingAdapter("translateYPx")
+    @JvmStatic @BindingAdapter("translate_y_px")
     fun setTranslateYPx(view: EditorBarsView, translateYPx: Int) {
         view.setTranslateYPx(translateYPx)
     }
@@ -36,7 +36,7 @@ object DataBindingHelper {
         view.setNotes(notes)
     }
 
-    @JvmStatic @BindingAdapter("translateYPx")
+    @JvmStatic @BindingAdapter("translate_y_px")
     fun setTranslateYPx(view: EditorNotesView, translateYPx: Int) {
         view.setTranslateYPx(translateYPx)
     }
@@ -61,7 +61,7 @@ object DataBindingHelper {
         view.setCurrentTime(currentTime)
     }
 
-    @JvmStatic @BindingAdapter("translateYPx")
+    @JvmStatic @BindingAdapter("translate_y_px")
     fun setTranslateYPx(view: EditorCurrentTimeMarkView, translateYPx: Int) {
         view.setTranslateYPx(translateYPx)
     }

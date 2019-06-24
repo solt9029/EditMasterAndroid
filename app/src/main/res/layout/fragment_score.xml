@@ -69,7 +69,7 @@
                         xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/editor_bars_view"
                         notes="@{viewModel.notes}"
-                        translateYPx="@{safeUnbox(viewModel.translateYPx)}"
+                        translate_y_px="@{safeUnbox(viewModel.translateYPx)}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#00ffffff"
@@ -79,7 +79,7 @@
                 <com.solt9029.editmasterandroid.view.customview.EditorNotesView
                         android:id="@+id/editor_notes_view"
                         notes="@{viewModel.notes}"
-                        translateYPx="@{safeUnbox(viewModel.translateYPx)}"
+                        translate_y_px="@{safeUnbox(viewModel.translateYPx)}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#ffffffff"
@@ -90,7 +90,7 @@
                         bpm="@{viewModel.bpm.value}"
                         offset="@{viewModel.offset.value}"
                         current_time="@{viewModel.currentTime}"
-                        translateYPx="@{viewModel.translateYPx}"
+                        translate_y_px="@{viewModel.translateYPx}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#ffffffff"/>
