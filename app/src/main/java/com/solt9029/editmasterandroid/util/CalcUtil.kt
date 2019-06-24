@@ -5,6 +5,8 @@ import com.solt9029.editmasterandroid.constants.NumberConstants
 import com.solt9029.editmasterandroid.constants.PercentageConstants
 import com.solt9029.editmasterandroid.constants.PositionConstants
 import com.solt9029.editmasterandroid.constants.SizeConstants
+import kotlin.math.ceil
+import kotlin.math.floor
 
 object CalcUtil {
     @JvmStatic fun convertPx2Dp(px: Int, context: Context): Float {
@@ -48,10 +50,10 @@ object CalcUtil {
 
     @JvmStatic fun calcNoteIndexRangeInEditor(notesSize: Int, translateYPx: Int, heightPx: Int,
                                               context: Context): IndexRange {
-        val firstBarIndex = Math
-                .floor(convertPx2Dp(translateYPx, context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT).toInt()
-        val lastBarIndex = Math.ceil(
-                convertPx2Dp(translateYPx + heightPx, context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT)
+        val firstBarIndex =
+                floor(convertPx2Dp(translateYPx, context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT).toInt()
+        val lastBarIndex = ceil(convertPx2Dp(translateYPx + heightPx,
+                context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT)
                 .toInt()
 
         var firstNoteIndex = firstBarIndex * NumberConstants.NOTES_PER_BAR
@@ -68,13 +70,13 @@ object CalcUtil {
 
     @JvmStatic fun calcBarIndexRangeInEditor(barNum: Int, translateYPx: Int, heightPx: Int,
                                              context: Context): IndexRange {
-        var first = Math
-                .floor(convertPx2Dp(translateYPx, context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT).toInt()
+        var first =
+                floor(convertPx2Dp(translateYPx, context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT).toInt()
         if (first < 0) {
             first = 0
         }
-        var last = Math.ceil(
-                convertPx2Dp(translateYPx + heightPx, context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT)
+        var last = ceil(convertPx2Dp(translateYPx + heightPx,
+                context).toDouble() / SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT)
                 .toInt()
         if (last >= barNum) {
             last = barNum - 1
@@ -85,8 +87,8 @@ object CalcUtil {
     @JvmStatic fun calcNoteIndexRangeInPlayer(notesSize: Int, speed: Float, widthPx: Int,
                                               firstNoteX: Float): IndexRange? {
         val spaceWidth = speed * PercentageConstants.PLAYER_SPEED_TO_SPACE_WIDTH
-        var first = Math.floor((-firstNoteX / spaceWidth).toDouble()).toInt() - 3
-        val noteNum = Math.ceil(((widthPx - 1) / spaceWidth).toDouble()).toInt()
+        var first = floor((-firstNoteX / spaceWidth).toDouble()).toInt() - 3
+        val noteNum = ceil(((widthPx - 1) / spaceWidth).toDouble()).toInt()
         var last = first + noteNum + 6
 
         if (first < 0) {
