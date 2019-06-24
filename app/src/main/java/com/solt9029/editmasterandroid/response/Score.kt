@@ -1,4 +1,4 @@
-package com.solt9029.editmasterandroid.model
+package com.solt9029.editmasterandroid.response
 
 import com.google.gson.annotations.SerializedName
 

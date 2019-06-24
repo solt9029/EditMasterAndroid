@@ -5,7 +5,7 @@
 
         <variable
                 name="score"
-                type="com.solt9029.editmasterandroid.model.Score"/>
+                type="com.solt9029.editmasterandroid.response.Score"/>
 
         <variable
                 name="listener"

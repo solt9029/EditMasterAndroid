@@ -1,6 +1,6 @@
 package com.solt9029.editmasterandroid.repository
 
-import com.solt9029.editmasterandroid.model.Score
+import com.solt9029.editmasterandroid.response.Score
 import com.solt9029.editmasterandroid.service.ScoreService
 import io.reactivex.Single
 

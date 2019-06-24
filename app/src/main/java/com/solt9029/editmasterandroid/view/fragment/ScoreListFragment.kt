@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.solt9029.editmasterandroid.R
 import com.solt9029.editmasterandroid.databinding.FragmentScoreListBinding
-import com.solt9029.editmasterandroid.model.Score
+import com.solt9029.editmasterandroid.response.Score
 import com.solt9029.editmasterandroid.view.EndlessScrollListener
 import com.solt9029.editmasterandroid.view.ScoreListController
 import com.solt9029.editmasterandroid.view.activity.ScoreListActivity

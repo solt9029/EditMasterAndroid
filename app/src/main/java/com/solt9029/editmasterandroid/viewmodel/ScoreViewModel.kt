@@ -15,8 +15,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTube
 import com.solt9029.editmasterandroid.R
 import com.solt9029.editmasterandroid.constants.IdConstants
 import com.solt9029.editmasterandroid.constants.NumberConstants
-import com.solt9029.editmasterandroid.model.Score
 import com.solt9029.editmasterandroid.repository.ScoreRepository
+import com.solt9029.editmasterandroid.response.Score
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

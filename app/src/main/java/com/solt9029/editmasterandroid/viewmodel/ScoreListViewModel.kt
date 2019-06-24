@@ -2,8 +2,8 @@ package com.solt9029.editmasterandroid.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.solt9029.editmasterandroid.model.Score
 import com.solt9029.editmasterandroid.repository.ScoreRepository
+import com.solt9029.editmasterandroid.response.Score
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

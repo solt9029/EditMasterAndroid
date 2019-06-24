@@ -1,6 +1,6 @@
 package com.solt9029.editmasterandroid.service
 
-import com.solt9029.editmasterandroid.model.Score
+import com.solt9029.editmasterandroid.response.Score
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
