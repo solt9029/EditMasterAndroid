@@ -122,6 +122,6 @@ object CalcUtil {
     }
 
     @JvmStatic fun calcBarNum(notesSize: Int): Int {
-        return Math.ceil(notesSize.toDouble() / NumberConstants.NOTES_PER_BAR).toInt()
+        return ceil(notesSize.toDouble() / NumberConstants.NOTES_PER_BAR).toInt()
     }
 }
