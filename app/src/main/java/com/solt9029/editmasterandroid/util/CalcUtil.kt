@@ -48,6 +48,11 @@ object CalcUtil {
         return PositionConstants.PLAYER_JUDGE_X + (offset - currentTime) / calcSecondsPerNote(bpm) * spaceWidth
     }
 
+    @JvmStatic fun calcFirstNoteXPx(currentTime: Float, bpm: Float, offset: Float, speed: Float,
+                                    context: Context): Float {
+        return convertDp2Px(calcFirstNoteX(currentTime, bpm, offset, speed), context)
+    }
+
     @JvmStatic fun calcNoteIndexRangeInEditor(notesSize: Int, translateYPx: Int, heightPx: Int,
                                               context: Context): IndexRange {
         val firstBarIndex =

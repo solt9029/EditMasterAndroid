@@ -43,8 +43,8 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     }
 
     override fun draw() {
-        val canvas = holder.lockCanvas() ?: return
         notes ?: return
+        val canvas = holder.lockCanvas() ?: return
 
         canvas.drawColor(resources.getColor(R.color.colorBackground))
         drawBars(notes, canvas)

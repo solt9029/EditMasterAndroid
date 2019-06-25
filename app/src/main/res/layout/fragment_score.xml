@@ -28,6 +28,11 @@
 
             <com.solt9029.editmasterandroid.view.customview.PlayerNotesView
                     current_time="@{safeUnbox(viewModel.currentTime)}"
+                    bpm="@{viewModel.bpm.value}"
+                    offset="@{viewModel.offset.value}"
+                    notes="@{viewModel.notes}"
+                    states="@{viewModel.states}"
+                    speed="@{viewModel.speed.value}"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="3"/>
@@ -79,8 +84,8 @@
                 <com.solt9029.editmasterandroid.view.customview.EditorCurrentTimeMarkView
                         bpm="@{viewModel.bpm.value}"
                         offset="@{viewModel.offset.value}"
-                        current_time="@{viewModel.currentTime}"
-                        translate_y_px="@{viewModel.translateYPx}"
+                        current_time="@{safeUnbox(viewModel.currentTime)}"
+                        translate_y_px="@{safeUnbox(viewModel.translateYPx)}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#ffffffff"/>

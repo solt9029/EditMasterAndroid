@@ -83,14 +83,39 @@ object DataBindingHelper {
         view.addYouTubePlayerListener(listener)
     }
 
+    @JvmStatic @BindingAdapter("onPositionChange")
+    fun setOnPositionChangeListener(view: RadioRealButtonGroup,
+                                    listener: RadioRealButtonGroup.OnPositionChangedListener) {
+        view.setOnPositionChangedListener(listener)
+    }
+
     @JvmStatic @BindingAdapter("current_time")
     fun setCurrentTime(view: PlayerNotesView, currentTime: Float) {
         view.setCurrentTime(currentTime)
     }
 
-    @JvmStatic @BindingAdapter("onPositionChange")
-    fun setOnPositionChangeListener(view: RadioRealButtonGroup,
-                                    listener: RadioRealButtonGroup.OnPositionChangedListener) {
-        view.setOnPositionChangedListener(listener)
+    @JvmStatic @BindingAdapter("bpm")
+    fun setBpm(view: PlayerNotesView, bpm: String) {
+        view.setBpm(bpm.toFloat())
+    }
+
+    @JvmStatic @BindingAdapter("offset")
+    fun setOffset(view: PlayerNotesView, offset: String) {
+        view.setOffset(offset.toFloat())
+    }
+
+    @JvmStatic @BindingAdapter("notes")
+    fun setNotes(view: PlayerNotesView, notes: List<Int>) {
+        view.setNotes(notes)
+    }
+
+    @JvmStatic @BindingAdapter("states")
+    fun setStates(view: PlayerNotesView, states: List<Int>) {
+        view.setStates(states)
+    }
+
+    @JvmStatic @BindingAdapter("speed")
+    fun setSpeed(view: PlayerNotesView, speed: String) {
+        view.setSpeed(speed.toFloat())
     }
 }
