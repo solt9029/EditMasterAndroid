@@ -11,7 +11,10 @@ import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.solt9029.editmasterandroid.util.CalcUtil
-import com.solt9029.editmasterandroid.view.customview.*
+import com.solt9029.editmasterandroid.view.customview.EditorBarsNotesView
+import com.solt9029.editmasterandroid.view.customview.EditorCurrentTimeMarkView
+import com.solt9029.editmasterandroid.view.customview.PlayerNotesView
+import com.solt9029.editmasterandroid.view.customview.ScrollContainerView
 import timber.log.Timber
 
 object DataBindingHelper {
@@ -27,22 +30,12 @@ object DataBindingHelper {
     }
 
     @JvmStatic @BindingAdapter("translate_y_px")
-    fun setTranslateYPx(view: EditorBarsView, translateYPx: Int) {
+    fun setTranslateYPx(view: EditorBarsNotesView, translateYPx: Int) {
         view.setTranslateYPx(translateYPx)
     }
 
     @JvmStatic @BindingAdapter("notes")
-    fun setNotes(view: EditorBarsView, notes: List<Int>) {
-        view.setNotes(notes)
-    }
-
-    @JvmStatic @BindingAdapter("translate_y_px")
-    fun setTranslateYPx(view: EditorNotesView, translateYPx: Int) {
-        view.setTranslateYPx(translateYPx)
-    }
-
-    @JvmStatic @BindingAdapter("notes")
-    fun setNotes(view: EditorNotesView, notes: List<Int>) {
+    fun setNotes(view: EditorBarsNotesView, notes: List<Int>) {
         view.setNotes(notes)
     }
 

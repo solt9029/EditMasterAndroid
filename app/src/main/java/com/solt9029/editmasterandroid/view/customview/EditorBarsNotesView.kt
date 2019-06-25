@@ -1,7 +1,9 @@
 package com.solt9029.editmasterandroid.view.customview
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Paint.Style
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import androidx.core.content.ContextCompat
@@ -11,12 +13,14 @@ import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.util.IndexRange
 import kotlin.math.floor
 
-class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
+class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     private var translateYPx: Int = 0
     private var notes: List<Int>? = null
 
-    private val editorBarXPx = CalcUtil.convertDp2Px(PositionConstants.EDITOR_BAR_X, context)
     private val editorBarOutsideHeightPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT, context)
+    private val editorBarInsideHeightPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_INSIDE_HEIGHT, context)
+    private val editorBarXPx = CalcUtil.convertDp2Px(PositionConstants.EDITOR_BAR_X, context)
+    private val editorBeatLineWidthPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BEAT_LINE_WIDTH, context)
     private val editorNormalOutsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_NORMAL_OUTSIDE, context)
     private val editorNormalInsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_NORMAL_INSIDE, context)
     private val editorBigOutsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BIG_OUTSIDE, context)
@@ -27,10 +31,6 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
-
-    init {
-        holder.setFormat(PixelFormat.TRANSLUCENT)
-    }
 
     fun setTranslateYPx(translateYPx: Int) {
         this.translateYPx = translateYPx
@@ -46,14 +46,14 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
         val canvas = holder.lockCanvas() ?: return
         notes ?: return
 
+        canvas.drawColor(resources.getColor(R.color.colorBackground))
+        drawBars(notes, canvas)
         drawNotes(notes, canvas)
 
         holder.unlockCanvasAndPost(canvas)
     }
 
     private fun drawNotes(notes: List<Int>?, canvas: Canvas) {
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-
         val paint = Paint()
 
         val barWidthPx = CalcUtil.calcBarWidthPx(width, context)
@@ -155,5 +155,42 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
         paint.color = ContextCompat.getColor(context, R.color.black)
         canvas.drawCircle(xPx, yPx, insidePx, paint)
     }
+
+    private fun drawBars(notes: List<Int>?, canvas: Canvas) {
+        val notesSize = notes?.size ?: return
+
+        val paint = Paint()
+        paint.style = Style.FILL
+
+        val barNum = CalcUtil.calcBarNum(notesSize)
+        val range = CalcUtil.calcBarIndexRangeInEditor(barNum, translateYPx, height, context)
+        for (i in range.first..range.last) {
+            val yPx =
+                    i * CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT.toFloat(), context) - translateYPx
+            drawBar(yPx, canvas, paint)
+        }
+    }
+
+    private fun drawBar(yPx: Float, canvas: Canvas, paint: Paint) {
+        val barWidthPx = CalcUtil.calcBarWidthPx(width, context);
+
+        paint.color = resources.getColor(R.color.gray)
+        val leftPx: Float = editorBarXPx
+        val topPx: Float = yPx + (editorBarOutsideHeightPx - editorBarInsideHeightPx) / 2
+        val rightPx: Float = leftPx + barWidthPx
+        val bottomPx: Float = topPx + editorBarInsideHeightPx
+        canvas.drawRect(leftPx, topPx, rightPx, bottomPx, paint)
+
+        paint.color = resources.getColor(R.color.white)
+        for (i in 0 until NumberConstants.BEAT) {
+            val beatLineLeftPx =
+                    leftPx + barWidthPx * (PercentageConstants.EDITOR_BAR_START_LINE +
+                            ((1 - PercentageConstants.EDITOR_BAR_START_LINE) * i) / NumberConstants.BEAT) -
+                            editorBeatLineWidthPx / 2
+            canvas.drawRect(beatLineLeftPx.toFloat(), topPx - 1, (beatLineLeftPx + editorBeatLineWidthPx).toFloat(),
+                    bottomPx + 1, paint)
+        }
+    }
+
 }
 

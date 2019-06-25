@@ -65,24 +65,14 @@
                             android:layout_height="2000dp"/>
                 </com.solt9029.editmasterandroid.view.customview.ScrollContainerView>
 
-                <com.solt9029.editmasterandroid.view.customview.EditorBarsView
+                <com.solt9029.editmasterandroid.view.customview.EditorBarsNotesView
                         xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/editor_bars_view"
+                        android:id="@+id/editor_bars_notes_view"
                         notes="@{viewModel.notes}"
                         translate_y_px="@{safeUnbox(viewModel.translateYPx)}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#00ffffff"
-                        android:layout_y="0dp"
-                        android:layout_x="0dp"/>
-
-                <com.solt9029.editmasterandroid.view.customview.EditorNotesView
-                        android:id="@+id/editor_notes_view"
-                        notes="@{viewModel.notes}"
-                        translate_y_px="@{safeUnbox(viewModel.translateYPx)}"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#ffffffff"
                         android:layout_y="0dp"
                         android:layout_x="0dp"/>
 
