@@ -40,6 +40,14 @@ class EditorBarsView : BaseSurfaceView, SurfaceHolder.Callback {
 
     override fun draw() {
         val canvas = holder.lockCanvas() ?: return
+        notes ?: return
+
+        drawBars(notes, canvas)
+
+        holder.unlockCanvasAndPost(canvas)
+    }
+
+    private fun drawBars(notes: List<Int>?, canvas: Canvas) {
         val notesSize = notes?.size ?: return
 
         canvas.drawColor(resources.getColor(R.color.colorBackground))
@@ -54,8 +62,6 @@ class EditorBarsView : BaseSurfaceView, SurfaceHolder.Callback {
                     i * CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT.toFloat(), context) - translateYPx
             drawBar(yPx, canvas, paint)
         }
-
-        holder.unlockCanvasAndPost(canvas)
     }
 
     private fun drawBar(yPx: Float, canvas: Canvas, paint: Paint) {

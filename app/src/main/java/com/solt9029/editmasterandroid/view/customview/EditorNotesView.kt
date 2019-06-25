@@ -46,6 +46,12 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
         val canvas = holder.lockCanvas() ?: return
         notes ?: return
 
+        drawNotes(notes, canvas)
+
+        holder.unlockCanvasAndPost(canvas)
+    }
+
+    private fun drawNotes(notes: List<Int>?, canvas: Canvas) {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
 
         val paint = Paint()
@@ -57,7 +63,7 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
         val range: IndexRange = CalcUtil.calcNoteIndexRangeInEditor(notes!!.size, translateYPx, height, context)
 
         for (i in range.last downTo range.first) {
-            val note: Int? = notes!![i]
+            val note: Int? = notes[i]
             if (note == IdConstants.Note.SPACE) {
                 continue
             }
@@ -66,14 +72,12 @@ class EditorNotesView : BaseSurfaceView, SurfaceHolder.Callback {
             val xPx: Float = (barStartLineXPx + spaceWidthPx * c).toFloat()
             val yPx: Float = (editorBarOutsideHeightPx * (l + 0.5) - translateYPx).toFloat()
 
-            val previousNote: Int? = if (i > 0) notes!![i - 1] else IdConstants.Note.SPACE
-            val nextNote: Int? = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
+            val previousNote: Int? = if (i > 0) notes[i - 1] else IdConstants.Note.SPACE
+            val nextNote: Int? = if (i < notes.size - 1) notes[i + 1] else IdConstants.Note.SPACE
 
             // draw notes here
             drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas, paint)
         }
-
-        holder.unlockCanvasAndPost(canvas)
     }
 
     private fun drawNote(xPx: Float, yPx: Float, note: Int?, spaceWidthPx: Double, previousNote: Int?, nextNote: Int?,
