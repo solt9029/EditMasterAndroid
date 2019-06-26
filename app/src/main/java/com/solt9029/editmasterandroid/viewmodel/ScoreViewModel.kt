@@ -91,6 +91,13 @@ class ScoreViewModel @Inject constructor(
             if (currentNote.value == IdConstants.Note.BALLOON || currentNote.value == IdConstants.Note.RENDA || currentNote.value == IdConstants.Note.BIGRENDA) {
                 count = notesPerDivision - 1
             }
+
+            // avoid exception
+            if (notes.value!!.size <= index + count) {
+                return false
+            }
+
+
             for (i in index..index + count) {
                 notes.value!![i] = currentNote.value!!
             }
