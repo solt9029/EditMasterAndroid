@@ -78,18 +78,17 @@ class PlayerNotesView : BaseSurfaceView {
     }
 
     private fun drawBarStartLines(firstNoteX: Float, range: IndexRange, canvas: Canvas) {
-        val paint = Paint()
-
         val spaceWidth = speed * PercentageConstants.PLAYER_SPEED_TO_SPACE_WIDTH
         val firstBarStartLineIndex = range.first - (range.first % NumberConstants.NOTES_PER_BAR)
 
         for (i in firstBarStartLineIndex..range.last step NumberConstants.NOTES_PER_BAR) {
             val xPx = CalcUtil.convertDp2Px(firstNoteX + i * spaceWidth, context)
-            drawBarStartLine(xPx, canvas, paint)
+            drawBarStartLine(xPx, canvas)
         }
     }
 
-    private fun drawBarStartLine(xPx: Float, canvas: Canvas, paint: Paint) {
+    private fun drawBarStartLine(xPx: Float, canvas: Canvas) {
+        val paint = Paint()
         paint.color = ContextCompat.getColor(context, R.color.white)
         paint.style = Paint.Style.FILL
 
@@ -102,8 +101,6 @@ class PlayerNotesView : BaseSurfaceView {
     }
 
     private fun drawNotes(firstNoteX: Float, range: IndexRange, canvas: Canvas) {
-        val paint = Paint()
-
         for (i in range.last downTo range.first) {
             val note: Int? = notes!![i]
             val state = states!![i]
@@ -118,12 +115,14 @@ class PlayerNotesView : BaseSurfaceView {
             val previousNote: Int? = if (i > 0) notes!![i - 1] else IdConstants.Note.SPACE
             val nextNote: Int? = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
 
-            drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas, paint)
+            drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas)
         }
     }
 
     private fun drawNote(xPx: Float, yPx: Float, note: Int?, spaceWidthPx: Double, previousNote: Int?, nextNote: Int?,
-                         canvas: Canvas, paint: Paint) {
+                         canvas: Canvas) {
+        val paint = Paint()
+
         val outsidePx: Float = when (note) {
             IdConstants.Note.DON, IdConstants.Note.KA, IdConstants.Note.BALLOON, IdConstants.Note.RENDA -> playerNormalOutsidePx
             IdConstants.Note.BIGDON, IdConstants.Note.BIGKA, IdConstants.Note.BIGRENDA -> playerBigOutsidePx
