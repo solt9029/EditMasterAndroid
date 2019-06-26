@@ -10,6 +10,7 @@ import co.ceryle.radiorealbutton.RadioRealButtonGroup
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.solt9029.editmasterandroid.constants.IdConstants
 import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.view.customview.EditorBarsNotesView
 import com.solt9029.editmasterandroid.view.customview.EditorCurrentTimeMarkView
@@ -110,7 +111,7 @@ object DataBindingHelper {
     }
 
     @JvmStatic @BindingAdapter("states")
-    fun setStates(view: PlayerNotesView, states: List<Int>) {
+    fun setStates(view: PlayerNotesView, states: List<IdConstants.State>) {
         view.setStates(states)
     }
 

@@ -38,7 +38,8 @@ class ScoreViewModel @Inject constructor(
     var speed = ValiFieldFloat(1f)
     var comment = ValiFieldText("創作の達人で創作譜面をしました！")
     var notes = MutableLiveData<List<Int>>(ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
-    var states = MutableLiveData<List<Int>>(ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
+    var states = MutableLiveData<List<IdConstants.State>>(
+            ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
     var translateYPx = MutableLiveData(0)
     var currentTime = MutableLiveData(0f)
     var currentNote = MutableLiveData(IdConstants.Note.DON)
@@ -173,7 +174,7 @@ class ScoreViewModel @Inject constructor(
                     this.offset.value = offset?.toString()
                     this.speed.value = speed?.toString()
                     this.notes.value = notes
-                    states.setValue(ArrayList(Collections.nCopies(notes?.size ?: 0, 0)))
+                    states.setValue(ArrayList(Collections.nCopies(notes?.size ?: 0, IdConstants.State.FRESH)))
                 },
                 { }
         )
