@@ -1,10 +1,7 @@
 package com.solt9029.editmasterandroid.view.customview
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PixelFormat
-import android.graphics.PorterDuff
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import androidx.core.content.ContextCompat
@@ -56,20 +53,23 @@ class EditorCurrentTimeMarkView : BaseSurfaceView, SurfaceHolder.Callback {
     override fun draw() {
         val canvas = holder.lockCanvas() ?: return
 
-        val position = CalcUtil.calcCurrentTimeMarkPosition(width, bpm, offset, currentTime, context)
-
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+        drawCurrentTimeMark(canvas)
 
+        holder.unlockCanvasAndPost(canvas)
+    }
+
+    private fun drawCurrentTimeMark(canvas: Canvas) {
         val paint = Paint()
         paint.color = ContextCompat.getColor(context, R.color.purple)
         paint.style = Paint.Style.FILL
+
+        val position = CalcUtil.calcCurrentTimeMarkPosition(width, bpm, offset, currentTime, context)
 
         val leftPx = position.xPx - editorCurrentTimeMarkWidth / 2
         val topPx = position.yPx - 2 - translateYPx
         val rightPx = leftPx + editorCurrentTimeMarkWidth
         val bottomPx = topPx + editorBarInsideHeight + 4
         canvas.drawRect(leftPx, topPx, rightPx, bottomPx, paint)
-
-        holder.unlockCanvasAndPost(canvas)
     }
 }
