@@ -54,8 +54,6 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     }
 
     private fun drawNotes(canvas: Canvas) {
-        val paint = Paint()
-
         val barWidthPx = CalcUtil.calcBarWidthPx(width, context)
         val actualBarWidthPx = barWidthPx * (1 - PercentageConstants.EDITOR_BAR_START_LINE)
         val spaceWidthPx = actualBarWidthPx / NumberConstants.NOTES_PER_BAR
@@ -76,12 +74,14 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
             val nextNote: Int? = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
 
             // draw notes here
-            drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas, paint)
+            drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas)
         }
     }
 
     private fun drawNote(xPx: Float, yPx: Float, note: Int?, spaceWidthPx: Double, previousNote: Int?, nextNote: Int?,
-                         canvas: Canvas, paint: Paint) {
+                         canvas: Canvas) {
+        val paint = Paint()
+
         val outsidePx: Float = when (note) {
             IdConstants.Note.DON, IdConstants.Note.KA, IdConstants.Note.BALLOON, IdConstants.Note.RENDA -> editorNormalOutsidePx
             IdConstants.Note.BIGDON, IdConstants.Note.BIGKA, IdConstants.Note.BIGRENDA -> editorBigOutsidePx
@@ -133,8 +133,7 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
                 return
             }
         }
-
-
+        
         // fill outside
         paint.style = Style.FILL_AND_STROKE
         paint.color = ContextCompat.getColor(context, R.color.white)
@@ -159,22 +158,22 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     private fun drawBars(canvas: Canvas) {
         val notesSize = notes!!.size
 
-        val paint = Paint()
-        paint.style = Style.FILL
-
         val barNum = CalcUtil.calcBarNum(notesSize)
         val range = CalcUtil.calcBarIndexRangeInEditor(barNum, translateYPx, height, context)
         for (i in range.first..range.last) {
             val yPx =
                     i * CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT.toFloat(), context) - translateYPx
-            drawBar(yPx, canvas, paint)
+            drawBar(yPx, canvas)
         }
     }
 
-    private fun drawBar(yPx: Float, canvas: Canvas, paint: Paint) {
+    private fun drawBar(yPx: Float, canvas: Canvas) {
         val barWidthPx = CalcUtil.calcBarWidthPx(width, context)
 
+        val paint = Paint()
         paint.color = ContextCompat.getColor(context, R.color.gray)
+        paint.style = Style.FILL
+
         val leftPx: Float = editorBarXPx
         val topPx: Float = yPx + (editorBarOutsideHeightPx - editorBarInsideHeightPx) / 2
         val rightPx: Float = leftPx + barWidthPx
@@ -191,6 +190,5 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
                     bottomPx + 1, paint)
         }
     }
-
 }
 
