@@ -17,6 +17,8 @@ import com.solt9029.editmasterandroid.constants.IdConstants
 import com.solt9029.editmasterandroid.constants.NumberConstants
 import com.solt9029.editmasterandroid.repository.ScoreRepository
 import com.solt9029.editmasterandroid.response.Score
+import com.solt9029.editmasterandroid.util.CalcUtil
+import com.solt9029.editmasterandroid.util.Pointer
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,13 +39,15 @@ class ScoreViewModel @Inject constructor(
     var offset = ValiFieldFloat(0.75f)
     var speed = ValiFieldFloat(1f)
     var comment = ValiFieldText("創作の達人で創作譜面をしました！")
-    var notes = MutableLiveData<List<Int>>(ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
+    var notes = MutableLiveData<MutableList<Int>>(
+            ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
     var states = MutableLiveData<List<IdConstants.State>>(
             ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
     var translateYPx = MutableLiveData(0)
     var currentTime = MutableLiveData(0f)
     var currentNote = MutableLiveData(IdConstants.Note.DON)
     var currentDivision = MutableLiveData(NumberConstants.DIVISIONS[0])
+
     val onCurrentDivisionChange =
             object : RadioRealButtonGroup.OnPositionChangedListener {
                 override fun onPositionChanged(button: RadioRealButton?, currentPosition: Int, lastPosition: Int) {
@@ -51,27 +55,51 @@ class ScoreViewModel @Inject constructor(
                     currentDivision.value = NumberConstants.DIVISIONS[currentPosition]
                 }
             }
+
     val onCurrentNoteChange = object : RadioRealButtonGroup.OnPositionChangedListener {
         override fun onPositionChanged(button: RadioRealButton?, currentPosition: Int, lastPosition: Int) {
             Timber.d("currentNote $currentPosition (index) has been selected")
             currentNote.value = IdConstants.Note.RADIO_NOTE_MAPPING[currentPosition]
         }
     }
+
     val onScrollChange: ScrollContainerView.OnScrollChangeListener =
             object : ScrollContainerView.OnScrollChangeListener {
                 override fun onScrollChange(x: Int, y: Int, oldX: Int, oldY: Int) {
                     translateYPx.value = y
                 }
             }
+
     val onTouch = object : View.OnTouchListener {
         override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             v?.performClick()
-            val x = event?.x
-            val y = event?.y
-            Timber.d("x: $x, y: $y")
+
+            // TODO: recognize the event is tap or swipe or ... and only tap event passes
+
+            if (event == null || v == null || currentDivision.value == null || currentNote.value == null || translateYPx.value == null) {
+                return false
+            }
+
+            val caret: Pointer =
+                    CalcUtil.calcPointer(event.x, event.y + translateYPx.value!!, v.width, currentDivision.value!!,
+                            context)
+            val notesPerDivision = NumberConstants.NOTES_PER_BAR / currentDivision.value!!
+            val notesPerBarIndex = caret.divisionIndex * notesPerDivision
+            val index = caret.barIndex * NumberConstants.NOTES_PER_BAR + notesPerBarIndex
+
+            var count = 0
+            if (currentNote.value == IdConstants.Note.BALLOON || currentNote.value == IdConstants.Note.RENDA || currentNote.value == IdConstants.Note.BIGRENDA) {
+                count = notesPerDivision - 1
+            }
+            for (i in index..index + count) {
+                notes.value!![i] = currentNote.value!!
+            }
+            notes.value = notes.value
+
             return false
         }
     }
+
     private val viewModel = this
     var thread: Thread? = null
     private var player: YouTubePlayer? = null

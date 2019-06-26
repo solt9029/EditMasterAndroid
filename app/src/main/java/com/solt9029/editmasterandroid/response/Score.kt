@@ -10,7 +10,7 @@ data class Score(
         val bpm: Float?,
         val offset: Float?,
         val speed: Float?,
-        val notes: List<Int>?,
+        val notes: MutableList<Int>?,
         @field:SerializedName("advanced_settings") val advancedSettings: Any?,
         @field:SerializedName("created_at") val createdAt: String?,
         @field:SerializedName("updated_at") val updatedAt: String?)

@@ -7,6 +7,7 @@ import com.solt9029.editmasterandroid.constants.PositionConstants
 import com.solt9029.editmasterandroid.constants.SizeConstants
 import kotlin.math.ceil
 import kotlin.math.floor
+import kotlin.math.round
 
 object CalcUtil {
     @JvmStatic fun convertPx2Dp(px: Int, context: Context): Float {
@@ -146,5 +147,24 @@ object CalcUtil {
                         SizeConstants.EDITOR_BAR_INSIDE_HEIGHT, context)) / 2
 
         return Position(xPx, yPx)
+    }
+
+    @JvmStatic fun calcPointer(xPx: Float, yPx: Float, widthPx: Int, division: Int, context: Context): Pointer {
+        val barWidthPx = calcBarWidthPx(widthPx, context)
+        val barStartLineXPx = convertDp2Px(PositionConstants.EDITOR_BAR_X,
+                context) + barWidthPx * PercentageConstants.EDITOR_BAR_START_LINE
+
+        var divisionIndex: Int =
+                round((xPx - barStartLineXPx) / ((barWidthPx * (1 - PercentageConstants.EDITOR_BAR_START_LINE)) / division)).toInt()
+        if (divisionIndex < 0) {
+            divisionIndex = 0
+        }
+        if (divisionIndex >= division) {
+            divisionIndex = division - 1
+        }
+
+        val barIndex = floor(yPx / convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT, context)).toInt()
+
+        return Pointer(divisionIndex, barIndex)
     }
 }
