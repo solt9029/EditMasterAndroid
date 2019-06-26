@@ -10,6 +10,7 @@ import com.solt9029.editmasterandroid.constants.NumberConstants
 import com.solt9029.editmasterandroid.constants.PercentageConstants
 import com.solt9029.editmasterandroid.constants.SizeConstants
 import com.solt9029.editmasterandroid.util.CalcUtil
+import com.solt9029.editmasterandroid.util.IndexRange
 
 class PlayerNotesView : BaseSurfaceView {
     private val playerBarStartLineWidthPx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_BAR_START_LINE_WIDTH, context)
@@ -64,19 +65,22 @@ class PlayerNotesView : BaseSurfaceView {
         range ?: return
         val canvas = holder.lockCanvas() ?: return
 
-        canvas.drawColor(resources.getColor(R.color.colorBackground))
+        canvas.drawColor(ContextCompat.getColor(context, R.color.colorBackground))
+        drawBarStartLines(firstNoteX, range, canvas)
 
+        holder.unlockCanvasAndPost(canvas)
+    }
+
+    private fun drawBarStartLines(firstNoteX: Float, range: IndexRange, canvas: Canvas) {
         val paint = Paint()
 
         val spaceWidth = speed * PercentageConstants.PLAYER_SPEED_TO_SPACE_WIDTH
-
         val firstBarStartLineIndex = range.first - (range.first % NumberConstants.NOTES_PER_BAR)
+
         for (i in firstBarStartLineIndex..range.last step NumberConstants.NOTES_PER_BAR) {
             val xPx = CalcUtil.convertDp2Px(firstNoteX + i * spaceWidth, context)
             drawBarStartLine(xPx, canvas, paint)
         }
-
-        holder.unlockCanvasAndPost(canvas)
     }
 
     private fun drawBarStartLine(xPx: Float, canvas: Canvas, paint: Paint) {

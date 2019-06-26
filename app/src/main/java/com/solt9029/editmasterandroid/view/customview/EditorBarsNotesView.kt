@@ -46,14 +46,14 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
         notes ?: return
         val canvas = holder.lockCanvas() ?: return
 
-        canvas.drawColor(resources.getColor(R.color.colorBackground))
-        drawBars(notes, canvas)
-        drawNotes(notes, canvas)
+        canvas.drawColor(ContextCompat.getColor(context, R.color.colorBackground))
+        drawBars(canvas)
+        drawNotes(canvas)
 
         holder.unlockCanvasAndPost(canvas)
     }
 
-    private fun drawNotes(notes: List<Int>?, canvas: Canvas) {
+    private fun drawNotes(canvas: Canvas) {
         val paint = Paint()
 
         val barWidthPx = CalcUtil.calcBarWidthPx(width, context)
@@ -63,7 +63,7 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
         val range: IndexRange = CalcUtil.calcNoteIndexRangeInEditor(notes!!.size, translateYPx, height, context)
 
         for (i in range.last downTo range.first) {
-            val note: Int? = notes[i]
+            val note: Int? = notes!![i]
             if (note == IdConstants.Note.SPACE) {
                 continue
             }
@@ -72,8 +72,8 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
             val xPx: Float = (barStartLineXPx + spaceWidthPx * c).toFloat()
             val yPx: Float = (editorBarOutsideHeightPx * (l + 0.5) - translateYPx).toFloat()
 
-            val previousNote: Int? = if (i > 0) notes[i - 1] else IdConstants.Note.SPACE
-            val nextNote: Int? = if (i < notes.size - 1) notes[i + 1] else IdConstants.Note.SPACE
+            val previousNote: Int? = if (i > 0) notes!![i - 1] else IdConstants.Note.SPACE
+            val nextNote: Int? = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
 
             // draw notes here
             drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas, paint)
@@ -108,11 +108,11 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
                     val rightPx: Float = (leftPx + spaceWidthPx * 2 + 2).toFloat()
                     val bottomPx: Float = topPx + outsidePx * 2
 
-                    paint.style = Paint.Style.FILL_AND_STROKE
+                    paint.style = Style.FILL_AND_STROKE
                     paint.color = color
                     canvas.drawRect(leftPx, topPx, rightPx, bottomPx, paint)
 
-                    paint.style = Paint.Style.STROKE
+                    paint.style = Style.STROKE
                     paint.color = ContextCompat.getColor(context, R.color.black)
                     canvas.drawLine(leftPx, topPx, rightPx, topPx, paint)
                     canvas.drawLine(leftPx, bottomPx, rightPx, bottomPx, paint)
@@ -121,12 +121,12 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
                 }
 
                 // fill outside
-                paint.style = Paint.Style.FILL_AND_STROKE
+                paint.style = Style.FILL_AND_STROKE
                 paint.color = color
                 canvas.drawCircle(xPx, yPx, outsidePx, paint)
 
                 // stroke outside
-                paint.style = Paint.Style.STROKE
+                paint.style = Style.STROKE
                 paint.color = ContextCompat.getColor(context, R.color.black)
                 canvas.drawCircle(xPx, yPx, outsidePx, paint)
 
@@ -136,28 +136,28 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
 
 
         // fill outside
-        paint.style = Paint.Style.FILL_AND_STROKE
+        paint.style = Style.FILL_AND_STROKE
         paint.color = ContextCompat.getColor(context, R.color.white)
         canvas.drawCircle(xPx, yPx, outsidePx, paint)
 
         // stroke outside
-        paint.style = Paint.Style.STROKE
+        paint.style = Style.STROKE
         paint.color = ContextCompat.getColor(context, R.color.black)
         canvas.drawCircle(xPx, yPx, outsidePx, paint)
 
         // fill inside
-        paint.style = Paint.Style.FILL_AND_STROKE
+        paint.style = Style.FILL_AND_STROKE
         paint.color = color
         canvas.drawCircle(xPx, yPx, insidePx, paint)
 
         // stroke inside
-        paint.style = Paint.Style.STROKE
+        paint.style = Style.STROKE
         paint.color = ContextCompat.getColor(context, R.color.black)
         canvas.drawCircle(xPx, yPx, insidePx, paint)
     }
 
-    private fun drawBars(notes: List<Int>?, canvas: Canvas) {
-        val notesSize = notes?.size ?: return
+    private fun drawBars(canvas: Canvas) {
+        val notesSize = notes!!.size
 
         val paint = Paint()
         paint.style = Style.FILL
@@ -172,16 +172,16 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     }
 
     private fun drawBar(yPx: Float, canvas: Canvas, paint: Paint) {
-        val barWidthPx = CalcUtil.calcBarWidthPx(width, context);
+        val barWidthPx = CalcUtil.calcBarWidthPx(width, context)
 
-        paint.color = resources.getColor(R.color.gray)
+        paint.color = ContextCompat.getColor(context, R.color.gray)
         val leftPx: Float = editorBarXPx
         val topPx: Float = yPx + (editorBarOutsideHeightPx - editorBarInsideHeightPx) / 2
         val rightPx: Float = leftPx + barWidthPx
         val bottomPx: Float = topPx + editorBarInsideHeightPx
         canvas.drawRect(leftPx, topPx, rightPx, bottomPx, paint)
 
-        paint.color = resources.getColor(R.color.white)
+        paint.color = ContextCompat.getColor(context, R.color.white)
         for (i in 0 until NumberConstants.BEAT) {
             val beatLineLeftPx =
                     leftPx + barWidthPx * (PercentageConstants.EDITOR_BAR_START_LINE +
