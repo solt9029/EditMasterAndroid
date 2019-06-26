@@ -80,12 +80,12 @@ class ScoreViewModel @Inject constructor(
                 return false
             }
 
-            val caret: Pointer =
+            val pointer: Pointer =
                     CalcUtil.calcPointer(event.x, event.y + translateYPx.value!!, v.width, currentDivision.value!!,
                             context)
             val notesPerDivision = NumberConstants.NOTES_PER_BAR / currentDivision.value!!
-            val notesPerBarIndex = caret.divisionIndex * notesPerDivision
-            val index = caret.barIndex * NumberConstants.NOTES_PER_BAR + notesPerBarIndex
+            val notesPerBarIndex = pointer.divisionIndex * notesPerDivision
+            val index = pointer.barIndex * NumberConstants.NOTES_PER_BAR + notesPerBarIndex
 
             var count = 0
             if (currentNote.value == IdConstants.Note.BALLOON || currentNote.value == IdConstants.Note.RENDA || currentNote.value == IdConstants.Note.BIGRENDA) {
