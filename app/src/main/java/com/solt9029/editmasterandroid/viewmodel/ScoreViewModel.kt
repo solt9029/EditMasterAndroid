@@ -15,6 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTube
 import com.solt9029.editmasterandroid.R
 import com.solt9029.editmasterandroid.constants.IdConstants
 import com.solt9029.editmasterandroid.constants.NumberConstants
+import com.solt9029.editmasterandroid.constants.SecondConstants
 import com.solt9029.editmasterandroid.repository.ScoreRepository
 import com.solt9029.editmasterandroid.response.Score
 import com.solt9029.editmasterandroid.util.CalcUtil
@@ -41,7 +42,7 @@ class ScoreViewModel @Inject constructor(
     var comment = ValiFieldText("創作の達人で創作譜面をしました！")
     var notes = MutableLiveData<MutableList<Int>>(
             ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
-    var states = MutableLiveData<List<IdConstants.State>>(
+    var states = MutableLiveData<MutableList<IdConstants.State>>(
             ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
     var translateYPx = MutableLiveData(0)
     var currentTime = MutableLiveData(0f)
@@ -127,6 +128,7 @@ class ScoreViewModel @Inject constructor(
                 }
                 currentTime.postValue(currentYouTubeSecond)
                 Timber.d("currentTime: " + currentTime.value)
+                doAutoMode()
                 try {
                     Thread.sleep(10)
                 } catch (error: InterruptedException) {
@@ -136,6 +138,33 @@ class ScoreViewModel @Inject constructor(
             }
         }
     }
+
+    fun doAutoMode() {
+        if (currentTime.value == null || bpm.value == null || offset.value == null || notes.value == null || states.value == null) {
+            return
+        }
+
+        val range = CalcUtil.calcNoteIndexRangeInSecondRange(SecondConstants.RANGE_AUTO, currentTime.value!!,
+                bpm.value!!.toFloat(), offset.value!!.toFloat())
+        
+        for (i in range.first..range.last) {
+            if (i < 0 || i >= notes.value!!.size) {
+                continue
+            }
+
+            val note = notes.value!![i]
+            val state = states.value!![i]
+            if (note == IdConstants.Note.SPACE || state != IdConstants.State.FRESH) {
+                continue
+            }
+
+            if (currentNote.value == IdConstants.Note.DON || currentNote.value == IdConstants.Note.KA || currentNote.value == IdConstants.Note.BIGDON || currentNote.value == IdConstants.Note.BIGKA) {
+                states.value!![i] = IdConstants.State.GOOD
+                states.postValue(states.value)
+            }
+        }
+    }
+
     val youTubePlayerListener: AbstractYouTubePlayerListener = object : AbstractYouTubePlayerListener() {
         override fun onReady(youTubePlayer: YouTubePlayer) {
             super.onReady(youTubePlayer)
