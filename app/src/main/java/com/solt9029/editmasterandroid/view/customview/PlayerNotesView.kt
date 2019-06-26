@@ -13,18 +13,18 @@ import com.solt9029.editmasterandroid.constants.SizeConstants
 import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.util.IndexRange
 
-class PlayerNotesView : BaseSurfaceView {
+class PlayerNotesView : BaseNotesView {
     private val playerBarStartLineWidthPx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_BAR_START_LINE_WIDTH, context)
-    private val playerNormalOutsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_NORMAL_OUTSIDE, context)
-    private val playerNormalInsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_NORMAL_INSIDE, context)
-    private val playerBigOutsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_BIG_OUTSIDE, context)
-    private val playerBigInsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_BIG_INSIDE, context)
+    override val normalOutsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_NORMAL_OUTSIDE, context)
+    override val normalInsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_NORMAL_INSIDE, context)
+    override val bigOutsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_BIG_OUTSIDE, context)
+    override val bigInsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_BIG_INSIDE, context)
 
+    private var notes: List<Int>? = null
     private var currentTime: Float = 0f
     private var bpm: Float = 0f
     private var offset: Float = 0f
     private var speed: Float = 0f
-    private var notes: List<Int>? = null
     private var states: List<IdConstants.State>? = null
 
     constructor(context: Context) : super(context)
@@ -117,82 +117,5 @@ class PlayerNotesView : BaseSurfaceView {
 
             drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas)
         }
-    }
-
-    private fun drawNote(xPx: Float, yPx: Float, note: Int?, spaceWidthPx: Double, previousNote: Int?, nextNote: Int?,
-                         canvas: Canvas) {
-        val paint = Paint()
-
-        val outsidePx: Float = when (note) {
-            IdConstants.Note.DON, IdConstants.Note.KA, IdConstants.Note.BALLOON, IdConstants.Note.RENDA -> playerNormalOutsidePx
-            IdConstants.Note.BIGDON, IdConstants.Note.BIGKA, IdConstants.Note.BIGRENDA -> playerBigOutsidePx
-            else -> return
-        }
-        val insidePx: Float = when (note) {
-            IdConstants.Note.DON, IdConstants.Note.KA, IdConstants.Note.BALLOON, IdConstants.Note.RENDA -> playerNormalInsidePx
-            IdConstants.Note.BIGDON, IdConstants.Note.BIGKA, IdConstants.Note.BIGRENDA -> playerBigInsidePx
-            else -> return
-        }
-        val color: Int = when (note) {
-            IdConstants.Note.DON, IdConstants.Note.BIGDON, IdConstants.Note.BALLOON ->
-                ContextCompat.getColor(context, R.color.red)
-            IdConstants.Note.KA, IdConstants.Note.BIGKA -> ContextCompat.getColor(context, R.color.blue)
-            IdConstants.Note.RENDA, IdConstants.Note.BIGRENDA -> ContextCompat.getColor(context, R.color.yellow)
-            else -> return
-        }
-
-        if (note == IdConstants.Note.BALLOON || note == IdConstants.Note.RENDA || note == IdConstants.Note.BIGRENDA) {
-            if (note == previousNote) {
-                if (note == nextNote) {
-                    val leftPx: Float = (xPx - spaceWidthPx - 1).toFloat()
-                    val topPx: Float = yPx - outsidePx
-                    val rightPx: Float = (leftPx + spaceWidthPx * 2 + 2).toFloat()
-                    val bottomPx: Float = topPx + outsidePx * 2
-
-                    paint.style = Paint.Style.FILL_AND_STROKE
-                    paint.color = color
-                    canvas.drawRect(leftPx, topPx, rightPx, bottomPx, paint)
-
-                    paint.style = Paint.Style.STROKE
-                    paint.color = ContextCompat.getColor(context, R.color.black)
-                    canvas.drawLine(leftPx, topPx, rightPx, topPx, paint)
-                    canvas.drawLine(leftPx, bottomPx, rightPx, bottomPx, paint)
-
-                    return
-                }
-
-                // fill outside
-                paint.style = Paint.Style.FILL_AND_STROKE
-                paint.color = color
-                canvas.drawCircle(xPx, yPx, outsidePx, paint)
-
-                // stroke outside
-                paint.style = Paint.Style.STROKE
-                paint.color = ContextCompat.getColor(context, R.color.black)
-                canvas.drawCircle(xPx, yPx, outsidePx, paint)
-
-                return
-            }
-        }
-
-        // fill outside
-        paint.style = Paint.Style.FILL_AND_STROKE
-        paint.color = ContextCompat.getColor(context, R.color.white)
-        canvas.drawCircle(xPx, yPx, outsidePx, paint)
-
-        // stroke outside
-        paint.style = Paint.Style.STROKE
-        paint.color = ContextCompat.getColor(context, R.color.black)
-        canvas.drawCircle(xPx, yPx, outsidePx, paint)
-
-        // fill inside
-        paint.style = Paint.Style.FILL_AND_STROKE
-        paint.color = color
-        canvas.drawCircle(xPx, yPx, insidePx, paint)
-
-        // stroke inside
-        paint.style = Paint.Style.STROKE
-        paint.color = ContextCompat.getColor(context, R.color.black)
-        canvas.drawCircle(xPx, yPx, insidePx, paint)
     }
 }

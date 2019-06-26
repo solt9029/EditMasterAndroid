@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Paint.Style
 import android.util.AttributeSet
-import android.view.SurfaceHolder
 import androidx.core.content.ContextCompat
 import com.solt9029.editmasterandroid.R
 import com.solt9029.editmasterandroid.constants.*
@@ -13,7 +12,7 @@ import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.util.IndexRange
 import kotlin.math.floor
 
-class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
+class EditorBarsNotesView : BaseNotesView {
     private var translateYPx: Int = 0
     private var notes: List<Int>? = null
 
@@ -21,10 +20,10 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
     private val editorBarInsideHeightPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_INSIDE_HEIGHT, context)
     private val editorBarXPx = CalcUtil.convertDp2Px(PositionConstants.EDITOR_BAR_X, context)
     private val editorBeatLineWidthPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BEAT_LINE_WIDTH, context)
-    private val editorNormalOutsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_NORMAL_OUTSIDE, context)
-    private val editorNormalInsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_NORMAL_INSIDE, context)
-    private val editorBigOutsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BIG_OUTSIDE, context)
-    private val editorBigInsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BIG_INSIDE, context)
+    override val normalOutsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_NORMAL_OUTSIDE, context)
+    override val normalInsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_NORMAL_INSIDE, context)
+    override val bigOutsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BIG_OUTSIDE, context)
+    override val bigInsidePx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BIG_INSIDE, context)
 
     constructor(context: Context) : super(context)
 
@@ -76,83 +75,6 @@ class EditorBarsNotesView : BaseSurfaceView, SurfaceHolder.Callback {
             // draw notes here
             drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas)
         }
-    }
-
-    private fun drawNote(xPx: Float, yPx: Float, note: Int?, spaceWidthPx: Double, previousNote: Int?, nextNote: Int?,
-                         canvas: Canvas) {
-        val paint = Paint()
-
-        val outsidePx: Float = when (note) {
-            IdConstants.Note.DON, IdConstants.Note.KA, IdConstants.Note.BALLOON, IdConstants.Note.RENDA -> editorNormalOutsidePx
-            IdConstants.Note.BIGDON, IdConstants.Note.BIGKA, IdConstants.Note.BIGRENDA -> editorBigOutsidePx
-            else -> return
-        }
-        val insidePx: Float = when (note) {
-            IdConstants.Note.DON, IdConstants.Note.KA, IdConstants.Note.BALLOON, IdConstants.Note.RENDA -> editorNormalInsidePx
-            IdConstants.Note.BIGDON, IdConstants.Note.BIGKA, IdConstants.Note.BIGRENDA -> editorBigInsidePx
-            else -> return
-        }
-        val color: Int = when (note) {
-            IdConstants.Note.DON, IdConstants.Note.BIGDON, IdConstants.Note.BALLOON ->
-                ContextCompat.getColor(context, R.color.red)
-            IdConstants.Note.KA, IdConstants.Note.BIGKA -> ContextCompat.getColor(context, R.color.blue)
-            IdConstants.Note.RENDA, IdConstants.Note.BIGRENDA -> ContextCompat.getColor(context, R.color.yellow)
-            else -> return
-        }
-
-        if (note == IdConstants.Note.BALLOON || note == IdConstants.Note.RENDA || note == IdConstants.Note.BIGRENDA) {
-            if (note == previousNote) {
-                if (note == nextNote) {
-                    val leftPx: Float = (xPx - spaceWidthPx - 1).toFloat()
-                    val topPx: Float = yPx - outsidePx
-                    val rightPx: Float = (leftPx + spaceWidthPx * 2 + 2).toFloat()
-                    val bottomPx: Float = topPx + outsidePx * 2
-
-                    paint.style = Style.FILL_AND_STROKE
-                    paint.color = color
-                    canvas.drawRect(leftPx, topPx, rightPx, bottomPx, paint)
-
-                    paint.style = Style.STROKE
-                    paint.color = ContextCompat.getColor(context, R.color.black)
-                    canvas.drawLine(leftPx, topPx, rightPx, topPx, paint)
-                    canvas.drawLine(leftPx, bottomPx, rightPx, bottomPx, paint)
-
-                    return
-                }
-
-                // fill outside
-                paint.style = Style.FILL_AND_STROKE
-                paint.color = color
-                canvas.drawCircle(xPx, yPx, outsidePx, paint)
-
-                // stroke outside
-                paint.style = Style.STROKE
-                paint.color = ContextCompat.getColor(context, R.color.black)
-                canvas.drawCircle(xPx, yPx, outsidePx, paint)
-
-                return
-            }
-        }
-        
-        // fill outside
-        paint.style = Style.FILL_AND_STROKE
-        paint.color = ContextCompat.getColor(context, R.color.white)
-        canvas.drawCircle(xPx, yPx, outsidePx, paint)
-
-        // stroke outside
-        paint.style = Style.STROKE
-        paint.color = ContextCompat.getColor(context, R.color.black)
-        canvas.drawCircle(xPx, yPx, outsidePx, paint)
-
-        // fill inside
-        paint.style = Style.FILL_AND_STROKE
-        paint.color = color
-        canvas.drawCircle(xPx, yPx, insidePx, paint)
-
-        // stroke inside
-        paint.style = Style.STROKE
-        paint.color = ContextCompat.getColor(context, R.color.black)
-        canvas.drawCircle(xPx, yPx, insidePx, paint)
     }
 
     private fun drawBars(canvas: Canvas) {
