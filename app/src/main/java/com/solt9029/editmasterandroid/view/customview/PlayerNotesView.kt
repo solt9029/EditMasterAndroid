@@ -64,15 +64,16 @@ class PlayerNotesView : BaseNotesView {
     }
 
     override fun draw() {
-        notes ?: return
-        val firstNoteX = CalcUtil.calcFirstNoteX(currentTime, bpm, offset, speed)
-        val range = CalcUtil.calcNoteIndexRangeInPlayer(notes!!.size, speed, width, firstNoteX)
-        range ?: return
         val canvas = holder.lockCanvas() ?: return
 
+        val firstNoteX = CalcUtil.calcFirstNoteX(currentTime, bpm, offset, speed)
+        val range: IndexRange? = CalcUtil.calcNoteIndexRangeInPlayer(notes!!.size, speed, width, firstNoteX)
+
         canvas.drawColor(ContextCompat.getColor(context, R.color.colorBackground))
-        drawBarStartLines(firstNoteX, range, canvas)
-        drawNotes(firstNoteX, range, canvas)
+        if (range != null && notes != null) {
+            drawBarStartLines(firstNoteX, range, canvas)
+            drawNotes(firstNoteX, range, canvas)
+        }
 
         holder.unlockCanvasAndPost(canvas)
     }

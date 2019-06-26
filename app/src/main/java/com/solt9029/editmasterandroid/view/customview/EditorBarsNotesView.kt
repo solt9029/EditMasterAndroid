@@ -42,13 +42,14 @@ class EditorBarsNotesView : BaseNotesView {
     }
 
     override fun draw() {
-        notes ?: return
         val canvas = holder.lockCanvas() ?: return
 
         canvas.drawColor(ContextCompat.getColor(context, R.color.colorBackground))
-        drawBars(canvas)
-        drawNotes(canvas)
-
+        if (notes != null) {
+            drawBars(canvas)
+            drawNotes(canvas)
+        }
+        
         holder.unlockCanvasAndPost(canvas)
     }
 
