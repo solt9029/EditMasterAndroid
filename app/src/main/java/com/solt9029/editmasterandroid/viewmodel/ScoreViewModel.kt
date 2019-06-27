@@ -19,6 +19,7 @@ import com.solt9029.editmasterandroid.constants.SecondConstants
 import com.solt9029.editmasterandroid.repository.ScoreRepository
 import com.solt9029.editmasterandroid.response.Score
 import com.solt9029.editmasterandroid.util.CalcUtil
+import com.solt9029.editmasterandroid.util.NoteUtil
 import com.solt9029.editmasterandroid.util.Pointer
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView
 import io.reactivex.Single
@@ -89,7 +90,7 @@ class ScoreViewModel @Inject constructor(
             val index = pointer.barIndex * NumberConstants.NOTES_PER_BAR + notesPerBarIndex
 
             var count = 0
-            if (currentNote.value == IdConstants.Note.BALLOON || currentNote.value == IdConstants.Note.RENDA || currentNote.value == IdConstants.Note.BIGRENDA) {
+            if (!NoteUtil.hasState(currentNote.value!!)) {
                 count = notesPerDivision - 1
             }
 
@@ -146,7 +147,7 @@ class ScoreViewModel @Inject constructor(
 
         val range = CalcUtil.calcNoteIndexRangeInSecondRange(SecondConstants.RANGE_AUTO, currentTime.value!!,
                 bpm.value!!.toFloat(), offset.value!!.toFloat())
-        
+
         for (i in range.first..range.last) {
             if (i < 0 || i >= notes.value!!.size) {
                 continue
@@ -158,7 +159,7 @@ class ScoreViewModel @Inject constructor(
                 continue
             }
 
-            if (currentNote.value == IdConstants.Note.DON || currentNote.value == IdConstants.Note.KA || currentNote.value == IdConstants.Note.BIGDON || currentNote.value == IdConstants.Note.BIGKA) {
+            if (NoteUtil.hasState(currentNote.value!!)) {
                 states.value!![i] = IdConstants.State.GOOD
                 states.postValue(states.value)
             }
