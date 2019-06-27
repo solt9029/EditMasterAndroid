@@ -14,6 +14,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker
 import com.solt9029.editmasterandroid.R
 import com.solt9029.editmasterandroid.constants.IdConstants
+import com.solt9029.editmasterandroid.constants.IdConstants.Note.SPACE
+import com.solt9029.editmasterandroid.constants.IdConstants.State.FRESH
 import com.solt9029.editmasterandroid.constants.NumberConstants
 import com.solt9029.editmasterandroid.constants.SecondConstants
 import com.solt9029.editmasterandroid.repository.ScoreRepository
@@ -41,37 +43,22 @@ class ScoreViewModel @Inject constructor(
     var offset = ValiFieldFloat(0.75f)
     var speed = ValiFieldFloat(1f)
     var comment = ValiFieldText("創作の達人で創作譜面をしました！")
-    var list: MutableList<Int> = mutableListOf()
-    var notes = MutableLiveData(
-            mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-    var states =
-            MutableLiveData(mutableListOf(
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
-                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH))
+    var notes = MutableLiveData(mutableListOf(
+            SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE,
+            SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE,
+            SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE,
+            SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE,
+            SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE,
+            SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE, SPACE,
+            SPACE, SPACE, SPACE, SPACE, SPACE, SPACE))
+    var states = MutableLiveData(mutableListOf(
+            FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH,
+            FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH,
+            FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH,
+            FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH,
+            FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH,
+            FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH,
+            FRESH, FRESH, FRESH, FRESH, FRESH, FRESH))
     var translateYPx = MutableLiveData(0)
     var currentTime = MutableLiveData(0f)
     var currentNote = MutableLiveData(IdConstants.Note.DON)
@@ -182,7 +169,7 @@ class ScoreViewModel @Inject constructor(
 
             val note = notes.value!![i]
             val state = states.value!![i]
-            if (note == IdConstants.Note.SPACE || state != IdConstants.State.FRESH) {
+            if (note == SPACE || state != FRESH) {
                 continue
             }
 
@@ -266,7 +253,7 @@ class ScoreViewModel @Inject constructor(
                     this.offset.value = offset?.toString()
                     this.speed.value = speed?.toString()
                     this.notes.value = notes
-                    states.setValue(ArrayList(Collections.nCopies(notes?.size ?: 0, IdConstants.State.FRESH)))
+                    states.setValue(ArrayList(Collections.nCopies(notes?.size ?: 0, FRESH)))
                 },
                 { }
         )
