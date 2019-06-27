@@ -177,6 +177,8 @@ class ScoreViewModel @Inject constructor(
                 states.value!![i] = IdConstants.State.GOOD
                 states.postValue(states.value)
             }
+
+            return
         }
     }
 
