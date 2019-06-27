@@ -41,10 +41,37 @@ class ScoreViewModel @Inject constructor(
     var offset = ValiFieldFloat(0.75f)
     var speed = ValiFieldFloat(1f)
     var comment = ValiFieldText("創作の達人で創作譜面をしました！")
-    var notes = MutableLiveData<MutableList<Int>>(
-            ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
-    var states = MutableLiveData<MutableList<IdConstants.State>>(
-            ArrayList(Arrays.asList(*arrayOfNulls(NumberConstants.NOTES_PER_BAR * 5))))
+    var list: MutableList<Int> = mutableListOf()
+    var notes = MutableLiveData(
+            mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+    var states =
+            MutableLiveData(mutableListOf(
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH,
+                    IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH, IdConstants.State.FRESH))
     var translateYPx = MutableLiveData(0)
     var currentTime = MutableLiveData(0f)
     var currentNote = MutableLiveData(IdConstants.Note.DON)
