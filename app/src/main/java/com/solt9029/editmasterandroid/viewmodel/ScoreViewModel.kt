@@ -159,7 +159,7 @@ class ScoreViewModel @Inject constructor(
                 continue
             }
 
-            if (NoteUtil.hasState(currentNote.value!!)) {
+            if (NoteUtil.hasState(note)) {
                 states.value!![i] = IdConstants.State.GOOD
                 states.postValue(states.value)
             }

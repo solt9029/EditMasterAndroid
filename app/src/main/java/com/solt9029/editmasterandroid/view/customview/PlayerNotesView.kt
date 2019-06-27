@@ -1,8 +1,7 @@
 package com.solt9029.editmasterandroid.view.customview
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
+import android.graphics.*
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.solt9029.editmasterandroid.R
@@ -32,6 +31,10 @@ class PlayerNotesView : BaseNotesView {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
+
+    init {
+        holder.setFormat(PixelFormat.TRANSLUCENT)
+    }
 
     fun setCurrentTime(currentTime: Float) {
         this.currentTime = currentTime
@@ -69,7 +72,7 @@ class PlayerNotesView : BaseNotesView {
         val firstNoteX = CalcUtil.calcFirstNoteX(currentTime, bpm, offset, speed)
         val range: IndexRange? = CalcUtil.calcNoteIndexRangeInPlayer(notes!!.size, speed, width, firstNoteX)
 
-        canvas.drawColor(ContextCompat.getColor(context, R.color.colorBackground))
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
         if (range != null && notes != null) {
             drawBarStartLines(firstNoteX, range, canvas)
             drawNotes(firstNoteX, range, canvas)
