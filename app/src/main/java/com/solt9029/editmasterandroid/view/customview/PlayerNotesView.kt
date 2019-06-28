@@ -73,7 +73,7 @@ class PlayerNotesView : BaseNotesView {
         val range: IndexRange? = CalcUtil.calcNoteIndexRangeInPlayer(notes!!.size, speed, width, firstNoteX)
 
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-        if (range != null && notes != null) {
+        if (range != null && notes != null && states != null && notes!!.size == states!!.size) {
             drawBarStartLines(firstNoteX, range, canvas)
             drawNotes(firstNoteX, range, canvas)
         }
