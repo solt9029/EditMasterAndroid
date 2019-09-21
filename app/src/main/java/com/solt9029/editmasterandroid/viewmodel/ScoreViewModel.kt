@@ -1,6 +1,7 @@
 package com.solt9029.editmasterandroid.viewmodel
 
 import android.content.Context
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import androidx.lifecycle.MutableLiveData
@@ -22,7 +23,6 @@ import com.solt9029.editmasterandroid.repository.ScoreRepository
 import com.solt9029.editmasterandroid.response.Score
 import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.util.NoteUtil
-import com.solt9029.editmasterandroid.util.Pointer
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -63,6 +63,41 @@ class ScoreViewModel @Inject constructor(
     var currentTime = MutableLiveData(0f)
     var currentNote = MutableLiveData(IdConstants.Note.DON)
     var currentDivision = MutableLiveData(NumberConstants.DIVISIONS[0])
+    var gestureListener = object : GestureListener() {
+        override fun onSingleTapUp(event: MotionEvent?): Boolean {
+            Timber.d("onSingleTapUp")
+
+            if (event == null || currentDivision.value == null || currentNote.value == null || translateYPx.value == null) {
+                return false
+            }
+
+            val pointer =
+                    CalcUtil.calcPointer(event.x, event.y + translateYPx.value!!, widthPx, currentDivision.value!!,
+                            context)
+            val notesPerDivision = NumberConstants.NOTES_PER_BAR / currentDivision.value!!
+            val notesPerBarIndex = pointer.divisionIndex * notesPerDivision
+            val index = pointer.barIndex * NumberConstants.NOTES_PER_BAR + notesPerBarIndex
+
+            var count = 0
+            if (!NoteUtil.hasState(currentNote.value!!)) {
+                count = notesPerDivision - 1
+            }
+
+            // avoid exception
+            if (notes.value!!.size <= index + count) {
+                return false
+            }
+
+
+            for (i in index..index + count) {
+                notes.value!![i] = currentNote.value!!
+            }
+            notes.value = notes.value
+
+            return true
+        }
+    }
+    val gestureDetector = GestureDetector(context, gestureListener)
 
     val onCurrentDivisionChange =
             object : RadioRealButtonGroup.OnPositionChangedListener {
@@ -89,36 +124,8 @@ class ScoreViewModel @Inject constructor(
     val onTouch = object : View.OnTouchListener {
         override fun onTouch(v: View?, event: MotionEvent?): Boolean {
             v?.performClick()
-
-            // TODO: recognize the event is tap or swipe or ... and only tap event passes
-
-            if (event == null || v == null || currentDivision.value == null || currentNote.value == null || translateYPx.value == null) {
-                return false
-            }
-
-            val pointer: Pointer =
-                    CalcUtil.calcPointer(event.x, event.y + translateYPx.value!!, v.width, currentDivision.value!!,
-                            context)
-            val notesPerDivision = NumberConstants.NOTES_PER_BAR / currentDivision.value!!
-            val notesPerBarIndex = pointer.divisionIndex * notesPerDivision
-            val index = pointer.barIndex * NumberConstants.NOTES_PER_BAR + notesPerBarIndex
-
-            var count = 0
-            if (!NoteUtil.hasState(currentNote.value!!)) {
-                count = notesPerDivision - 1
-            }
-
-            // avoid exception
-            if (notes.value!!.size <= index + count) {
-                return false
-            }
-
-
-            for (i in index..index + count) {
-                notes.value!![i] = currentNote.value!!
-            }
-            notes.value = notes.value
-
+            gestureListener.widthPx = v?.width ?: 0
+            gestureDetector.onTouchEvent(event)
             return false
         }
     }
