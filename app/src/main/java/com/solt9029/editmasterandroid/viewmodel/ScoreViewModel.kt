@@ -6,7 +6,6 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.ceryle.radiorealbutton.RadioRealButton
 import co.ceryle.radiorealbutton.RadioRealButtonGroup
 import com.mlykotom.valifi.fields.ValiFieldText
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
@@ -97,22 +96,18 @@ class ScoreViewModel @Inject constructor(
             return true
         }
     }
-    val gestureDetector = GestureDetector(context, gestureListener)
+    private val gestureDetector = GestureDetector(context, gestureListener)
 
-    val onCurrentDivisionChange =
-            object : RadioRealButtonGroup.OnPositionChangedListener {
-                override fun onPositionChanged(button: RadioRealButton?, currentPosition: Int, lastPosition: Int) {
-                    Timber.d("currentDivision $currentPosition (index) has been selected")
-                    currentDivision.value = NumberConstants.DIVISIONS[currentPosition]
-                }
-            }
-
-    val onCurrentNoteChange = object : RadioRealButtonGroup.OnPositionChangedListener {
-        override fun onPositionChanged(button: RadioRealButton?, currentPosition: Int, lastPosition: Int) {
-            Timber.d("currentNote $currentPosition (index) has been selected")
-            currentNote.value = IdConstants.Note.RADIO_NOTE_MAPPING[currentPosition]
-        }
+    val onCurrentDivisionChange = RadioRealButtonGroup.OnPositionChangedListener { _, currentPosition, _ ->
+        Timber.d("currentDivision $currentPosition (index) has been selected")
+        currentDivision.value = NumberConstants.DIVISIONS[currentPosition]
     }
+
+    val onCurrentNoteChange =
+            RadioRealButtonGroup.OnPositionChangedListener { _, currentPosition, _ ->
+                Timber.d("currentNote $currentPosition (index) has been selected")
+                currentNote.value = IdConstants.Note.RADIO_NOTE_MAPPING[currentPosition]
+            }
 
     val onScrollChange: ScrollContainerView.OnScrollChangeListener =
             object : ScrollContainerView.OnScrollChangeListener {
@@ -121,13 +116,11 @@ class ScoreViewModel @Inject constructor(
                 }
             }
 
-    val onTouch = object : View.OnTouchListener {
-        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-            v?.performClick()
-            gestureListener.widthPx = v?.width ?: 0
-            gestureDetector.onTouchEvent(event)
-            return false
-        }
+    val onTouch = View.OnTouchListener { v: View?, event: MotionEvent? ->
+        v?.performClick()
+        gestureListener.widthPx = v?.width ?: 0
+        gestureDetector.onTouchEvent(event)
+        false
     }
 
     private val viewModel = this
