@@ -18,8 +18,8 @@ import com.solt9029.editmasterandroid.constants.IdConstants.Note.SPACE
 import com.solt9029.editmasterandroid.constants.IdConstants.State.FRESH
 import com.solt9029.editmasterandroid.constants.NumberConstants
 import com.solt9029.editmasterandroid.constants.SecondConstants
+import com.solt9029.editmasterandroid.entity.Score
 import com.solt9029.editmasterandroid.repository.ScoreRepository
-import com.solt9029.editmasterandroid.response.Score
 import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.util.NoteUtil
 import com.solt9029.editmasterandroid.view.customview.ScrollContainerView
@@ -121,6 +121,20 @@ class ScoreViewModel @Inject constructor(
         gestureListener.widthPx = v?.width ?: 0
         gestureDetector.onTouchEvent(event)
         false
+    }
+
+    fun createScore() {
+        val score = Score(bpm = bpm.value?.toFloat(), speed = speed.value?.toFloat(), offset = offset.value?.toFloat(),
+                comment = comment.value, username = username.value, videoId = videoId.value?.value, notes = notes.value)
+        val disposable = createScore(score).subscribe(
+                {
+                    Timber.d("createScore() success")
+                },
+                {
+                    Timber.d("createScore() failure")
+                    Timber.d(it.message)
+                })
+        compositeDisposable.add(disposable)
     }
 
     private val viewModel = this
@@ -264,6 +278,11 @@ class ScoreViewModel @Inject constructor(
 
     private fun fetchScore(id: Int): Single<Score> {
         return repository.getScore(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    private fun createScore(score: Score): Single<Score> {
+        return repository.createScore(score)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     fun navigateToScoreSettingsFragment() {

@@ -195,6 +195,7 @@
                         android:layout_weight="3"
                         android:background="@drawable/image_button_background"
                         android:scaleType="fitCenter"
+                        android:onClick="@{() -> viewModel.createScore()}"
                         android:src="@drawable/ic_save_black_24dp"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton

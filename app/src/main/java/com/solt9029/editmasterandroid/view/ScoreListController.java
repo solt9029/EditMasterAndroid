@@ -7,7 +7,7 @@ import com.airbnb.epoxy.Typed2EpoxyController;
 import com.solt9029.editmasterandroid.ErrorItemBindingModel_;
 import com.solt9029.editmasterandroid.ProgressBarItemBindingModel_;
 import com.solt9029.editmasterandroid.ScoreItemBindingModel_;
-import com.solt9029.editmasterandroid.response.Score;
+import com.solt9029.editmasterandroid.entity.Score;
 import com.solt9029.editmasterandroid.util.SafeUnboxUtil;
 import com.solt9029.editmasterandroid.viewmodel.Resource;
 
