@@ -7,6 +7,7 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.ceryle.radiorealbutton.RadioRealButtonGroup
+import com.google.gson.Gson
 import com.mlykotom.valifi.fields.ValiFieldText
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -19,6 +20,7 @@ import com.solt9029.editmasterandroid.constants.IdConstants.State.FRESH
 import com.solt9029.editmasterandroid.constants.NumberConstants
 import com.solt9029.editmasterandroid.constants.SecondConstants
 import com.solt9029.editmasterandroid.entity.Score
+import com.solt9029.editmasterandroid.entity.ScoreCreateValidationError
 import com.solt9029.editmasterandroid.repository.ScoreRepository
 import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.util.NoteUtil
@@ -27,6 +29,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import retrofit2.Response
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -128,10 +131,13 @@ class ScoreViewModel @Inject constructor(
                 comment = comment.value, username = username.value, videoId = videoId.value?.value, notes = notes.value)
         val disposable = createScore(score).subscribe(
                 {
-                    Timber.d("createScore() success")
+                    if (it.isSuccessful) {
+                        return@subscribe
+                    }
+                    val error = Gson().fromJson<ScoreCreateValidationError>(it.errorBody()?.string(),
+                            ScoreCreateValidationError::class.java)
                 },
                 {
-                    Timber.d("createScore() failure")
                     Timber.d(it.message)
                 })
         compositeDisposable.add(disposable)
@@ -280,7 +286,7 @@ class ScoreViewModel @Inject constructor(
         return repository.getScore(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
-    private fun createScore(score: Score): Single<Score> {
+    private fun createScore(score: Score): Single<Response<Score>> {
         return repository.createScore(score)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }

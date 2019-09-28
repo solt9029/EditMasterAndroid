@@ -3,6 +3,7 @@ package com.solt9029.editmasterandroid.repository
 import com.solt9029.editmasterandroid.entity.Score
 import com.solt9029.editmasterandroid.service.ScoreService
 import io.reactivex.Single
+import retrofit2.Response
 
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class ScoreRepository @Inject constructor(private val service: ScoreService) {
         return service.getScore(id)
     }
 
-    fun createScore(score: Score): Single<Score> {
+    fun createScore(score: Score): Single<Response<Score>> {
         return service.createScore(score)
     }
 }
