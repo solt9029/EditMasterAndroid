@@ -11,6 +11,10 @@
         <variable
                 name="viewModel"
                 type="com.solt9029.editmasterandroid.viewmodel.ScoreViewModel"/>
+
+        <import type="com.solt9029.editmasterandroid.constants.IdConstants"/>
+
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
@@ -18,24 +22,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-                android:text="保存中にエラーが発生しました。"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"
+        <LinearLayout
+                android:visibility="@{viewModel.dialogType == IdConstants.DialogType.VALIDATION_ERROR ? View.VISIBLE : View.GONE}"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="10dp"
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                app:adapter="@{adapter}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            <TextView
+                    android:text="保存中にエラーが発生しました。"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    app:adapter="@{adapter}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </LinearLayout>
+
     </LinearLayout>
-
 </layout>
