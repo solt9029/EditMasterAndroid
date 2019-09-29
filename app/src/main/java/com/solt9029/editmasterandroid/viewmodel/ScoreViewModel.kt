@@ -39,7 +39,7 @@ class ScoreViewModel @Inject constructor(
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     var navigateToScoreSettingsFragment = UnitLiveEvent()
-    var openValidationErrorListDialog = MutableLiveData<ValidationErrorBody>()
+    var openValidationErrorListDialog = LiveEvent<ValidationErrorBody>()
     var username = ValiFieldText("通りすがりの創作の達人")
     var videoId = MutableLiveData(Field("jhOVibLEDhA"))
     var bpm = ValiFieldFloat(158f)
@@ -138,7 +138,7 @@ class ScoreViewModel @Inject constructor(
 
                     val body = Gson().fromJson<ValidationErrorBody>(it.errorBody()?.string(),
                             ValidationErrorBody::class.java)
-                    openValidationErrorListDialog.postValue(body)
+                    openValidationErrorListDialog.call(body)
                 },
                 {
                     Timber.d(it.message)
