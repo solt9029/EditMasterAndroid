@@ -226,7 +226,9 @@ class ScoreViewModel @Inject constructor(
         }
 
         override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+            Timber.d("YouTubePlayer: onStateChange")
             if (state == PlayerConstants.PlayerState.PLAYING) {
+                states.value = ArrayList(Collections.nCopies(notes.value?.size ?: 0, FRESH))
                 thread = Thread(loop)
                 thread?.start()
                 return
@@ -290,7 +292,7 @@ class ScoreViewModel @Inject constructor(
                     this.offset.value = offset?.toString()
                     this.speed.value = speed?.toString()
                     this.notes.value = notes
-                    states.setValue(ArrayList(Collections.nCopies(notes?.size ?: 0, FRESH)))
+                    states.value = ArrayList(Collections.nCopies(notes?.size ?: 0, FRESH))
                 },
                 { }
         )
