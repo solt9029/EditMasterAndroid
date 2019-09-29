@@ -45,12 +45,6 @@ class ScoreFragment : DaggerFragment() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        Timber.d("onResume")
-        viewModel.playVideo()
-    }
-
     override fun onPause() {
         Timber.d("onPause")
         viewModel.thread = null
