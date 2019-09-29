@@ -34,6 +34,7 @@
                     android:textSize="20sp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
                     android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -46,6 +47,53 @@
                     android:scrollbars="vertical"
                     app:adapter="@{adapter}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:visibility="@{viewModel.dialogType == IdConstants.DialogType.LOADING ? View.VISIBLE : View.GONE}"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:text="保存中です。"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:text="しばらくお待ちください。"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:visibility="@{viewModel.dialogType == IdConstants.DialogType.SUCCESS ? View.VISIBLE : View.GONE}"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:text="保存が完了しました。"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </LinearLayout>
