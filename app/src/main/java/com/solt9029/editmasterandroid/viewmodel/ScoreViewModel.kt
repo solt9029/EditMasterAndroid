@@ -39,7 +39,9 @@ class ScoreViewModel @Inject constructor(
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     var navigateToScoreSettingsFragment = UnitLiveEvent()
-    var openValidationErrorListDialog = LiveEvent<ValidationErrorBody>()
+    var openDialog = UnitLiveEvent()
+    var dialogType = MutableLiveData<IdConstants.DialogType>(IdConstants.DialogType.LOADING)
+    var validationErrorBody = MutableLiveData<ValidationErrorBody>()
     var username = ValiFieldText("通りすがりの創作の達人")
     var videoId = MutableLiveData(Field("jhOVibLEDhA"))
     var bpm = ValiFieldFloat(158f)
@@ -128,19 +130,29 @@ class ScoreViewModel @Inject constructor(
     }
 
     fun createScore() {
+        validationErrorBody.value = null
+        dialogType.value = IdConstants.DialogType.LOADING
+        openDialog.call()
         val score = Score(bpm = bpm.value?.toFloat(), speed = speed.value?.toFloat(), offset = offset.value?.toFloat(),
                 comment = comment.value, username = username.value, videoId = videoId.value?.value, notes = notes.value)
         val disposable = createScore(score).subscribe(
                 {
                     if (it.isSuccessful) {
+                        validationErrorBody.value = null
+                        dialogType.value = IdConstants.DialogType.SUCCESS
                         return@subscribe
                     }
-
-                    val body = Gson().fromJson<ValidationErrorBody>(it.errorBody()?.string(),
-                            ValidationErrorBody::class.java)
-                    openValidationErrorListDialog.call(body)
+                    when (it.code()) {
+                        422 -> {
+                            validationErrorBody.value = Gson().fromJson<ValidationErrorBody>(it.errorBody()?.string(),
+                                    ValidationErrorBody::class.java)
+                            dialogType.value = IdConstants.DialogType.VALIDATION_ERROR
+                        }
+                    }
                 },
                 {
+                    validationErrorBody.value = null
+                    dialogType.value = IdConstants.DialogType.FAILURE
                     Timber.d(it.message)
                 })
         compositeDisposable.add(disposable)

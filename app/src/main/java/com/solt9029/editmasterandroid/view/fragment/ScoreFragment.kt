@@ -22,6 +22,7 @@ class ScoreFragment : DaggerFragment() {
     private val viewModel: ScoreViewModel by lazy {
         ViewModelProviders.of(activity!!, factory).get(ScoreViewModel::class.java)
     }
+    private var dialog: DialogFragment = DialogFragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Timber.d("onCreateView")
@@ -35,8 +36,7 @@ class ScoreFragment : DaggerFragment() {
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
-        viewModel.openValidationErrorListDialog.observe(this, "openValidationErrorListDialog", Observer {
-            val dialog = ValidationErrorListDialogFragment()
+        viewModel.openDialog.observe(this, "openDialog", Observer {
             dialog.show(activity!!.fragmentManager, "dialog")
         })
 

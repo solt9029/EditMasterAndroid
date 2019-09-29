@@ -20,4 +20,8 @@ class IdConstants {
     enum class State {
         FRESH, GOOD, OK, BAD
     }
+
+    enum class DialogType {
+        LOADING, SUCCESS, FAILURE, VALIDATION_ERROR
+    }
 }
