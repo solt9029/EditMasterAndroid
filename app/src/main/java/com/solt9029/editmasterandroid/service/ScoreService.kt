@@ -18,6 +18,6 @@ interface ScoreService {
     fun createScore(@Body score: Score): Single<Response<Score>>
 
     companion object {
-        const val BASE_URL = "http://editmasterapi.solt9029.com"
+        const val BASE_URL = "http://192.168.100.119:8051"
     }
 }

@@ -20,7 +20,7 @@ import com.solt9029.editmasterandroid.constants.IdConstants.State.FRESH
 import com.solt9029.editmasterandroid.constants.NumberConstants
 import com.solt9029.editmasterandroid.constants.SecondConstants
 import com.solt9029.editmasterandroid.entity.Score
-import com.solt9029.editmasterandroid.entity.ScoreCreateValidationError
+import com.solt9029.editmasterandroid.entity.ValidationErrorBody
 import com.solt9029.editmasterandroid.repository.ScoreRepository
 import com.solt9029.editmasterandroid.util.CalcUtil
 import com.solt9029.editmasterandroid.util.NoteUtil
@@ -39,6 +39,7 @@ class ScoreViewModel @Inject constructor(
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     var navigateToScoreSettingsFragment = UnitLiveEvent()
+    var openDialog = MutableLiveData<ValidationErrorBody>()
     var username = ValiFieldText("通りすがりの創作の達人")
     var videoId = MutableLiveData(Field("jhOVibLEDhA"))
     var bpm = ValiFieldFloat(158f)
@@ -134,8 +135,10 @@ class ScoreViewModel @Inject constructor(
                     if (it.isSuccessful) {
                         return@subscribe
                     }
-                    val error = Gson().fromJson<ScoreCreateValidationError>(it.errorBody()?.string(),
-                            ScoreCreateValidationError::class.java)
+
+                    val body = Gson().fromJson<ValidationErrorBody>(it.errorBody()?.string(),
+                            ValidationErrorBody::class.java)
+                    openDialog.postValue(body)
                 },
                 {
                     Timber.d(it.message)

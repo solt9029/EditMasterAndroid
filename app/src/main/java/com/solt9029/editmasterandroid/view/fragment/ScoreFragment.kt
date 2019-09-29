@@ -1,6 +1,5 @@
 package com.solt9029.editmasterandroid.view.fragment
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +34,11 @@ class ScoreFragment : DaggerFragment() {
         Timber.d("onActivityCreated")
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
+
+        viewModel.openDialog.observe(this, Observer {
+            val dialog = ValidationErrorListDialogFragment()
+            dialog.show(activity!!.fragmentManager, "dialog")
+        })
 
         viewModel.navigateToScoreSettingsFragment.observe(this, "", Observer {
             (activity!! as ScoreActivity).navigateToScoreSettingsFragment()

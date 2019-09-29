@@ -1,4 +1,5 @@
-@EpoxyDataBindingLayouts({R.layout.score_item, R.layout.progress_bar_item, R.layout.error_item})
+@EpoxyDataBindingLayouts(
+        {R.layout.score_item, R.layout.progress_bar_item, R.layout.error_item, R.layout.validation_error_item})
 @PackageModelViewConfig(rClass = R.class)
 @PackageEpoxyConfig(
         requireAbstractModels = true,
