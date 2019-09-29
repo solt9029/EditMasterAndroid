@@ -36,6 +36,6 @@ class ValidationErrorListDialogFragment : DaggerDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.adapter = controller.adapter
-        controller.setData(viewModel.openDialog.value)
+        controller.setData(viewModel.openValidationErrorListDialog.value)
     }
 }

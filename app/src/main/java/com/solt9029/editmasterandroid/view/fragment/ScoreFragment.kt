@@ -35,7 +35,7 @@ class ScoreFragment : DaggerFragment() {
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
-        viewModel.openDialog.observe(this, Observer {
+        viewModel.openValidationErrorListDialog.observe(this, Observer {
             val dialog = ValidationErrorListDialogFragment()
             dialog.show(activity!!.fragmentManager, "dialog")
         })

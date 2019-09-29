@@ -18,7 +18,7 @@ public class ValidationErrorListController extends TypedEpoxyController<Validati
         long id = 0L;
         for (Map.Entry<String, List<String>> entry : body.getErrors().entrySet()) {
             for (String error : entry.getValue()) {
-                new ValidationErrorItemBindingModel_().error(error).id(id++).addTo(this);
+                new ValidationErrorItemBindingModel_().error("●" + error).id(id++).addTo(this);
             }
         }
     }
