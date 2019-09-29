@@ -1,6 +1,8 @@
 package com.solt9029.editmasterandroid.viewmodel
 
 import android.content.Context
+import android.media.AudioManager
+import android.media.SoundPool
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -184,9 +186,15 @@ class ScoreViewModel @Inject constructor(
                 } catch (error: InterruptedException) {
                     Timber.e(error.message)
                 }
-
             }
         }
+    }
+
+    private val soundPool = SoundPool(2, AudioManager.STREAM_MUSIC, 0)
+    private val donSoundId = soundPool.load(context, R.raw.don, 1)
+    private val kaSoundId = soundPool.load(context, R.raw.ka, 1)
+    private fun playSound(soundId: Int) {
+        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
     }
 
     fun doAutoMode() {
@@ -204,16 +212,24 @@ class ScoreViewModel @Inject constructor(
 
             val note = notes.value!![i]
             val state = states.value!![i]
+
             if (note == SPACE || state != FRESH) {
                 continue
             }
 
-            if (NoteUtil.hasState(note)) {
-                states.value!![i] = IdConstants.State.GOOD
-                states.postValue(states.value)
+            if (!NoteUtil.hasState(note)) {
+                playSound(donSoundId)
+                return
             }
 
-            return
+            if (NoteUtil.isDon(note)) {
+                playSound(donSoundId)
+            } else if (NoteUtil.isKa(note)) {
+                playSound(kaSoundId)
+            }
+
+            states.value!![i] = IdConstants.State.GOOD
+            states.postValue(states.value)
         }
     }
 
