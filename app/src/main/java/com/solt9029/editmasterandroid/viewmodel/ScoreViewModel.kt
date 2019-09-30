@@ -20,6 +20,7 @@ import com.solt9029.editmasterandroid.constants.IdConstants
 import com.solt9029.editmasterandroid.constants.IdConstants.Note.SPACE
 import com.solt9029.editmasterandroid.constants.IdConstants.State.FRESH
 import com.solt9029.editmasterandroid.constants.NumberConstants
+import com.solt9029.editmasterandroid.constants.NumberConstants.AUDIO_LAG
 import com.solt9029.editmasterandroid.constants.SecondConstants
 import com.solt9029.editmasterandroid.entity.Score
 import com.solt9029.editmasterandroid.entity.ValidationErrorBody
@@ -178,7 +179,7 @@ class ScoreViewModel @Inject constructor(
                 } else {
                     currentYouTubeSecond = prevYouTubeSecond + (System.currentTimeMillis() - prevTimeMillis) / 1000f
                 }
-                currentTime.postValue(currentYouTubeSecond)
+                currentTime.postValue(currentYouTubeSecond - AUDIO_LAG)
                 Timber.d("currentTime: " + currentTime.value)
                 doAutoMode()
                 try {
