@@ -19,12 +19,12 @@ class PlayerNotesView : BaseNotesView {
     override val bigOutsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_BIG_OUTSIDE, context)
     override val bigInsidePx = CalcUtil.convertDp2Px(SizeConstants.PLAYER_BIG_INSIDE, context)
 
-    private var notes: List<Int>? = null
+    private var notes: List<Int> = listOf()
     private var currentTime: Float = 0f
     private var bpm: Float = 0f
     private var offset: Float = 0f
     private var speed: Float = 0f
-    private var states: List<IdConstants.State>? = null
+    private var states: List<IdConstants.State> = listOf()
 
     constructor(context: Context) : super(context)
 
@@ -56,12 +56,12 @@ class PlayerNotesView : BaseNotesView {
         draw()
     }
 
-    fun setNotes(notes: List<Int>?) {
+    fun setNotes(notes: List<Int>) {
         this.notes = notes
         draw()
     }
 
-    fun setStates(states: List<IdConstants.State>?) {
+    fun setStates(states: List<IdConstants.State>) {
         this.states = states
         draw()
     }
@@ -70,10 +70,10 @@ class PlayerNotesView : BaseNotesView {
         val canvas = holder.lockCanvas() ?: return
 
         val firstNoteX = CalcUtil.calcFirstNoteX(currentTime, bpm, offset, speed)
-        val range: IndexRange? = CalcUtil.calcNoteIndexRangeInPlayer(notes!!.size, speed, width, firstNoteX)
+        val range: IndexRange? = CalcUtil.calcNoteIndexRangeInPlayer(notes.size, speed, width, firstNoteX)
 
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-        if (range != null && notes != null && states != null && notes!!.size == states!!.size) {
+        if (range != null && notes.size == states.size) {
             drawBarStartLines(firstNoteX, range, canvas)
             drawNotes(firstNoteX, range, canvas)
         }
@@ -106,8 +106,8 @@ class PlayerNotesView : BaseNotesView {
 
     private fun drawNotes(firstNoteX: Float, range: IndexRange, canvas: Canvas) {
         for (i in range.last downTo range.first) {
-            val note: Int? = notes!![i]
-            val state = states!![i]
+            val note: Int? = notes[i]
+            val state = states[i]
             if (note == IdConstants.Note.SPACE || state != IdConstants.State.FRESH) {
                 continue
             }
@@ -116,8 +116,8 @@ class PlayerNotesView : BaseNotesView {
             val spaceWidthPx: Double = CalcUtil.convertDp2Px(spaceWidth, context).toDouble()
             val xPx = CalcUtil.convertDp2Px(firstNoteX + i * spaceWidth, context)
             val yPx = (height / 2).toFloat()
-            val previousNote: Int? = if (i > 0) notes!![i - 1] else IdConstants.Note.SPACE
-            val nextNote: Int? = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
+            val previousNote: Int? = if (i > 0) notes[i - 1] else IdConstants.Note.SPACE
+            val nextNote: Int? = if (i < notes.size - 1) notes[i + 1] else IdConstants.Note.SPACE
 
             drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas)
         }

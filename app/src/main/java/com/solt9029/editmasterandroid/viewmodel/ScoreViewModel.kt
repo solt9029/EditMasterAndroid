@@ -140,8 +140,9 @@ class ScoreViewModel @Inject constructor(
         validationErrorBody.value = null
         dialogType.value = IdConstants.DialogType.LOADING
         openDialog.call()
-        val score = Score(bpm = bpm.value?.toFloat(), speed = speed.value?.toFloat(), offset = offset.value?.toFloat(),
-                comment = comment.value, username = username.value, videoId = videoId.value?.value, notes = notes.value)
+        val score = Score(bpm = bpm.value?.toFloatOrNull(), speed = speed.value?.toFloatOrNull(),
+                offset = offset.value?.toFloatOrNull(), comment = comment.value, username = username.value,
+                videoId = videoId.value?.value, notes = notes.value)
         val disposable = createScore(score).subscribe(
                 {
                     if (it.isSuccessful) {
@@ -208,7 +209,7 @@ class ScoreViewModel @Inject constructor(
         }
 
         val range = CalcUtil.calcNoteIndexRangeInSecondRange(SecondConstants.RANGE_AUTO, currentTime.value!!,
-                bpm.value!!.toFloat(), offset.value!!.toFloat())
+                bpm.value!!.toFloatOrNull() ?: 0f, offset.value!!.toFloatOrNull() ?: 0f)
 
         for (i in range.first..range.last) {
             if (i < 0 || i >= notes.value!!.size) {

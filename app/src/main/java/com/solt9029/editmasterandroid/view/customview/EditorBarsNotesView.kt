@@ -14,7 +14,7 @@ import kotlin.math.floor
 
 class EditorBarsNotesView : BaseNotesView {
     private var translateYPx: Int = 0
-    private var notes: List<Int>? = null
+    private var notes: List<Int> = listOf()
 
     private val editorBarOutsideHeightPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT, context)
     private val editorBarInsideHeightPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_INSIDE_HEIGHT, context)
@@ -36,7 +36,7 @@ class EditorBarsNotesView : BaseNotesView {
         draw()
     }
 
-    fun setNotes(notes: List<Int>?) {
+    fun setNotes(notes: List<Int>) {
         this.notes = notes
         draw()
     }
@@ -45,11 +45,9 @@ class EditorBarsNotesView : BaseNotesView {
         val canvas = holder.lockCanvas() ?: return
 
         canvas.drawColor(ContextCompat.getColor(context, R.color.colorBackground))
-        if (notes != null) {
-            drawBars(canvas)
-            drawNotes(canvas)
-        }
-        
+        drawBars(canvas)
+        drawNotes(canvas)
+
         holder.unlockCanvasAndPost(canvas)
     }
 
@@ -58,10 +56,10 @@ class EditorBarsNotesView : BaseNotesView {
         val actualBarWidthPx = barWidthPx * (1 - PercentageConstants.EDITOR_BAR_START_LINE)
         val spaceWidthPx = actualBarWidthPx / NumberConstants.NOTES_PER_BAR
         val barStartLineXPx = editorBarXPx + barWidthPx * PercentageConstants.EDITOR_BAR_START_LINE
-        val range: IndexRange = CalcUtil.calcNoteIndexRangeInEditor(notes!!.size, translateYPx, height, context)
+        val range: IndexRange = CalcUtil.calcNoteIndexRangeInEditor(notes.size, translateYPx, height, context)
 
         for (i in range.last downTo range.first) {
-            val note: Int? = notes!![i]
+            val note: Int? = notes[i]
             if (note == IdConstants.Note.SPACE) {
                 continue
             }
@@ -70,8 +68,8 @@ class EditorBarsNotesView : BaseNotesView {
             val xPx: Float = (barStartLineXPx + spaceWidthPx * c).toFloat()
             val yPx: Float = (editorBarOutsideHeightPx * (l + 0.5) - translateYPx).toFloat()
 
-            val previousNote: Int? = if (i > 0) notes!![i - 1] else IdConstants.Note.SPACE
-            val nextNote: Int? = if (i < notes!!.size - 1) notes!![i + 1] else IdConstants.Note.SPACE
+            val previousNote: Int? = if (i > 0) notes[i - 1] else IdConstants.Note.SPACE
+            val nextNote: Int? = if (i < notes.size - 1) notes[i + 1] else IdConstants.Note.SPACE
 
             // draw notes here
             drawNote(xPx, yPx, note, spaceWidthPx, previousNote, nextNote, canvas)
@@ -79,13 +77,13 @@ class EditorBarsNotesView : BaseNotesView {
     }
 
     private fun drawBars(canvas: Canvas) {
-        val notesSize = notes!!.size
+        val notesSize = notes.size
 
         val barNum = CalcUtil.calcBarNum(notesSize)
         val range = CalcUtil.calcBarIndexRangeInEditor(barNum, translateYPx, height, context)
         for (i in range.first..range.last) {
-            val yPx =
-                    i * CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT.toFloat(), context) - translateYPx
+            val yPx = i * CalcUtil.convertDp2Px(
+                    SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT.toFloat(), context) - translateYPx
             drawBar(yPx, canvas)
         }
     }

@@ -20,7 +20,7 @@ import timber.log.Timber
 
 object DataBindingHelper {
     @JvmStatic @BindingAdapter("youtube_image")
-    fun setYoutubeImage(view: ImageView, videoId: String) {
+    fun setYoutubeImage(view: ImageView, videoId: String?) {
         val url = "http://i.ytimg.com/vi/$videoId/mqdefault.jpg"
         Glide.with(view.context).load(url).into(view)
     }
@@ -31,39 +31,39 @@ object DataBindingHelper {
     }
 
     @JvmStatic @BindingAdapter("translate_y_px")
-    fun setTranslateYPx(view: EditorBarsNotesView, translateYPx: Int) {
-        view.setTranslateYPx(translateYPx)
+    fun setTranslateYPx(view: EditorBarsNotesView, translateYPx: Int?) {
+        view.setTranslateYPx(translateYPx ?: 0)
     }
 
     @JvmStatic @BindingAdapter("notes")
-    fun setNotes(view: EditorBarsNotesView, notes: List<Int>) {
-        view.setNotes(notes)
+    fun setNotes(view: EditorBarsNotesView, notes: List<Int>?) {
+        view.setNotes(notes ?: listOf())
     }
 
     @JvmStatic @BindingAdapter("bpm")
-    fun setBpm(view: EditorCurrentTimeMarkView, bpm: String) {
-        view.setBpm(bpm.toFloat())
+    fun setBpm(view: EditorCurrentTimeMarkView, bpm: String?) {
+        view.setBpm(bpm?.toFloatOrNull() ?: 0f)
     }
 
     @JvmStatic @BindingAdapter("offset")
-    fun setOffset(view: EditorCurrentTimeMarkView, offset: String) {
-        view.setOffset(offset.toFloat())
+    fun setOffset(view: EditorCurrentTimeMarkView, offset: String?) {
+        view.setOffset(offset?.toFloatOrNull() ?: 0f)
     }
 
     @JvmStatic @BindingAdapter("current_time")
-    fun setCurrentTime(view: EditorCurrentTimeMarkView, currentTime: Float) {
-        view.setCurrentTime(currentTime)
+    fun setCurrentTime(view: EditorCurrentTimeMarkView, currentTime: Float?) {
+        view.setCurrentTime(currentTime ?: 0f)
     }
 
     @JvmStatic @BindingAdapter("translate_y_px")
-    fun setTranslateYPx(view: EditorCurrentTimeMarkView, translateYPx: Int) {
-        view.setTranslateYPx(translateYPx)
+    fun setTranslateYPx(view: EditorCurrentTimeMarkView, translateYPx: Int?) {
+        view.setTranslateYPx(translateYPx ?: 0)
     }
 
     @JvmStatic @BindingAdapter("notes", "context")
-    fun setHeight(view: RelativeLayout, notes: List<Int>, context: Context) {
+    fun setHeight(view: RelativeLayout, notes: List<Int>?, context: Context) {
         val params = view.layoutParams
-        params.height = CalcUtil.calcEditorHeightPx(notes.size, context).toInt()
+        params.height = CalcUtil.calcEditorHeightPx(notes?.size ?: 0, context).toInt()
         Timber.d("editorHeightPx: " + params.height)
         view.layoutParams = params
     }
@@ -91,32 +91,32 @@ object DataBindingHelper {
     }
 
     @JvmStatic @BindingAdapter("current_time")
-    fun setCurrentTime(view: PlayerNotesView, currentTime: Float) {
-        view.setCurrentTime(currentTime)
+    fun setCurrentTime(view: PlayerNotesView, currentTime: Float?) {
+        view.setCurrentTime(currentTime ?: 0f)
     }
 
     @JvmStatic @BindingAdapter("bpm")
-    fun setBpm(view: PlayerNotesView, bpm: String) {
-        view.setBpm(bpm.toFloat())
+    fun setBpm(view: PlayerNotesView, bpm: String?) {
+        view.setBpm(bpm?.toFloatOrNull() ?: 0f)
     }
 
     @JvmStatic @BindingAdapter("offset")
-    fun setOffset(view: PlayerNotesView, offset: String) {
-        view.setOffset(offset.toFloat())
+    fun setOffset(view: PlayerNotesView, offset: String?) {
+        view.setOffset(offset?.toFloatOrNull() ?: 0f)
     }
 
     @JvmStatic @BindingAdapter("notes")
-    fun setNotes(view: PlayerNotesView, notes: List<Int>) {
-        view.setNotes(notes)
+    fun setNotes(view: PlayerNotesView, notes: List<Int>?) {
+        view.setNotes(notes ?: listOf())
     }
 
     @JvmStatic @BindingAdapter("states")
-    fun setStates(view: PlayerNotesView, states: List<IdConstants.State>) {
-        view.setStates(states)
+    fun setStates(view: PlayerNotesView, states: List<IdConstants.State>?) {
+        view.setStates(states ?: listOf())
     }
 
     @JvmStatic @BindingAdapter("speed")
-    fun setSpeed(view: PlayerNotesView, speed: String) {
-        view.setSpeed(speed.toFloat())
+    fun setSpeed(view: PlayerNotesView, speed: String?) {
+        view.setSpeed(speed?.toFloatOrNull() ?: 0f)
     }
 }

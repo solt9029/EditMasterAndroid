@@ -19,7 +19,6 @@ class EditorCurrentTimeMarkView : BaseSurfaceView, SurfaceHolder.Callback {
     private var currentTime: Float = 0f
     private var translateYPx: Int = 0
 
-
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
