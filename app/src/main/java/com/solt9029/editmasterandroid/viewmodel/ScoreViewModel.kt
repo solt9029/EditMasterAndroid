@@ -20,7 +20,6 @@ import com.solt9029.editmasterandroid.constants.IdConstants
 import com.solt9029.editmasterandroid.constants.IdConstants.Note.SPACE
 import com.solt9029.editmasterandroid.constants.IdConstants.State.FRESH
 import com.solt9029.editmasterandroid.constants.NumberConstants
-import com.solt9029.editmasterandroid.constants.NumberConstants.AUDIO_LAG
 import com.solt9029.editmasterandroid.constants.SecondConstants
 import com.solt9029.editmasterandroid.entity.Score
 import com.solt9029.editmasterandroid.entity.ValidationErrorBody
@@ -96,6 +95,11 @@ class ScoreViewModel @Inject constructor(
                 return false
             }
 
+            // when last line is tapped, add line after the bottom line
+            if (notes.value!!.size > index + count && notes.value!!.size - NumberConstants.NOTES_PER_BAR <= index + count) {
+                notes.value?.addAll(Collections.nCopies(NumberConstants.NOTES_PER_BAR, SPACE))
+                states.value?.addAll(Collections.nCopies(NumberConstants.NOTES_PER_BAR, FRESH))
+            }
 
             for (i in index..index + count) {
                 notes.value!![i] = currentNote.value!!
@@ -179,7 +183,7 @@ class ScoreViewModel @Inject constructor(
                 } else {
                     currentYouTubeSecond = prevYouTubeSecond + (System.currentTimeMillis() - prevTimeMillis) / 1000f
                 }
-                currentTime.postValue(currentYouTubeSecond - AUDIO_LAG)
+                currentTime.postValue(currentYouTubeSecond - NumberConstants.AUDIO_LAG)
                 Timber.d("currentTime: " + currentTime.value)
                 doAutoMode()
                 try {
