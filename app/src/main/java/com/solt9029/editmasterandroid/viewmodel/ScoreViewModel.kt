@@ -17,6 +17,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker
 import com.solt9029.editmasterandroid.R
 import com.solt9029.editmasterandroid.constants.IdConstants
+import com.solt9029.editmasterandroid.constants.IdConstants.Note.COPY
+import com.solt9029.editmasterandroid.constants.IdConstants.Note.PASTE
 import com.solt9029.editmasterandroid.constants.IdConstants.Note.SPACE
 import com.solt9029.editmasterandroid.constants.IdConstants.State.FRESH
 import com.solt9029.editmasterandroid.constants.NumberConstants
@@ -66,21 +68,21 @@ class ScoreViewModel @Inject constructor(
             FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH,
             FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH, FRESH,
             FRESH, FRESH, FRESH, FRESH, FRESH, FRESH))
+    private var clipboard: List<Int>? = null
     var translateYPx = MutableLiveData(0)
     var currentTime = MutableLiveData(0f)
     var currentNote = MutableLiveData(IdConstants.Note.DON)
     var currentDivision = MutableLiveData(NumberConstants.DIVISIONS[0])
-    var gestureListener = object : GestureListener() {
+    private var gestureListener = object : GestureListener() {
         override fun onSingleTapUp(event: MotionEvent?): Boolean {
             Timber.d("onSingleTapUp")
 
-            if (event == null || currentDivision.value == null || currentNote.value == null || translateYPx.value == null) {
+            if (event == null || currentDivision.value == null || currentNote.value == null || translateYPx.value == null || notes.value == null || states.value == null) {
                 return false
             }
 
-            val pointer =
-                    CalcUtil.calcPointer(event.x, event.y + translateYPx.value!!, widthPx, currentDivision.value!!,
-                            context)
+            val pointer = CalcUtil.calcPointer(
+                    event.x, event.y + translateYPx.value!!, widthPx, currentDivision.value!!, context)
             val notesPerDivision = NumberConstants.NOTES_PER_BAR / currentDivision.value!!
             val notesPerBarIndex = pointer.divisionIndex * notesPerDivision
             val index = pointer.barIndex * NumberConstants.NOTES_PER_BAR + notesPerBarIndex
@@ -92,6 +94,27 @@ class ScoreViewModel @Inject constructor(
 
             // avoid exception
             if (notes.value!!.size <= index + count) {
+                return false
+            }
+
+            // copy
+            if (currentNote.value!! == COPY) {
+                val barIndex = CalcUtil.calcBarIndex(index)
+                clipboard = notes.value?.slice(
+                        barIndex * NumberConstants.NOTES_PER_BAR until (barIndex + 1) * NumberConstants.NOTES_PER_BAR)
+                return true
+            }
+
+            // paste
+            if (currentNote.value!! == PASTE) {
+                clipboard?.let {
+                    val barIndex = CalcUtil.calcBarIndex(index)
+                    for (i in 0 until NumberConstants.NOTES_PER_BAR) {
+                        notes.value!![barIndex * NumberConstants.NOTES_PER_BAR + i] = it[i]
+                    }
+                    notes.value = notes.value
+                    return true
+                }
                 return false
             }
 

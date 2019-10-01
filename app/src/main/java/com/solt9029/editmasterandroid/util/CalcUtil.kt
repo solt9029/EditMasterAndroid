@@ -131,6 +131,10 @@ object CalcUtil {
         return ceil(notesSize.toDouble() / NumberConstants.NOTES_PER_BAR).toInt()
     }
 
+    @JvmStatic fun calcBarIndex(noteIndex: Int): Int {
+        return floor(noteIndex.toFloat() / NumberConstants.NOTES_PER_BAR.toFloat()).toInt()
+    }
+
     @JvmStatic fun calcCurrentTimeMarkPosition(widthPx: Int, bpm: Float, offset: Float, currentTime: Float,
                                                context: Context): Position {
         val barWidthPx = calcBarWidthPx(widthPx, context)
