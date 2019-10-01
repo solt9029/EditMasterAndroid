@@ -80,20 +80,10 @@
 
         <LinearLayout
                 android:visibility="@{viewModel.dialogType == IdConstants.DialogType.SUCCESS ? View.VISIBLE : View.GONE}"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <TextView
-                    android:text="保存が完了しました。"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginTop="5dp"
-                    android:textStyle="bold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+            <include layout="@layout/frame_success_dialog"/>
         </LinearLayout>
 
     </LinearLayout>
