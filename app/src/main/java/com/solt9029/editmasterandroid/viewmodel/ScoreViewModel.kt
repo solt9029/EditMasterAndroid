@@ -44,6 +44,7 @@ class ScoreViewModel @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
     var navigateToScoreSettingsFragment = UnitLiveEvent()
     var openDialog = UnitLiveEvent()
+    var openCopyToast = UnitLiveEvent()
     var dialogType = MutableLiveData<IdConstants.DialogType>(IdConstants.DialogType.LOADING)
     var validationErrorBody = MutableLiveData<ValidationErrorBody>()
     var username = ValiFieldText("通りすがりの創作の達人")
@@ -102,6 +103,7 @@ class ScoreViewModel @Inject constructor(
                 val barIndex = CalcUtil.calcBarIndex(index)
                 clipboard = notes.value?.slice(
                         barIndex * NumberConstants.NOTES_PER_BAR until (barIndex + 1) * NumberConstants.NOTES_PER_BAR)
+                openCopyToast.call()
                 return true
             }
 
