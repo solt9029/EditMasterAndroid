@@ -7,7 +7,7 @@ import retrofit2.http.*
 
 interface ScoreService {
     @GET("scores/{id}")
-    fun getScore(@Path("id") id: Int?): Single<Score>
+    fun getScore(@Path("id") id: Int?): Single<Response<Score>>
 
     @GET("scores/timeline")
     fun getScoreTimeline(@Query("count") count: Int?, @Query("keyword") keyword: String?,

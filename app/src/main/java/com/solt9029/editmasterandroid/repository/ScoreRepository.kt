@@ -12,7 +12,7 @@ class ScoreRepository @Inject constructor(private val service: ScoreService) {
         return service.getScoreTimeline(count, keyword, maxId, sinceId)
     }
 
-    fun getScore(id: Int?): Single<Score> {
+    fun getScore(id: Int?): Single<Response<Score>> {
         return service.getScore(id)
     }
 

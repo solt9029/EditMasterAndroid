@@ -330,23 +330,29 @@ class ScoreViewModel @Inject constructor(
 
         // show
         val disposable = fetchScore(id).subscribe(
-                { (_, username, comment, videoId, bpm, offset, speed, notes) ->
-                    this.username.value = username
-                    this.comment.value = comment
-                    this.videoId.value = Field(videoId)
-                    player?.loadVideo(videoId ?: "", currentTime.value ?: 0f)
-                    this.bpm.value = bpm?.toString()
-                    this.offset.value = offset?.toString()
-                    this.speed.value = speed?.toString()
-                    this.notes.value = notes
-                    states.value = ArrayList(Collections.nCopies(notes?.size ?: 0, FRESH))
+                {
+                    if (!it.isSuccessful) {
+                        return@subscribe
+                    }
+                    val score = it.body()
+                    this.username.value = score?.username
+                    this.comment.value = score?.comment
+                    this.videoId.value = Field(score?.videoId)
+                    player?.loadVideo(score?.videoId ?: "", currentTime.value ?: 0f)
+                    this.bpm.value = score?.bpm?.toString()
+                    this.offset.value = score?.offset?.toString()
+                    this.speed.value = score?.speed?.toString()
+                    this.notes.value = score?.notes
+                    states.value = ArrayList(Collections.nCopies(score?.notes?.size ?: 0, FRESH))
                 },
-                { }
+                {
+                    Timber.e(it.message)
+                }
         )
         compositeDisposable.add(disposable)
     }
 
-    private fun fetchScore(id: Int): Single<Score> {
+    private fun fetchScore(id: Int): Single<Response<Score>> {
         return repository.getScore(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
