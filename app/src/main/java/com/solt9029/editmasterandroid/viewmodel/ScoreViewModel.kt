@@ -337,7 +337,13 @@ class ScoreViewModel @Inject constructor(
                         }
                         return@subscribe
                     }
+
                     val score = it.body()
+
+                    score?.notes?.addAll(Collections.nCopies(NumberConstants.NOTES_PER_BAR, SPACE)) // add one line
+                    this.notes.value = score?.notes
+                    states.value = ArrayList(Collections.nCopies(score?.notes?.size ?: 0, FRESH))
+
                     this.username.value = score?.username
                     this.comment.value = score?.comment
                     this.videoId.value = Field(score?.videoId)
@@ -345,8 +351,6 @@ class ScoreViewModel @Inject constructor(
                     this.bpm.value = score?.bpm?.toString()
                     this.offset.value = score?.offset?.toString()
                     this.speed.value = score?.speed?.toString()
-                    this.notes.value = score?.notes
-                    states.value = ArrayList(Collections.nCopies(score?.notes?.size ?: 0, FRESH))
                 },
                 {
                     Timber.e(it.message)
