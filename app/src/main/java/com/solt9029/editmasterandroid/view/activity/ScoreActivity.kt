@@ -3,9 +3,11 @@ package com.solt9029.editmasterandroid.view.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.solt9029.editmasterandroid.R
+import com.solt9029.editmasterandroid.view.fragment.DialogFragment
 import com.solt9029.editmasterandroid.view.fragment.ScoreFragment
 import com.solt9029.editmasterandroid.view.fragment.ScoreSettingsFragment
 import com.solt9029.editmasterandroid.viewmodel.ScoreViewModel
@@ -19,6 +21,8 @@ class ScoreActivity : DaggerAppCompatActivity() {
     private val viewModel: ScoreViewModel by lazy {
         ViewModelProviders.of(this, factory).get(ScoreViewModel::class.java)
     }
+    private val dialog: DialogFragment = DialogFragment()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,14 @@ class ScoreActivity : DaggerAppCompatActivity() {
                 .addToBackStack("score")
                 .replace(R.id.fragment_container, ScoreSettingsFragment(), "ScoreSettingsFragment")
                 .commit()
+    }
+
+    fun openDialog() {
+        dialog.show(fragmentManager, "dialog")
+    }
+
+    fun openCopyToast() {
+        Toast.makeText(this, "選択した行をコピーしました", Toast.LENGTH_SHORT).show()
     }
 
     override fun attachBaseContext(newBase: Context) {

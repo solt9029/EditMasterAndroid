@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +22,6 @@ class ScoreFragment : DaggerFragment() {
     private val viewModel: ScoreViewModel by lazy {
         ViewModelProviders.of(activity!!, factory).get(ScoreViewModel::class.java)
     }
-    private var dialog: DialogFragment = DialogFragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Timber.d("onCreateView")
@@ -34,19 +32,20 @@ class ScoreFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Timber.d("onActivityCreated")
+        val activity = activity!! as ScoreActivity
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
         viewModel.openCopyToast.observe(this, "openCopyToast", Observer {
-            Toast.makeText(activity!!, "選択した行をコピーしました", Toast.LENGTH_SHORT).show()
+            activity.openCopyToast()
         })
 
         viewModel.openDialog.observe(this, "openDialog", Observer {
-            dialog.show(activity!!.fragmentManager, "dialog")
+            activity.openDialog()
         })
 
         viewModel.navigateToScoreSettingsFragment.observe(this, "navigateToScoreSettingsFragment", Observer {
-            (activity!! as ScoreActivity).navigateToScoreSettingsFragment()
+            activity.navigateToScoreSettingsFragment()
         })
     }
 
