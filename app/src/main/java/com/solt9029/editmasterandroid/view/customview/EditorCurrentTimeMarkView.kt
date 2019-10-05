@@ -10,10 +10,12 @@ import com.solt9029.editmasterandroid.constants.SizeConstants
 import com.solt9029.editmasterandroid.util.CalcUtil
 
 class EditorCurrentTimeMarkView : BaseSurfaceView, SurfaceHolder.Callback {
+    private val editorBarOutsideHeightPx = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_OUTSIDE_HEIGHT, context)
     private val editorCurrentTimeMarkWidth =
             CalcUtil.convertDp2Px(SizeConstants.EDITOR_CURRENT_TIME_MARK_WIDTH, context)
     private val editorBarInsideHeight = CalcUtil.convertDp2Px(SizeConstants.EDITOR_BAR_INSIDE_HEIGHT, context)
 
+    private var notes: List<Int> = listOf()
     private var bpm: Float = 0f
     private var offset: Float = 0f
     private var currentTime: Float = 0f
@@ -27,6 +29,11 @@ class EditorCurrentTimeMarkView : BaseSurfaceView, SurfaceHolder.Callback {
 
     init {
         holder.setFormat(PixelFormat.TRANSLUCENT)
+    }
+
+    fun setNotes(notes: List<Int>) {
+        this.notes = notes
+        draw()
     }
 
     fun setBpm(bpm: Float) {
@@ -64,11 +71,17 @@ class EditorCurrentTimeMarkView : BaseSurfaceView, SurfaceHolder.Callback {
         paint.style = Paint.Style.FILL
 
         val position = CalcUtil.calcCurrentTimeMarkPosition(width, bpm, offset, currentTime, context)
-
         val leftPx = position.xPx - editorCurrentTimeMarkWidth / 2
         val topPx = position.yPx - 2 - translateYPx
         val rightPx = leftPx + editorCurrentTimeMarkWidth
         val bottomPx = topPx + editorBarInsideHeight + 4
+
+        // currentTimeMark shouldn't be out of editor area
+        val barNum = CalcUtil.calcBarNum(notes.size)
+        if (barNum * editorBarOutsideHeightPx - translateYPx < bottomPx) {
+            return
+        }
+
         canvas.drawRect(leftPx, topPx, rightPx, bottomPx, paint)
     }
 }

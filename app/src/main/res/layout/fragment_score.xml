@@ -97,6 +97,7 @@
                         android:layout_x="0dp"/>
 
                 <com.solt9029.editmasterandroid.view.customview.EditorCurrentTimeMarkView
+                        notes="@{viewModel.notes}"
                         bpm="@{viewModel.bpm.value}"
                         offset="@{viewModel.offset.value}"
                         current_time="@{safeUnbox(viewModel.currentTime)}"

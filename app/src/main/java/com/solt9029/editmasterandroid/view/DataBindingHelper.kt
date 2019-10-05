@@ -40,6 +40,11 @@ object DataBindingHelper {
         view.setNotes(notes ?: listOf())
     }
 
+    @JvmStatic @BindingAdapter("notes")
+    fun setNotes(view: EditorCurrentTimeMarkView, notes: List<Int>?) {
+        view.setNotes(notes ?: listOf())
+    }
+
     @JvmStatic @BindingAdapter("bpm")
     fun setBpm(view: EditorCurrentTimeMarkView, bpm: String?) {
         view.setBpm(bpm?.toFloatOrNull() ?: 0f)
