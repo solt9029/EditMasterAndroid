@@ -332,6 +332,9 @@ class ScoreViewModel @Inject constructor(
         val disposable = fetchScore(id).subscribe(
                 {
                     if (!it.isSuccessful) {
+                        it.errorBody()?.let { errorBody ->
+                            Timber.d(errorBody.string())
+                        }
                         return@subscribe
                     }
                     val score = it.body()
